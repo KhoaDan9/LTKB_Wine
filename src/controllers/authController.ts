@@ -3,10 +3,9 @@ import { User } from '../models/user'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-// import {TOKEN_KEY as tokenKey} from '../type.d.ts'
 dotenv.config()
 
-const tokenKey = 'WINEKEYzzz'
+const tokenKey = process.env.TOKEN_KEY as string
 
 export class AuthController {
   async register(req: Request, res: Response) {
@@ -36,7 +35,7 @@ export class AuthController {
       // })
       // user.token = token
       // user.save()
-
+ 
       // return new user
       res.status(201).json(user)
     } catch (err) {
@@ -60,17 +59,18 @@ export class AuthController {
 
         user.token = token
         user.save()
-        res.status(200).json(user)
+        res.redirect('/')
       } else res.status(400).send('Invalid Credentials')
     } catch (err) {
       console.log(err)
     }
   }
 
-  home(req: Request, res: Response) {
-    User.find({})
-      .lean()
-      .then((users) => res.json(users))
-      .catch()
+  islogin(req: Request, res: Response) {
+    res.render('login')
+  }
+
+  isregister(req: Request, res: Response) {
+    res.render('register')
   }
 }

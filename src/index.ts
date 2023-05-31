@@ -5,6 +5,9 @@ import bodyParser, { urlencoded } from 'body-parser'
 import verifyToken from '../src/middlewares/auth'
 import { engine } from 'express-handlebars'
 import path from 'path'
+import dotenv from 'dotenv'
+dotenv.config()
+
 
 connect()
 const app = express()
@@ -13,7 +16,7 @@ app.engine('.hbs',engine({
   extname : '.hbs'
 }));
 app.set('view engine','.hbs');
-app.set('views',path.join(__dirname,'views'));
+app.set('views',path.join(path.resolve('./src/resources'),'views'));
 
 
 app.use(urlencoded({ extended: true }))
@@ -21,14 +24,13 @@ app.use(bodyParser.json())
 
 route(app)
 
-app.get('/welcome', (req: Request, res: Response) => {
-  res.render('home')
-})
+// app.get('/welcome', (req: Request, res: Response) => {
+//   res.render('login')
+// })
 
 // app.post('/welcome', verifyToken, (req: Request, res: Response) => {
 //   res.render('home')
 // })
-const server = app.listen(8000, () => {
-  console.log(path.join(__dirname,'views'))
+const server = app.listen(process.env.PORT, () => {
   console.log('server is running!!')
 })

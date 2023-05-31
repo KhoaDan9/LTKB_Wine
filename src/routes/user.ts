@@ -5,7 +5,9 @@ import { AuthController } from '../controllers/authController'
 const router = Router()
 const AuthController1 = new AuthController()
 
-router.get('/', AuthController1.home)
+router.get('/login', AuthController1.islogin)
+
+router.get('/register', AuthController1.isregister)
 
 router.post('/register', AuthController1.register)
 

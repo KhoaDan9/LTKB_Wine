@@ -1,4 +1,4 @@
-import { Application, Response, Request } from 'express'
+import { Application } from 'express'
 import userRoute from './user'
 
 function route(app: Application) {
