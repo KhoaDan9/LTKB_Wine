@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
-const tokenKey = 'WINEKEYzzz'
+import dotenv from 'dotenv'
+dotenv.config()
+
+const tokenKey = process.env.TOKEN_KEY as string
+
 interface CustomRequest extends Request {
   user?: any
 }
