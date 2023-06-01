@@ -22,8 +22,9 @@ app.set('views',path.join(path.resolve('./src/resources'),'views'));
 app.use(urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-route(app)
+app.use(express.static(path.join(path.resolve('./src'),'public')));
 
+route(app)
 // app.get('/welcome', (req: Request, res: Response) => {
 //   res.render('login')
 // })
@@ -32,5 +33,7 @@ route(app)
 //   res.render('home')
 // })
 const server = app.listen(process.env.PORT, () => {
+  console.log(path.join(path.resolve('./src'),'public'))
+
   console.log('server is running!!')
 })
