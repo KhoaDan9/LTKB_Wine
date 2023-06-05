@@ -4,7 +4,6 @@
 
 body {
   /* background-color: yellow; */
-
 }
 
 .container {
@@ -14,7 +13,27 @@ body {
 .auth-form {
   background-color: antiquewhite;
   border-radius: 8px;
-  margin-top: 200px; 
-  width: 400px; 
-  padding:50px
+  margin-top: 200px;
+  width: 400px;
+  padding: 50px;
+}
+
+.btn-group {
+  padding: 0;
+  float: right;
+  position: relative;
+}
+
+.dropdown-menu[data-bs-popper] {
+  right: 0;
+  left: auto;
+}
+
+.home-login {
+  text-decoration: none;
+  color: #fff;
+}
+
+.auth-register {
+  text-decoration: none;
 }

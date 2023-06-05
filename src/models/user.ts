@@ -7,7 +7,7 @@ const userSchema = new Schema(
     fullname: { type: String, required: true },
     address: { type: String },
     phone: { type: String },
-    role: { type: String, default: 'user' },
+    role: { type: Boolean, default: false },
     token: { type: String }
   },
   { timestamps: true }
