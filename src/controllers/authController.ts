@@ -35,7 +35,7 @@ export class AuthController {
       // })
       // user.token = token
       // user.save()
- 
+
       // return new user
       res.status(201).json(user)
     } catch (err) {
@@ -46,6 +46,13 @@ export class AuthController {
   async login(req: Request, res: Response) {
     try {
       const { username, password } = req.body
+
+      const options = {
+        path: '/',
+        sameSite: true,
+        maxAge: 1000 * 60 * 60 * 24, // would expire after 24 hours
+        httpOnly: true // The cookie only accessible by the web server
+      }
 
       if (!(username && password)) {
         res.status(400).send('All input is required')
@@ -59,6 +66,8 @@ export class AuthController {
 
         user.token = token
         user.save()
+        res.set('Authorization', token)
+        res.cookie('x-access-token', token, options)
         res.redirect('/')
       } else res.status(400).send('Invalid Credentials')
     } catch (err) {
