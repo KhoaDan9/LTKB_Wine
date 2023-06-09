@@ -8,7 +8,8 @@ const userSchema = new Schema(
     address: { type: String },
     phone: { type: String },
     role: { type: Boolean, default: false },
-    token: { type: String }
+    token: { type: String },
+    cart: { type: Array }
   },
   { timestamps: true }
 )

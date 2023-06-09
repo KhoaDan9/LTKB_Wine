@@ -22,7 +22,8 @@ const verifyToken = (req: CustomRequest, res: Response, next: NextFunction) => {
     const decoded = jwt.verify(token, tokenKey)
     req.user = decoded
   } catch (err) {
-    return res.status(401).send('Invalid Token')
+    res.render('home')
+    // return res.status(401).send('Invalid Token')
   }
   return next()
 }
