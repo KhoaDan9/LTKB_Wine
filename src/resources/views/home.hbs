@@ -18,8 +18,8 @@
 
             <div class='btn-group'>
               {{#if isLogin}}
-              <button type='button' class='btn dropdown-toggle' data-bs-toggle='dropdown'
-                aria-expanded='false' x-placement='left-start'>
+              <button type='button' class='btn dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'
+                x-placement='left-start'>
                 <i class="bi bi-person"></i>
                 {{user.fullname}}
 
@@ -63,31 +63,47 @@
         <input class="form-control me-2" type="search" placeholder="Tìm kiếm">
         <i class="bi bi-search"></i>
       </form>
-
+  
     </div>
+    <a href=""><i class="bi bi-cart4" >
+      <p class="cart-count">{{user.cart.length }}</p>
+    </i></a>
     
   </div>
-  <div class="product">
+  <div class="home-product-type">
     <ul class="d-flex justify-content-center">
-      <li class="product-items">Trang chủ</li>
-      <li class="product-items">Rượu vang</li>
-      <li class="product-items">Rượu mạnh</li>
-      <li class="product-items">Rượu nhẹ</li>
-      <li class="product-items">Bia và Cider</li>
-      <li class="product-items">Phụ kiện rượu</li>
+
+      <li class="home-product-items"><a href="/">Trang chủ</a></li>
+      <li class="home-product-items"><a href="">Rượu vang</a></li>
+      <li class="home-product-items"><a href="">Rượu mạnh</a></li>
+      <li class="home-product-items"><a href="">Rượu nhẹ</a></li>
+      <li class="home-product-items"><a href="">Bia và Cider</a></li>
+      <li class="home-product-items"><a href="">Phụ kiện rượu</a></li>
     </ul>
   </div>
 
   <div class="event row">
-      <div class="col-2"></div>
-      <div class="col-4">
-        <img src="" alt="">
-      </div>
-      <div class="col-4"></div>
-      <div class="col-2"></div>
+    <div class="col-2"></div>
+    <div class="col-4">
+      <img src="" alt="">
+    </div>
+    <div class="col-4"></div>
+    <div class="col-2"></div>
+  </div>
+  <div class="products d-flex flex-wrap">
+    {{#each products }}
+    <div class="product">
+      <a href="/product/{{this._id }}">
 
+        <img src="{{this.imgsrc  }}" alt="">
+        <hr>
+        <h6>{{this.name}}</h6>
+        <p>{{this.price}}đ</p>
+      </a>
 
+    </div>
+    {{/each }}
   </div>
 
-  
+
 </body>

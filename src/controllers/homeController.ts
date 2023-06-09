@@ -17,9 +17,16 @@ export class HomeController {
 
   welcome(req: Request, res: Response) {
     const token = req.cookies['x-access-token']
-    User.findOne({ token })
+    Product.find()
       .lean()
-      .then((user) => res.render('home', { user, isLogin: true }))
+      // .then((product) => {res.send(product)})
+      .then((products) => {
+        User.findOne({ token })
+          .lean()
+          .then((user) => res.render('home', { user, isLogin: true, products }))
+          // .catch((err) => res.render('home',{products}))
+          .catch((err) => res.send(products))
+      })
       .catch((err) => res.render('home'))
   }
 
