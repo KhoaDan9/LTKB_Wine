@@ -51,10 +51,10 @@
 <div class="search-bar ">
   <div class="logo d-flex col-2">
     <a href="/">
-    <img class="logo-img" src="/img/logo.png" alt="Logo">
+      <img class="logo-img" src="/img/logo.png" alt="Logo">
     </a>
     <p>FIVE MAN</p>
-    
+
   </div>
   <div class="search-bar-wrap col-7">
     <form class="d-flex" role="search">
@@ -90,19 +90,19 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    
+
     var form = document.getElementById("delete-form");
     var buttons = Array.from(document.getElementsByClassName("btn-delete"));
 
     buttons.forEach(button => {
-      button.addEventListener("click",() => {
+      button.addEventListener("click", () => {
         console.log(button.value);
         form.action = "/cart/delete/" + button.value
         form.method = "GET"
         form.submit();
       })
     });
-    
+
 
   }
   )
