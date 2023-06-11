@@ -20,9 +20,13 @@ export class ProductController {
       const token = req.cookies['x-access-token']
       const user = await User.findOne({ token })
       if (!user) return res.send(403)
-      const cart_array: string[] = user.cart
-      cart_array.push(req.body.product_id)
-      await User.updateOne({ token: token}, {$set: { cart: cart_array } })
+      const cart_array: object[] = user.cart
+      const newProduct = {
+        id: req.body.product_id,
+        quantity: req.body.quantity
+      }
+      cart_array.push(newProduct)
+      await User.updateOne({ token: token }, { $set: { cart: cart_array } })
       res.redirect('back')
     } catch (err) {
       res.send(err)

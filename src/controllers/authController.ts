@@ -67,7 +67,7 @@ export class AuthController {
         user.save()
         res.cookie('x-access-token', token, options)
         res.redirect('/')
-      } else res.status(400).render('login',{incorrect: true})
+      } else res.status(400).render('login', { incorrect: true })
     } catch (err) {
       res.send(err)
     }
