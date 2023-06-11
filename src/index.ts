@@ -26,7 +26,6 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(urlencoded({ extended: true }))
 app.use(bodyParser.json())
-
 app.use(express.static(path.join(path.resolve('./src'), 'public')))
 
 route(app)

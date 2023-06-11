@@ -18,6 +18,10 @@ body {
   padding: 50px;
 }
 
+.incorrect {
+  color: red;
+}
+
 .btn-group {
   padding: 0;
   float: right;
@@ -105,6 +109,11 @@ ul {
   padding: 0 55px;
 }
 
+.product-img{
+  width: 225px;
+  height: 225px;
+}
+
 .btn {
   color: #fff;
 }
@@ -151,4 +160,44 @@ ul {
   padding: 0px 8px;
   background-color: #fff;
   border-radius: 50%;
+}
+
+.cart-products {
+  margin: 0 15%;
+  width: calc(66% - 7px);
+  background-color: rgb(148, 165, 165);
+  padding-top: 50px;
+}
+
+.cart-product {
+  position: relative;
+}
+
+.cart-product img {
+  width: 150px;
+  padding-left: 20px;
+}
+
+.cart-product-content {
+  padding-left: 50px;
+}
+
+.cart-product-price {
+}
+
+.cart-product button {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-50%, -50%);
+  color: black;
+}
+
+.btn-add-product{
+  width: 200px;
+  margin-top: 10px;
+}
+
+.quantity {
+  width: 50px;
 }

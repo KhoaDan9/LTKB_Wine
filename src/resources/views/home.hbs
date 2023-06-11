@@ -29,7 +29,7 @@
                 <li><a class='dropdown-item' href='#'>Quản lí sản phẩm</a></li>
                 {{else}}
                 <li><a class='dropdown-item' href='#'>Thông tin tải khoản</a></li>
-                <li><a class='dropdown-item' href='#'>Giỏ hàng</a></li>
+                <li><a class='dropdown-item' href='/cart'>Giỏ hàng</a></li>
                 <li><a class='dropdown-item' href='#'>Đơn mua</a></li>
                 {{/if}}
 
@@ -65,9 +65,10 @@
       </form>
   
     </div>
-    <a href=""><i class="bi bi-cart4" >
+    <a href="/cart"><i class="bi bi-cart4" >
       <p class="cart-count">{{user.cart.length }}</p>
     </i></a>
+    
     
   </div>
   <div class="home-product-type">
@@ -95,7 +96,7 @@
     <div class="product">
       <a href="/product/{{this._id }}">
 
-        <img src="{{this.imgsrc  }}" alt="">
+        <img class="product-img" src="{{this.imgsrc  }}" alt="">
         <hr>
         <h6>{{this.name}}</h6>
         <p>{{this.price}}đ</p>
