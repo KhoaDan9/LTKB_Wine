@@ -4,6 +4,9 @@
     <br />
     <form action='/auth/login' method='post'>
       <div class='mb-3'>
+        {{#if incorrect  }}
+          <p class="incorrect">Tài khoản hoặc mật khẩu không chính xác</p>
+        {{/if  }}
         <label class='form-label'>Tài khoản</label>
         <input name='username' type='text' class='form-control' placeholder='Username' />
       </div>

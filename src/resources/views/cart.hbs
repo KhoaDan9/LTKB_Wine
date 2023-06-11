@@ -28,7 +28,7 @@
               <li><a class='dropdown-item' href='#'>Quản lí sản phẩm</a></li>
               {{else}}
               <li><a class='dropdown-item' href='#'>Thông tin tải khoản</a></li>
-              <li><a class='dropdown-item' href='/cart'>Giỏ hàng</a></li>
+              <li><a class='dropdown-item' href='#'>Giỏ hàng</a></li>
               <li><a class='dropdown-item' href='#'>Đơn mua</a></li>
               {{/if}}
 
@@ -46,42 +46,43 @@
     </div>
   </div>
 </nav>
+<div class="cart-products">
+  <h1>Giỏ hàng</h1>
 
-<div class="search-bar ">
-  <div class="logo d-flex col-2">
-    <img class="logo-img" src="/img/logo.png" alt="Logo">
-    <p>FIVE MAN</p>
+  {{#each products}}
+  <div class="cart-product d-flex">
+    <img src="{{ this.imgsrc }}" alt="">
+    <div class="cart-product-content">
+      <h3 class="cart-product-name">{{this.name}}</h3>
+      <h5 class="cart-product-price">{{this.price}} Đ</h5>
+    </div>
+    <button class="btn btn-light btn-delete" value="{{this._id }}">Xóa</button>
   </div>
-  <div class="search-bar-wrap col-7">
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Tìm kiếm">
-      <i class="bi bi-search"></i>
-    </form>
-  </div>
-  <a href="/cart"><i class="bi bi-cart4">
-      <p class="cart-count">{{user.cart.length }}</p>
-    </i></a>
-</div>
-
-<div class="product-detail">
-  <img src="{{product.imgsrc  }}" alt="">
-  <h2>{{product.name}}</h2>
-  <h4>{{product.price}} Đ</h4>
   <hr>
-  <h5>Sản xuất tại: {{product.origin}}</h5>
-  <h5>Mô tả:</h5>
-  <h6>{{product.description}}</h6>
-  <form action="/product/add-to-cart" method="post">
-  <div class="d-flex flex-column">
-
-    <input type="text" hidden value="{{product._id  }}" name="product_id">
-    <label for="">Số lượng: <input type="number" name="quantity" min="1" value="1" class="quantity"></label>
-    
-    <button class="btn btn-danger btn-add-product" type="submit">Thêm vào giỏ hàng</button>
-  </div>
-
-  </form>
-
-  {{!-- <button>Mua ngay</button> --}}
+  {{/each }}
+  <h1>Thành tiền: {{sum}} Đ</h1>
 
 </div>
+
+<form hidden id="delete-form"></form>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    
+    var form = document.getElementById("delete-form");
+    var buttons = Array.from(document.getElementsByClassName("btn-delete"));
+
+    buttons.forEach(button => {
+      button.addEventListener("click",() => {
+        console.log(button.value);
+        form.action = "/cart/delete/" + button.value
+        form.method = "GET"
+        form.submit();
+      })
+    });
+    
+
+  }
+  )
+
+</script>
