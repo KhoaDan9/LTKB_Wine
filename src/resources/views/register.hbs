@@ -3,24 +3,27 @@
     <h3>Đăng kí</h3>
     <form action='/auth/register' method='post'>
       <div class='mb-3'>
+        {{#if user_exists }}
+          <p class="incorrect">Username đã tồn tại!!</p>
+        {{/if  }}
         <label class='form-label'>Tài khoản</label>
-        <input name='username' type='text' class='form-control' placeholder='Username' />
+        <input name='username' type='text' class='form-control' placeholder='Username' required/>
       </div>
       <div class='mb-3'>
         <label class='form-label'>Mật khẩu</label>
-        <input name='password' type='password' class='form-control' placeholder='Password' />
+        <input name='password' type='password' class='form-control' placeholder='Password' required/>
       </div>
       <div class='mb-3'>
         <label class='form-label'>Họ và tên</label>
-        <input name='fullname' type='text' class='form-control' placeholder='...' />
+        <input name='fullname' type='text' class='form-control' placeholder='...' required/>
       </div>
       <div class='mb-3'>
         <label class='form-label'>Số điện thoại</label>
-        <input name='phone' type='text' class='form-control' placeholder='...' />
+        <input name='phone' type='text' class='form-control' placeholder='...' required/>
       </div>
       <div class='mb-3'>
         <label class='form-label'>Địa chỉ</label>
-        <input name='address' type='text' class='form-control' placeholder='...' />
+        <input name='address' type='text' class='form-control' placeholder='...' required/>
       </div>
       <button type='submit'>Đăng kí</button>
     </form>

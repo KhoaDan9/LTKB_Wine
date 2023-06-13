@@ -8,7 +8,7 @@ export class HomeController {
       const token = req.cookies['x-access-token']
       const products = await Product.find().lean()
       const user = await User.findOne({ token }).lean()
-      res.render('home', { user, isLogin: true, products })
+      res.render('home', { user, products })
     } catch (err) {
       res.send(err)
     }

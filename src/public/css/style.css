@@ -13,7 +13,8 @@ body {
 .auth-form {
   background-color: antiquewhite;
   border-radius: 8px;
-  margin-top: 200px;
+  margin: 100px 0;
+
   width: 400px;
   padding: 50px;
 }
