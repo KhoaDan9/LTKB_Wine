@@ -1,15 +1,13 @@
 import { Router } from 'express'
-import { AuthController } from '../controllers/authController'
+
+import { UserController } from '~/controllers/userController'
 
 const router = Router()
-const AuthController1 = new AuthController()
+const UserController1 = new UserController()
 
-router.get('/login', AuthController1.islogin)
-
-router.get('/register', AuthController1.isregister)
-
-router.post('/register', AuthController1.register)
-
-router.post('/login', AuthController1.login)
+router.get('/', UserController1.home)
+router.get('/reset-password', UserController1.getResetPassword)
+router.post('/update', UserController1.update)
+router.post('/reset-password', UserController1.resetPassword)
 
 export default router
