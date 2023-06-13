@@ -19,21 +19,18 @@ export class UserController {
     const token = req.cookies['x-access-token']
     const user = await User.findOne({ token })
     const { newpassword1, newpassword2, oldpassword } = req.body
-    const encryptedPassword = await bcrypt.hash(oldpassword, 10)
-
-    const newencryptedPassword = await bcrypt.hash(req.body.newpassword1, 10)
 
     if (!user) return res.send(403)
 
-    if (user.password != encryptedPassword)
-      return res.render('resetpassword', { hideNavbar: true, hideSearchBar: true, errpassword: true })
-    else if (newpassword1 != newpassword2)
-      return res.render('resetpassword', { user, hideNavbar: true, hideSearchBar: true, wrongpassword: true })
+    if (newpassword1 != newpassword2)
+      res.render('resetpassword', { user, hideNavbar: true, hideSearchBar: true, wrongpassword: true })
     else {
-      user.password = newencryptedPassword
+      if (await bcrypt.compare(oldpassword, user.password)) {
+        const encryptedPassword = await bcrypt.hash(newpassword1, 10)
+        await User.updateOne({ token }, { $set: { password: encryptedPassword } })
+        res.redirect('/logout')
+      } else res.render('resetpassword', { hideNavbar: true, hideSearchBar: true, errpassword: true })
     }
-    await User.updateOne({token},{$set: {password: newencryptedPassword}})
-    res.redirect('/logout')
   }
 
   async update(req: Request, res: Response) {
