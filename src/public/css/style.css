@@ -212,3 +212,13 @@ ul {
 .sum-price {
   padding-bottom: 50px;
 }
+
+.wrap-input-password {
+  position: relative;
+}
+
+.icon-password{
+  position: absolute;
+  right: 11px;
+  top: 11px;
+}
