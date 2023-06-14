@@ -6,7 +6,7 @@ import { HomeController } from '../controllers/homeController'
 const router = Router()
 const HomeController1 = new HomeController()
 
-router.get('/', verifyToken, HomeController1.welcome)
+router.get('/', HomeController1.welcome)
 
 router.get('/logout', HomeController1.logout)
 

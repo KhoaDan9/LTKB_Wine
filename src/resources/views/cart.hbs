@@ -1,0 +1,43 @@
+
+<div class="cart-products">
+  <h1>Giỏ hàng</h1>
+
+  {{#each products}}
+  <div class="cart-product d-flex">
+    <img src="{{ this.imgsrc }}" alt="">
+    <div class="cart-product-content">
+      <h3 class="cart-product-name">{{this.name}}</h3>
+      <h5 class="cart-product-price">Đơn giá: {{this.price}} Đ</h5>
+      <h5>Số lượng: {{this.quantity}}</h5>
+      <h5>Số tiền: {{this.summ}} Đ</h5>
+    </div>
+    <button class="btn btn-light btn-delete" value="{{this._id }}">Xóa</button>
+  </div>
+  <hr>
+  {{/each }}
+  <h1 class="sum-price">Thành tiền: {{sum}} Đ</h1>
+
+</div>
+
+<form hidden id="delete-form"></form>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    var form = document.getElementById("delete-form");
+    var buttons = Array.from(document.getElementsByClassName("btn-delete"));
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        console.log(button.value);
+        form.action = "/cart/delete/" + button.value
+        form.method = "GET"
+        form.submit();
+      })
+    });
+
+
+  }
+  )
+
+</script>

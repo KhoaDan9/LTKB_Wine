@@ -17,7 +17,7 @@ export class AuthController {
       const oldUser = await User.findOne({ username })
 
       if (oldUser) {
-        return res.status(409).send('User Already Exist. Please Login')
+        return res.render('register', { user_exists: true })
       }
 
       const encryptedPassword = await bcrypt.hash(password, 10)
@@ -37,16 +37,15 @@ export class AuthController {
       // user.save()
 
       // return new user
-      res.status(201).json(user)
+      res.render('login')
     } catch (err) {
-      console.log(err)
+      res.send(err)
     }
   }
 
   async login(req: Request, res: Response) {
     try {
       const { username, password } = req.body
-
       const options = {
         path: '/',
         sameSite: true,
@@ -66,20 +65,19 @@ export class AuthController {
 
         user.token = token
         user.save()
-        res.set('Authorization', token)
         res.cookie('x-access-token', token, options)
         res.redirect('/')
-      } else res.status(400).send('Invalid Credentials')
+      } else res.render('login', { incorrect: true, hideNavbar: true, hideSearchBar: true })
     } catch (err) {
-      console.log(err)
+      res.send(err)
     }
   }
 
   islogin(req: Request, res: Response) {
-    res.render('login')
+    res.render('login', { hideNavbar: true, hideSearchBar: true })
   }
 
   isregister(req: Request, res: Response) {
-    res.render('register')
+    res.render('register', { hideNavbar: true, hideSearchBar: true })
   }
 }
