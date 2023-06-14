@@ -7,7 +7,7 @@ const { mongooseToObject } = require('../util/mongoose')
 export class AdminController {
   async home(req: Request, res: Response) {
     const product = await Product.find().lean()
-    res.render('admin', { product })
+    res.render('admin', { product, hideSearchBar: true })
   }
   create(req: Request, res: Response) {
     res.render('create')
@@ -19,7 +19,7 @@ export class AdminController {
     product.save()
       .then(() => res.redirect('/admin'))
       .catch(error => {
-
+        res.send(error)
       });
   }
   edit(req: Request, res: Response, next: NextFunction) {
