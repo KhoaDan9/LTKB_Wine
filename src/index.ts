@@ -7,7 +7,7 @@ import { engine } from 'express-handlebars'
 import path from 'path'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
-
+const methodOverride = require('method-override')
 dotenv.config()
 
 connect()
@@ -26,6 +26,7 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(methodOverride('_method'))
 app.use(express.static(path.join(path.resolve('./src'), 'public')))
 
 route(app)

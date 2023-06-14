@@ -15,85 +15,85 @@
 
 <body>
 
-    {{#if hideNavbar }}
-    {{else }}
-    <nav class='navbar navbar-expand-lg bg-body-tertiary' data-bs-theme='dark' style="background-color: #e3f2fd;">
-      <div class='container-fluid '>
+  {{#if hideNavbar }}
+  {{else }}
+  <nav class='navbar navbar-expand-lg bg-body-tertiary' data-bs-theme='dark' style="background-color: #e3f2fd;">
+    <div class='container-fluid '>
 
-        <div class='collapse navbar-collapse ' id='navbarSupportedContent'>
+      <div class='collapse navbar-collapse ' id='navbarSupportedContent'>
 
-          <ul class='navbar-nav mb-2 mb-lg-0 ms-auto'>
-            <li class='nav-item'>
-              <a class='nav-link active' aria-current='page' href='#'><i class="bi bi-bell"></i> Thông báo</a>
-            </li>
-            <li class='nav-item'>
-              <a class='nav-link active' aria-current='page' href='#'><i class="bi bi-question-circle"></i> Hỗ trợ</a>
-            </li>
-            <li class='nav-item'>
-              <a class='nav-link active' aria-current='page' href='#'><i class="bi bi-globe"></i> Tiếng Việt</a>
-            </li>
-            <li>
+        <ul class='navbar-nav mb-2 mb-lg-0 ms-auto'>
+          <li class='nav-item'>
+            <a class='nav-link active' aria-current='page' href='#'><i class="bi bi-bell"></i> Thông báo</a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link active' aria-current='page' href='#'><i class="bi bi-question-circle"></i> Hỗ trợ</a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link active' aria-current='page' href='#'><i class="bi bi-globe"></i> Tiếng Việt</a>
+          </li>
+          <li>
 
-              <div class='btn-group'>
-                {{#if user}}
-                <button type='button' class='btn dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'
-                  x-placement='left-start'>
-                  <i class="bi bi-person"></i>
-                  {{user.fullname}}
+            <div class='btn-group'>
+              {{#if user}}
+              <button type='button' class='btn dropdown-toggle' data-bs-toggle='dropdown' aria-expanded='false'
+                x-placement='left-start'>
+                <i class="bi bi-person"></i>
+                {{user.fullname}}
 
-                </button>
-                <ul class='dropdown-menu'>
-                  {{#if user.role}}
-                  <li><a class='dropdown-item' href='#'>Quản lí sản phẩm</a></li>
-                  {{else}}
-                  <li><a class='dropdown-item' href='/user'>Thông tin tải khoản</a></li>
-                  <li><a class='dropdown-item' href='#'>Đơn mua</a></li>
-                  {{/if}}
-
-                  <li>
-                    <hr class='dropdown-divider' />
-                  </li>
-                  <li><a class='dropdown-item' href='/logout'>Đăng xuất</a></li>
-
-                </ul>
+              </button>
+              <ul class='dropdown-menu'>
+                {{#if user.role}}
+                <li><a class='dropdown-item' href='#'>Quản lí sản phẩm</a></li>
                 {{else}}
-                <button type='button' class='btn btn-danger'><a href='/auth/login' class='home-login'>Đăng
-                    nhập</a></button>
-
+                <li><a class='dropdown-item' href='/user'>Thông tin tải khoản</a></li>
+                <li><a class='dropdown-item' href='#'>Đơn mua</a></li>
                 {{/if}}
-              </div>
-            </li>
 
-          </ul>
+                <li>
+                  <hr class='dropdown-divider' />
+                </li>
+                <li><a class='dropdown-item' href='/logout'>Đăng xuất</a></li>
 
-        </div>
-      </div>
-    </nav>
+              </ul>
+              {{else}}
+              <button type='button' class='btn btn-danger'><a href='/auth/login' class='home-login'>Đăng
+                  nhập</a></button>
 
-    {{/if }}
-    {{#if hideSearchBar }}
-    {{else }}
-    <div class="search-bar ">
-      <div class="logo d-flex col-2">
-        <a href="/">
-          <img class="logo-img" src="/img/logo.png" alt="Logo">
-        </a>
-        <p>FIVE MAN</p>
+              {{/if}}
+            </div>
+          </li>
+
+        </ul>
+
       </div>
-      <div class="search-bar-wrap col-7">
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Tìm kiếm">
-          <i class="bi bi-search"></i>
-        </form>
-      </div>
-      <a href="/cart"><i class="bi bi-cart4">
-          <p class="cart-count">{{user.cart.length }}</p>
-        </i></a>
     </div>
-    {{/if }}
+  </nav>
 
-    {{{body}}}
+  {{/if }}
+  {{#if hideSearchBar }}
+  {{else }}
+  <div class="search-bar ">
+    <div class="logo d-flex col-2">
+      <a href="/">
+        <img class="logo-img" src="/img/logo.png" alt="Logo">
+      </a>
+      <p>FIVE MAN</p>
+    </div>
+    <div class="search-bar-wrap col-7">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Tìm kiếm">
+        <i class="bi bi-search"></i>
+      </form>
+    </div>
+    <a href="/cart"><i class="bi bi-cart4">
+        <p class="cart-count">{{user.cart.length }}</p>
+      </i></a>
+  </div>
+  {{/if }}
+
+  {{{body}}}
+
+  {{! </div> }}
 
 </body>
-
-</html>

@@ -1,0 +1,144 @@
+body {
+  background-color: #ccc;
+}
+
+.menu {
+  background-color: #fff;
+  width: 20%;
+  height: 100%;
+  position: fixed;
+  box-shadow: 0.1px 0.1px 0 0;
+}
+
+.heading-menu {
+  height: 20%;
+  background-color: #FFBF9F;
+}
+
+.list-menu {
+  list-style: none;
+  padding: inherit;
+  background-color: #fff;
+}
+
+.list-menu-title {
+  height: 50px;
+  padding-top: 10px;
+  padding-left: 10px;
+  font-size: 20px;
+  border: solid 1px #ccc;
+}
+
+.header {
+  position: fixed;
+  background-color: #FF7AA4;
+  height: 50px;
+  width: 80%;
+  right: 0;
+}
+
+.container {}
+
+.search {
+  position: relative;
+  width: 85%;
+  height: 50px;
+  background-color: #fff;
+  top: 80px;
+  left: 300px;
+  box-shadow: 0.1px 0.1px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.btn-search {
+  width: 30%;
+  height: 30px;
+  border-radius: 10px;
+  background-color: #6076f4;
+  display: block;
+  position: relative;
+  top: 10px;
+  left: 20px;
+  filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.25));
+}
+
+.icon-search {
+  position: absolute;
+  width: 25px;
+  right: 0;
+  color: #fff;
+  margin-top: 2px;
+}
+
+.text-search {
+  color: #fff;
+  font-size: 20px;
+  margin-top: 2px;
+  margin-left: 10px;
+}
+
+.add-product {
+  position: relative;
+  width: 20%;
+  height: 50px;
+  background-color: #095fff;
+  margin: 120px 0 0 1142px;
+  border-radius: 10px;
+  border: 1px solid #095fff;
+}
+
+.text-add-product {
+  font-size: 20px;
+  background-color: #095fff;
+  color: #fff;
+  display: contents;
+}
+
+.table {
+  width: 85%;
+  margin-left: 300px;
+  margin-top: 50px;
+}
+
+.img-wine {
+  width: 30%;
+}
+
+.btn-edit {
+  background-color: #095fff;
+  color: #fff;
+  width: 40%;
+  font-size: 20px;
+  border-radius: 10px;
+  border: 1px solid #095fff;
+  margin-top: 30px;
+}
+
+.btn-delete {
+  background-color: #f70317;
+  color: #fff;
+  width: 40%;
+  font-size: 20px;
+  border-radius: 10px;
+  border: 1px solid #f70317;
+  margin-top: 30px;
+}
+
+.header-title {
+  text-align: center;
+  border: solid 1px #ccc;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.text-content {
+  border: solid 1px #ccc;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.text {
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 400;
+}

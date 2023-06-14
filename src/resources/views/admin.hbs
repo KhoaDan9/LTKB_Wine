@@ -1,0 +1,99 @@
+<body>
+
+  <header>
+    <div class="menu">
+      <div class="heading-menu"></div>
+      <ul class="list-menu">
+        <li class="list-menu-title">Home</li>
+        <li class="list-menu-title">Quản Lý Sản Phẩm</li>
+        <li class="list-menu-title">Quản lý đơn hàng</li>
+        <li class="list-menu-title">Quản lý hóa đơn</li>
+        <li class="list-menu-title">Thống kê doanh thu</li>
+      </ul>
+    </div>
+    <nav class="header">
+
+    </nav>
+  </header>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="search">
+          <div class="btn-search">
+            <img class="icon-search" src="/img/search.svg" alt="">
+            <p class="text-search">Tìm kiếm</p>
+          </div>
+        </div>
+
+        <button class="add-product">
+          <a href="/admin/create" class="text-add-product">Thêm sản phẩm</a>
+        </button>
+      </div>
+    </div>
+
+
+
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="header-title" scope="col">Tên Sản Phẩm</th>
+          <th class="header-title" scope="col">Nguồn gốc</th>
+          <th class="header-title" scope="col">Số lượng</th>
+          <th class="header-title" scope="col">Đơn giá</th>
+          <th class="header-title" scope="col">Hình ảnh</th>
+
+          <th></th>
+      </thead>
+      {{#each product }}
+
+      <tbody id="">
+        <tr>
+          <td class="text-content">
+            <p class="text">{{this.name}}</p>
+          </td>
+          <td>
+            <p class="text">{{ this.origin }}</p>
+          </td>
+          <td class="text-content">
+            <p class="text">{{this.quantity}}</p>
+          </td>
+          <td class="text-content">
+            <p class="text">{{this.price}}</p>
+          </td>
+          <td class="text-content img-wine">
+            <img class="img-wine" src="{{this.imgsrc}}" alt="">
+          </td>
+
+          <td class="text-content"><a href="/admin/{{ this._id }}/edit" class="btn-edit">Sửa</a>
+            <button class="btn-delete" data-bs-toggle="modal" data-bs-target="#delete-course-modal">Xóa</button>
+          </td>
+
+        </tr>
+      </tbody>
+      {{/each }}
+    </table>
+  </div>
+  <!-- Modal -->
+  <div id="delete-course-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Xóa sản phẩm?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn có chắc muốn xóa sản phẩm này?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Xóa bỏ</button>
+          <button type="button" class="btn btn-primary">Hủy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
