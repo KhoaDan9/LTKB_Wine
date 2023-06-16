@@ -12,7 +12,7 @@ body {
 
 .heading-menu {
   height: 20%;
-  background-color: #FFBF9F;
+  background-color: #ffbf9f;
 }
 
 .list-menu {
@@ -31,13 +31,14 @@ body {
 
 .header {
   position: fixed;
-  background-color: #FF7AA4;
+  background-color: #ff7aa4;
   height: 50px;
   width: 80%;
   right: 0;
 }
 
-.container {}
+.container {
+}
 
 .search {
   position: relative;

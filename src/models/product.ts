@@ -13,4 +13,6 @@ const productSchema = new Schema(
   { timestamps: true }
 )
 
+productSchema.index({ name: 'text' })
+
 export const Product = model('product', productSchema)
