@@ -1,38 +1,40 @@
+</div>
+<div class="home-product-type">
+  <ul class="d-flex justify-content-center">
+
+    <li class="home-product-items"><a href="/">Trang chủ</a></li>
+    <li class="home-product-items"><a href="">Rượu vang</a></li>
+    <li class="home-product-items"><a href="">Rượu mạnh</a></li>
+    <li class="home-product-items"><a href="">Rượu nhẹ</a></li>
+    <li class="home-product-items"><a href="">Bia và Cider</a></li>
+    <li class="home-product-items"><a href="">Phụ kiện rượu</a></li>
+  </ul>
+</div>
+
+<div class="event row">
+  <div class="col-2"></div>
+  <div class="col-4">
+    <img src="" alt="">
+  </div>
+  <div class="col-4"></div>
+  <div class="col-2"></div>
+</div>
+{{#if notExists }}
+<h4 style="padding-left: 100px;">Sản phẩm {{ name }} không hiện tồn tại</h4>
+{{else }}
+<div class="products d-flex flex-wrap">
+
+
+  {{#each products }}
+  <div class="product">
+    <a href="/product/{{this._id }}">
+      <img class="home-product-img" src="{{this.imgsrc}}" alt="">
+      <hr>
+      <h6>{{this.name}}</h6>
+      <p>{{this.price}}đ</p>
+    </a>
 
   </div>
-  <div class="home-product-type">
-    <ul class="d-flex justify-content-center">
-
-      <li class="home-product-items"><a href="/">Trang chủ</a></li>
-      <li class="home-product-items"><a href="">Rượu vang</a></li>
-      <li class="home-product-items"><a href="">Rượu mạnh</a></li>
-      <li class="home-product-items"><a href="">Rượu nhẹ</a></li>
-      <li class="home-product-items"><a href="">Bia và Cider</a></li>
-      <li class="home-product-items"><a href="">Phụ kiện rượu</a></li>
-    </ul>
-  </div>
-
-  <div class="event row">
-    <div class="col-2"></div>
-    <div class="col-4">
-      <img src="" alt="">
-    </div>
-    <div class="col-4"></div>
-    <div class="col-2"></div>
-  </div>
-  <div class="products d-flex flex-wrap">
-    {{#each products }}
-    <div class="product">
-      <a href="/product/{{this._id }}">
-
-        <img class="home-product-img" src="{{this.imgsrc  }}" alt="">
-        <hr>
-        <h6>{{this.name}}</h6>
-        <p>{{this.price}}đ</p>
-      </a>
-
-    </div>
-    {{/each }}
-  </div>
-
-
+  {{/each }}
+</div>
+{{/if }}

@@ -7,6 +7,8 @@ const router = Router()
 const HomeController1 = new HomeController()
 
 router.get('/', HomeController1.welcome)
+router.get('/search', HomeController1.search)
+router.post('/search2', HomeController1.search2)
 
 router.get('/logout', HomeController1.logout)
 
