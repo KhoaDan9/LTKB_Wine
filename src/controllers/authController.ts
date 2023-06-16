@@ -24,13 +24,12 @@ export class AuthController {
           address,
           phone
         })
-        // const token = jwt.sign({ user_id: user._id, username }, tokenKey, {
-        //   expiresIn: '2h'
-        // })
-        // user.token = token
-        // user.save()
+        const token = jwt.sign({ user_id: user._id, username }, tokenKey, {
+          expiresIn: '2h'
+        })
+        user.token = token
+        user.save()
 
-        // return new user
         res.redirect('/auth/login')
       }
     } catch (err) {
