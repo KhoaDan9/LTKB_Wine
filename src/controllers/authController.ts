@@ -14,10 +14,8 @@ export class AuthController {
 
       const oldUser = await User.findOne({ username })
 
-      if (oldUser) 
-        return res.render('register', { user_exists: true, hideNavbar: true, hideSearchBar: true })
-      
-      else{
+      if (oldUser) return res.render('register', { user_exists: true, hideNavbar: true, hideSearchBar: true })
+      else {
         const encryptedPassword = await bcrypt.hash(password, 10)
         const user = await User.create({
           username,
@@ -31,16 +29,14 @@ export class AuthController {
         // })
         // user.token = token
         // user.save()
-  
+
         // return new user
         res.redirect('/auth/login')
       }
-      
     } catch (err) {
       res.send('err')
     }
   }
-  
 
   async login(req: Request, res: Response) {
     try {
