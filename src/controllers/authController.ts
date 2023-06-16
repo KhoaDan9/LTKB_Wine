@@ -11,35 +11,30 @@ export class AuthController {
   async register(req: Request, res: Response) {
     try {
       const { username, password, fullname, address, phone } = req.body
-      if (!(username && password && fullname)) {
-        res.status(400).send('All input is required')
-      }
+
       const oldUser = await User.findOne({ username })
 
-      if (oldUser) {
-        return res.render('register', { user_exists: true })
+      if (oldUser) return res.render('register', { user_exists: true, hideNavbar: true, hideSearchBar: true })
+      else {
+        const encryptedPassword = await bcrypt.hash(password, 10)
+        const user = await User.create({
+          username,
+          password: encryptedPassword,
+          fullname,
+          address,
+          phone
+        })
+        // const token = jwt.sign({ user_id: user._id, username }, tokenKey, {
+        //   expiresIn: '2h'
+        // })
+        // user.token = token
+        // user.save()
+
+        // return new user
+        res.redirect('/auth/login')
       }
-
-      const encryptedPassword = await bcrypt.hash(password, 10)
-
-      const user = await User.create({
-        username,
-        password: encryptedPassword,
-        fullname,
-        address,
-        phone
-      })
-
-      // const token = jwt.sign({ user_id: user._id, username }, tokenKey, {
-      //   expiresIn: '2h'
-      // })
-      // user.token = token
-      // user.save()
-
-      // return new user
-      res.render('login')
     } catch (err) {
-      res.send(err)
+      res.send('err')
     }
   }
 

@@ -22,22 +22,15 @@
 <form hidden id="delete-form"></form>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-
-    var form = document.getElementById("delete-form");
-    var buttons = Array.from(document.getElementsByClassName("btn-delete"));
-
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        console.log(button.value);
-        form.action = "/cart/delete/" + button.value
-        form.method = "GET"
-        form.submit();
-      })
-    });
+  $(document).ready(function(){
+    const form = document.getElementById('delete-form');
+    $('.btn-delete').click(function(){
+      form.action = '/cart/delete/' + $(this).val();
+      form.method = 'get'
+      form.submit();
+    })
+  });
 
 
-  }
-  )
 
 </script>
