@@ -1,12 +1,16 @@
 <div class='d-flex justify-content-center'>
   <div class='auth-form'>
+     
     <h3>Thông tin tài khoản</h3>
     <form action='/user/update' method='post'>
       <div class='mb-3'>
         <label class='form-label'>Tài khoản</label>
         <input name='username' type='text' class='form-control' value="{{user.username }}" readonly/>
       </div>
-
+      {{#if errors }}
+        <p class="incorrect">{{errors.msg}}</p>
+      {{/if  }}
+     
       <div class='mb-3'>
         <label class='form-label'>Họ và tên</label>
         <input name='fullname' type='text' class='form-control' value="{{user.fullname }}"/>
@@ -21,6 +25,9 @@
       </div>
       <button type='submit' class='btn btn-primary'>Sửa thông tin</button>
     </form>
+    {{#if update  }}
+        <h5>Sửa thông tin thành công!</h5>
+      {{/if  }}
     <a href="/user/reset-password">Đổi mật khẩu</a>
 
   </div>

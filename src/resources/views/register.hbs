@@ -1,45 +1,59 @@
 
 <section class="vh-100 bg-image"
-  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  style="background-image: url('/img/background2.png');
+  background-size: cover;
+  padding-bottom: 60%;
+  background-repeat: no-repeat;
+  background-position: center; 
+   ">
   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6" style="margin-top: 20px;">
           <div class="card" style="border-radius: 15px;">
             <div class="card-body p-4">
               <h2 class="text-uppercase text-center mb-4">Đăng kí</h2>
-
+               {{#if errors }}
+                      <p class="incorrect">{{errors.msg}}</p>
+                    {{/if  }}
               <form action='/auth/register' method='post'>
                 {{#if user_exists }}
                     <p class="incorrect">Username đã tồn tại!!</p>
                   {{/if  }}
                
                 <div class="form-outline mb-4">
-                  <input name='username' type="text" id="form3Example3cg" class="form-control form-control-lg" placeholder='Username'required/>
+                  <input name='username' type="text" id="form3Example3cg" class="form-control form-control-lg" placeholder='Username'/>
                   <label  class="form-label" for="form3Example3cg">Tài khoản</label>
                 </div>
 
                 {{#if password_wrong }}
-                    <p class="incorrect">Mật khẩu không chính xác!!</p>
+                    <p class="incorrect">Hai mật khẩu không giống nhau</p>
                   {{/if  }}
 
-                <div class="form-outline mb-4">
-                  <input name='password' type="password" id="form3Example4cg" class="form-control form-control-lg" placeholder='Password' required/>
+                <div class="form-outline mb-4 wrap-input-password">
+                  <input name='password1' type="password" id="form3Example4cg" class="form-control form-control-lg" placeholder='Password' />
+                   <i class="bi bi-eye-slash-fill icon-password" style="top: 15px;"></i>
                   <label class="form-label" for="form3Example4cg">Mật khẩu</label>
                 </div>
 
+                <div class="form-outline mb-4 wrap-input-password">
+                  <input name='password2' type="password" id="form3Example4cg" class="form-control form-control-lg" placeholder='Password' />
+                   <i class="bi bi-eye-slash-fill icon-password" style="top: 15px;"></i>
+                  <label class="form-label" for="form3Example4cg">Nhập lại mật khẩu</label>
+                </div>
+
                 <div class="form-outline mb-4">
-                  <input name='fullname' type="text" id="form3Example1cg" class="form-control form-control-lg" required/>
+                  <input name='fullname' type="text" id="form3Example1cg" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example1cg">Họ và tên</label>
                 </div>
 
                  <div class="form-outline mb-4">
-                  <input name='phone' type="text" id="form3Example1cg" class="form-control form-control-lg" required/>
+                  <input name='phone' type="text" id="form3Example1cg" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example1cg">Số điện thoại</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input name='address' type="text" id="form3Example1cg" class="form-control form-control-lg" required/>
+                  <input name='address' type="text" id="form3Example1cg" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example1cg">Địa chỉ</label>
                 </div> 
 
@@ -58,3 +72,17 @@
     </div>
   </div>
 </section>
+
+<script>
+   $(document).ready(function(){
+    $(".icon-password").click(function(){
+      var div_password = $(this).parent()
+      var input_password = div_password.children().filter('.form-control')
+      if (input_password.attr('type') == "password")
+        input_password.attr('type','text')
+      else
+        input_password.attr('type','password')
+      $(this).toggleClass("bi-eye-slash-fill bi-eye-fill")
+    });
+  });
+</script>
