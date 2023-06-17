@@ -17,6 +17,9 @@
                    {{#if incorrect  }}
                       <p class="incorrect">Tài khoản hoặc mật khẩu không chính xác</p>
                     {{/if  }}
+                    {{#if errors }}
+                      <p class="incorrect">{{errors.msg}}</p>
+                    {{/if  }}
                   <div class="form-outline mb-4">
                     <input name='username' type="text" id="form2Example17" class="form-control form-control-lg" />
                     <label class="form-label" for="form2Example17">Tài khoản</label>

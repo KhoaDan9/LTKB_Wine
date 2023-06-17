@@ -85,7 +85,7 @@
     </div>
     <div class="search-bar-wrap col-7">
       <form class="d-flex" role="search" action="/search" method="get">
-        <input id="search-input" class="form-control me-2" placeholder="Tìm kiếm" name="query">
+        <input id="search-input" class="form-control" placeholder="Tìm kiếm" name="query">
         <div id="search-results"></div>
         <button class="search-submit" type="submit">
           <i class="bi bi-search"></i>
@@ -122,7 +122,7 @@
             output = '<ul>';
             if (data.length != 0)
               for (let value = 0; value < data.length; value++) {
-                output += '<li> <a href = "/product/' +
+                output += '<li class="d-flex"> <i class="bi bi-search" style="padding: 5px 10px"></i> <a href = "/product/' +
                   data[value]._id +
                   '" class="d-flex"> ' +
                   data[value].name +
