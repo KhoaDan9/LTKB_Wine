@@ -1,34 +1,135 @@
-
-<div class="cart-products">
-  <h1>Giỏ hàng</h1>
-
-  {{#each products}}
-  <div class="cart-product d-flex">
-    <img src="{{ this.imgsrc }}" alt="">
-    <div class="cart-product-content">
-      <h3 class="cart-product-name">{{this.name}}</h3>
-      <h5 class="cart-product-price">Đơn giá: {{this.price}} Đ</h5>
-      <h5>Số lượng: {{this.quantity}}</h5>
-      <h5>Số tiền: {{this.summ}} Đ</h5>
+<div class="row">
+  <form class="cart-products col-8" name="cart-products-form" action="/cart/buy" method="post">
+    <h3>Giỏ hàng</h3>
+    <p>Bạn đang có {{user.cart.length}} sản phẩm trong giỏ hàng</p>
+    <div class="form-check form-check-all d-flex">
+      <input class="input-check-all" type="checkbox" id="flexCheckAllDefault">
+      <label class="form-check-label" for="flexCheckAllDefault">
+        Chọn tất cả
+      </label>
     </div>
-    <button class="btn btn-light btn-delete" value="{{this._id }}">Xóa</button>
-  </div>
-  <hr>
-  {{/each }}
-  <h1 class="sum-price">Thành tiền: {{sum}} Đ</h1>
+    <br>
+    {{#each products}}
+    <div class="cart-product d-flex flex-row">
+      <div class="form-check d-flex">
+        <input class="input-check" type="checkbox" value="{{this._id }}" name="productsIds[]" id="flexCheckDefault">
+      </div>
+      <img src="{{ this.imgsrc }}" alt="">
+      <div class="cart-product-content">
+        <h5 class="cart-product-name">{{this.name}}</h5>
+        <h5 class="cart-product-price">{{this.price}} Đ</h5>
+      </div>
+      <div class="d-flex cart-product-edit">
+        <button class="del-cart edit-cart-btn"><i class=" bi bi-dash-lg"></i></button>
+        <h5 class="edit-cart-value">{{this.quantity}}</h5>
+        <button class="add-cart edit-cart-btn"><i class=" bi bi-plus-lg"></i></button>
+        <h6 class="cart-product-price2">Số tiền: {{this.summ}} Đ</h6>
+        <button class="btn btn-light cart-btn-delete" value="{{this._id }}">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </div>
+    <hr>
+    {{/each }}
+    <h1 class="sum-price">Tổng thành tiền: {{sum}} Đ</h1>
+    <button class="btn-buy btn btn-primary" name="action" value="buy" type="submit" disabled="disabled">Mua</button>
+    <button class="btn-del btn btn-primary" name="action" value="delete" type="submit" disabled="disabled">Xóa</button>
 
+  </form>
+
+  <div class="col-4 cart-pay">
+    <h3>Thông tin đơn hàng</h3>
+    <hr>
+    <div class="all-price"></div>
+  </div>
+  {{!-- <form name="cart-products-form"></form> --}}
+  <form name="delete-form"></form>
 </div>
 
-<form hidden id="delete-form"></form>
 
 <script>
-  $(document).ready(function(){
-    const form = document.getElementById('delete-form');
-    $('.btn-delete').click(function(){
-      form.action = '/cart/delete/' + $(this).val();
-      form.method = 'get'
-      form.submit();
+  $(document).ready(function () {
+
+    var checkboxAll = $('.input-check-all')
+    var productsCheck = $('input[name="productsIds[]"]')
+    var buyBtn = $('.btn-buy')
+    var delAllBtn = $('.btn-del')
+    var delBtn = $('.cart-btn-delete')
+    var formDel = document.forms['delete-form'];
+    var formAll = $("[name='cart-products-form']");
+    var submitAble = false;
+
+
+    formAll.on('submit', function (e) {
+     // e.preventDefault();
+
     })
+
+
+    delBtn.click(function () {
+      formDel.action = '/cart/delete/' + $(this).val();
+      formDel.method = 'get';
+      formDel.submit();
+    })
+
+    checkboxAll.change(function () {
+      var isCheckAll = $(this).prop('checked');
+      productsCheck.prop('checked', isCheckAll);
+      checkSelectedProduct();
+      bill()
+    })
+
+    productsCheck.change(function () {
+      var isCheckAll = productsCheck.length === $('input[name="productsIds[]"]:checked').length;
+      checkboxAll.prop('checked', isCheckAll);
+      checkSelectedProduct();
+      bill()
+    })
+
+    function checkSelectedProduct() {
+      var checkCount = $('input[name="productsIds[]"]:checked').length;
+      if (checkCount > 0) {
+        buyBtn.attr('disabled', false)
+        delAllBtn.attr('disabled', false)
+        submitAble = true
+      }
+      else {
+        buyBtn.attr('disabled', true)
+        delAllBtn.attr('disabled', true)
+        submitAble = false
+      }
+    }
+
+    function bill() {
+      var arr = [];
+      for (var i = 0; i < productsCheck.length; i++) {
+        if (productsCheck[i].checked)
+          arr.push(productsCheck[i].value)
+      }
+      if (arr.length != 0) {
+        $.ajax({
+          url: "/cart/all-price",
+          method: "post",
+          dataType: 'json',
+          data: {
+            productsIds: arr
+          },
+          success: function (get_data) {
+            data = get_data.sum
+            output = '<h6> Thành tiền: ' + data + 'Đ</h6>'
+            $('.all-price').html(output);
+
+          }
+        });
+      }
+      else {
+         output = '<h6> Thành tiền: 0Đ</h6>'
+          $('.all-price').html(output);
+      }
+    };
+
+
+    
   });
 
 

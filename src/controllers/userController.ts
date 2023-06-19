@@ -22,7 +22,7 @@ export class UserController {
       const user = await User.findOne({ token })
       const { newpassword1, newpassword2, oldpassword } = req.body
       const errors = validationResult(req)
-      if (!errors.isEmpty()) 
+      if (!errors.isEmpty())
         res.render('resetpassword', { user, errors: errors.array()[0], hideNavbar: true, hideSearchBar: true })
       else if (oldpassword == newpassword1)
         res.render('resetpassword', { user, hideNavbar: true, hideSearchBar: true, password_same: true })
@@ -30,13 +30,11 @@ export class UserController {
         res.render('resetpassword', { user, hideNavbar: true, hideSearchBar: true, password_wrong: true })
       else {
         if (!user) return res.send(403)
-        else
-        if (await bcrypt.compare(oldpassword, user.password)) {
+        else if (await bcrypt.compare(oldpassword, user.password)) {
           const encryptedPassword = await bcrypt.hash(newpassword1, 10)
           await User.updateOne({ token }, { $set: { password: encryptedPassword } })
           res.redirect('/logout')
-        } else
-         res.render('resetpassword', { hideNavbar: true, hideSearchBar: true, errpassword: true })
+        } else res.render('resetpassword', { hideNavbar: true, hideSearchBar: true, errpassword: true })
       }
     } catch (err) {
       'err' + err
