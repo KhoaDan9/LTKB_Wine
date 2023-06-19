@@ -6,8 +6,14 @@ import { error } from 'console'
 const { mongooseToObject } = require('../util/mongoose')
 export class AdminController {
   async home(req: Request, res: Response) {
-    const product = await Product.find().lean()
-    res.render('admin', { product, hideSearchBar: true })
+    const token = req.cookies['x-access-token']
+    const user = await User.findOne({ token }).lean()
+    if (!user) return res.status(400)
+    if (user.role == false) res.redirect('auth/login')
+    else {
+      const product = await Product.find().lean()
+      res.render('admin', { user, product, hideSearchBar: true })
+    }
   }
   create(req: Request, res: Response) {
     res.render('create')
