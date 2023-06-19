@@ -47,10 +47,11 @@
               </button>
               <ul class='dropdown-menu'>
                 {{#if user.role}}
-                <li><a class='dropdown-item' href='#'>Quản lí sản phẩm</a></li>
+                <li><a class='dropdown-item' href='/'>Home</a></li>
+                <li><a class='dropdown-item' href='/admin'>Quản lí sản phẩm</a></li>
                 {{else}}
                 <li><a class='dropdown-item' href='/user'>Thông tin tải khoản</a></li>
-                <li><a class='dropdown-item' href='#'>Đơn mua</a></li>
+                <li><a class='dropdown-item' href='/cart/bill'>Đơn mua</a></li>
                 {{/if}}
 
                 <li>

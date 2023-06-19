@@ -41,6 +41,13 @@ export class HomeController {
 
     // res.send({user, products})
   }
+  async productsType(req: Request, res: Response) {
+    const token = req.cookies['x-access-token']
+    const type = req.params.type
+    const products = await Product.find({ type: type }).lean()
+    const user = await User.findOne({ token }).lean()
+    res.render('home', { user, products })
+  }
 
   logout(req: Request, res: Response) {
     res.cookie('x-access-token', null, { expires: new Date(0) })
