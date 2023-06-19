@@ -1,33 +1,43 @@
+<link rel="stylesheet" href="/css/create.css">
+
 <body class="body-create">
   <div class="heading">
     <h3>Cập nhật sản phẩm</h3>
-    <form method="POST" action="/admin/{{ product._id}}?_method=PUT">
+    <form method="POST" action="/admin/{{ product._id}}?_method=PUT" enctype="multipart/form-data">
       <div class="form-group">
-        <label for="name">Tên sản phẩm</label>
+        <label class="title-product" for="name">Tên sản phẩm</label>
         <input type="text" class="form-control" value="{{ product.name }}" name="name" id="name">
       </div>
       <div class="form-group">
-        <label for="origin">Nguồn gốc</label>
+        <label class="title-product" for="origin">Nguồn gốc</label>
         <input type="text" class="form-control" value="{{ product.origin }}" name="origin" id="origin">
       </div>
       <div class="form-group">
-        <label for="quantity">Số lượng</label>
+        <label class="title-product" for="quantity">Số lượng</label>
         <input type="text" class="form-control" value="{{ product.quantity }}" name="quantity" id="quantity">
       </div>
       <div class="form-group">
-        <label for="description">Mô tả</label>
+        <label class="title-product" for="types">Thể Loại</label>
+        <input type="text" class="form-control" value="{{ product.types }}" name="types" id="types">
+      </div>
+      <div class="form-group">
+        <label class="title-product" for="description">Mô tả</label>
         <textarea class="form-control" name="description" id="description">{{ product.description }}</textarea>
       </div>
       <div class="form-group">
-        <label for="price">Đơn giá</label>
+        <label class="title-product" for="price">Đơn giá</label>
         <input type="text" class="form-control" value="{{ product.price }}" name="price" id="price">
       </div>
       <div class="form-group">
-        <label for="imgsrc">Hình ảnh</label>
-        <input type="text" class="form-control" value="{{ product.imgsrc }}" name="imgsrc" id="imgsrc">
+        <label class="title-product" for="imgsrc">Hình ảnh</label>
+        <input type="file" name="imgUpload">
+        {{!-- <input type="text" class="form-control" value="{{ product.imgsrc }}" name="imgsrc" id="imgsrc"> --}}
       </div>
 
-      <button type="submit" class="btn btn-primary">Lưu</button>
+
+      <button onclick="alert('Bạn có chắc chắn muốn lưu')" style="margin-top: 10px;" type="submit"
+        class="btn btn-primary">Lưu</button>
+      <a class="btn-back" href="/admin">Thoát</a>
     </form>
     </form>
 

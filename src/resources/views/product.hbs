@@ -1,22 +1,29 @@
-
+<link rel="stylesheet" href="/css/product.css">
 <div class="product-detail">
-  <img class="product-img" src="{{product.imgsrc  }}" alt="">
-  <h2>{{product.name}}</h2>
-  <h4>{{product.price}} Đ</h4>
-  <hr>
-  <h5>Sản xuất tại: {{product.origin}}</h5>
-  <h5>Mô tả:</h5>
-  <h6>{{product.description}}</h6>
-  <form action="/product/add-to-cart" method="post">
-  <div class="d-flex flex-column">
+  <img style="    width: 20%;margin-left: 15%;transform: translateX(-50%);padding-top: 20px;height:60%"
+    class="product-img" src="/uploads/{{product.imgsrc  }}" alt="">
+  <div class="product-title">
 
-    <input type="text" hidden value="{{product._id  }}" name="product_id">
-    <label for="">Số lượng: <input type="number" name="quantity" min="1" value="1" class="quantity"></label>
-    
-    <button class="btn btn-danger btn-add-product" type="submit">Thêm vào giỏ hàng</button>
+    <h2 class="product-name">{{product.name}}</h2>
+    <h4>{{product.price}} Đ</h4>
+    <h4>{{ product.types }}</h4>
+    <h5>Sản xuất tại: {{product.origin}}</h5>
+    <h5>Mô tả:</h5>
+    <h6 style="width:50%">{{product.description}}</h6>
+    <form action="/product/add-to-cart" method="post">
+      <div class="d-flex flex-column">
+
+        <input type="text" hidden value="{{product._id  }}" name="product_id">
+        <label style="margin-top: 26px;" for="">Số lượng: <input type="number" name="quantity" min="1" value="1"
+            class="quantity"></label>
+
+        <button style="" class="btn btn-danger btn-add-product" type="submit">Thêm vào giỏ
+          hàng</button>
+      </div>
+
+    </form>
   </div>
 
-  </form>
 
   {{!-- <button>Mua ngay</button> --}}
 
