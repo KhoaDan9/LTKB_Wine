@@ -9,7 +9,8 @@ const userSchema = new Schema(
     phone: { type: String },
     role: { type: Boolean, default: false },
     token: { type: String },
-    cart: { type: Array }
+    cart: { type: Array },
+    buy: { type: Array }
   },
   { timestamps: true }
 )
