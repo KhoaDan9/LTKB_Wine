@@ -31,7 +31,7 @@ export class AdminController {
     const product = new Product({
       name: req.body.name,
       origin: req.body.origin,
-      types: req.body.types,
+      type: req.body.type,
       description: req.body.description,
       price: req.body.price,
       quantity: req.body.quantity,
@@ -56,7 +56,7 @@ export class AdminController {
     Product.updateOne({ _id: req.params.id }, {
       name: req.body.name,
       origin: req.body.origin,
-      types: req.body.types,
+      type: req.body.type,
       description: req.body.description,
       price: req.body.price,
       quantity: req.body.quantity,

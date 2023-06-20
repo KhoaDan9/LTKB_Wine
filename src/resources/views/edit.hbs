@@ -16,10 +16,16 @@
         <label class="title-product" for="quantity">Số lượng</label>
         <input type="text" class="form-control" value="{{ product.quantity }}" name="quantity" id="quantity">
       </div>
-      <div class="form-group">
-        <label class="title-product" for="types">Thể Loại</label>
-        <input type="text" class="form-control" value="{{ product.types }}" name="types" id="types">
-      </div>
+      {{!-- <div class="form-group">
+        <label class="title-product" for="type">Thể Loại</label>
+        <input type="text" class="form-control" value="{{ product.type }}" name="type" id="type">
+      </div> --}}
+      <select style="margin-top: 25px; width: 30%;border-radius: 5px;" name="type" id="type">
+        <option value=ruouvang>rượu vang</option>
+        <option value=ruoumanh>rượu mạnh</option>
+        <option value=ruounhe>rượu nhẹ</option>
+        <option value=biavacider>bia và cider</option>
+      </select>
       <div class="form-group">
         <label class="title-product" for="description">Mô tả</label>
         <textarea class="form-control" name="description" id="description">{{ product.description }}</textarea>
