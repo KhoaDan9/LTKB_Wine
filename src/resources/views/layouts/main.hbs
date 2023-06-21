@@ -31,7 +31,7 @@
   {{#if hideNavbar }}
   {{else }}
   <nav class='navbar navbar-expand-lg bg-body-tertiary' data-bs-theme='dark' style="background-color: #e3f2fd;">
-    <div class='container-fluid '>
+    <div style="background-color: 812628;height:32px" class='container-fluid '>
 
       <div class='collapse navbar-collapse ' id='navbarSupportedContent'>
 
@@ -55,7 +55,7 @@
                 {{user.fullname}}
 
               </button>
-              <ul class='dropdown-menu'>
+              <ul style="min-width:100px" class='dropdown-menu'>
                 {{#if user.role}}
                 <li><a class='dropdown-item' href='/'>Home</a></li>
                 <li><a class='dropdown-item' href='/admin'>Quản lí sản phẩm</a></li>
@@ -71,7 +71,8 @@
 
               </ul>
               {{else}}
-              <button type='button' class='btn btn-danger'><a href='/auth/login' class='home-login'>Đăng
+              <button style="background: #812628;border:none" type='button' class='btn btn-danger'><a href='/auth/login'
+                  class='home-login'>Đăng
                   nhập</a></button>
 
               {{/if}}

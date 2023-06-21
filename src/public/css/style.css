@@ -26,12 +26,13 @@ body {
 #search-results {
   display: block;
   position: absolute;
-  top: 70%;
-  left: 0;
-  width: 100%;
+  top: 68%;
+  left: 4;
+  width: 99%;
   z-index: 1;
   background-color: #fff;
   border: 1px solid #ccc;
+
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   border-top: 0 solid transparent;
@@ -39,6 +40,19 @@ body {
 
 #search-results.hidden {
   display: none;
+}
+
+.nav-link:hover {
+  background-color: #792123;
+}
+
+.btn-group:hover {
+  background-color: #792123;
+  color: #fff;
+}
+
+.dropdown-item {
+  font-size: 14px;
 }
 
 #search-results ul {
@@ -53,7 +67,8 @@ body {
 }
 
 #search-results li:first-child {
-  border-top: 0.5px solid #000;
+  border-top: 0.1px solid #000;
+  border: none;
 }
 
 #search-results li:hover {
@@ -139,10 +154,12 @@ body {
 }
 
 .logo-img {
-  width: 50px;
+  position: absolute;
+  width: 6%;
   margin-right: 20px;
+  margin-top: 5px;
   border-radius: 50%;
-  overflow: hidden;
+  top: 0;
 }
 
 .search-bar-wrap {
@@ -200,9 +217,8 @@ ul {
 }
 
 .products {
-  margin: 0 15%;
+  margin: 0 12%;
   width: calc(66% - 7px);
-  background-color: rgb(148, 165, 165);
 }
 
 .product {
@@ -218,7 +234,7 @@ ul {
 .bi-cart4 {
   color: #fff;
   font-size: xx-large;
-  padding-left: 25px;
+  padding-left: 50px;
   position: relative;
 }
 
@@ -236,7 +252,7 @@ ul {
 .cart-products {
   padding: 0 40px;
 
-  background-color: rgb(148, 165, 165);
+  background-color: #fff;
   padding-top: 50px;
 }
 
@@ -303,6 +319,25 @@ ul {
   padding: 7px;
   background-color: transparent;
   border: 0;
+
+}
+
+.btn-continue-buy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 38px;
+  border-radius: 5px;
+  text-decoration: none;
+  background-color: #EFEBE4;
+  border: 1px solid #792123;
+  margin: 20px 0 0 40px;
+}
+
+.btn-buy {
+  width: 80%;
+  margin-left: 40px;
 }
 
 .cart-product-edit {
@@ -329,8 +364,15 @@ ul {
   border-radius: 5px;
 }
 
+.all-price {
+  text-align: center;
+  margin-top: 50px;
+}
+
 .cart-pay {
   padding-top: 50px;
+  background-color: #EFEBE4;
+  max-height: 100%;
 }
 
 .form-check-all {

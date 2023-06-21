@@ -1,4 +1,4 @@
-<div class="row">
+<div style="width:100%" class="row">
   <form class="cart-products col-8" name="cart-products-form" action="/cart/buy" method="post">
     <h3>Giỏ hàng</h3>
     <p>Bạn đang có {{user.cart.length}} sản phẩm trong giỏ hàng</p>
@@ -7,6 +7,8 @@
       <label class="form-check-label" for="flexCheckAllDefault">
         Chọn tất cả
       </label>
+      <button style="margin-left:20px;background: #fff;color: #000;border: none;
+}" class="btn-del btn btn-primary" name="action" value="delete" type="submit" disabled="disabled">Xóa</button>
     </div>
     <br>
     {{#each products}}
@@ -23,7 +25,7 @@
         <button class="del-cart edit-cart-btn"><i class=" bi bi-dash-lg"></i></button>
         <h5 class="edit-cart-value">{{this.quantity}}</h5>
         <button class="add-cart edit-cart-btn"><i class=" bi bi-plus-lg"></i></button>
-        <h6 class="cart-product-price2">Số tiền: {{this.summ}} Đ</h6>
+        <h6 class="cart-product-price2">Thành tiền: {{this.summ}} Đ</h6>
         <button class="btn btn-light cart-btn-delete" value="{{this._id }}">
           <i class="bi bi-trash"></i>
         </button>
@@ -31,21 +33,74 @@
     </div>
     <hr>
     {{/each }}
-    <h1 class="sum-price">Tổng thành tiền: {{sum}} Đ</h1>
-    <button class="btn-buy btn btn-primary" name="action" value="buy" type="submit" disabled="disabled">Mua</button>
-    <button class="btn-del btn btn-primary" name="action" value="delete" type="submit" disabled="disabled">Xóa</button>
+
+
 
   </form>
 
   <div class="col-4 cart-pay">
+
     <h3>Thông tin đơn hàng</h3>
+
+
     <hr>
     <div class="all-price"></div>
+    <button style="margin-top:20px;background-color: #7B181A;" class="btn-buy btn btn-primary" name="action" value="buy"
+      type="submit" disabled="disabled">Tiến hành đặt
+      hàng</button>
+
+    <div class="btn-continue-buy">
+      <a style="text-decoration: none; text-align: center;color:#7B181A;" class="" href="/">Tiếp tục mua hàng</a>
+    </div>
   </div>
   {{!-- <form name="cart-products-form"></form> --}}
   <form name="delete-form"></form>
 </div>
-
+<footer style="  background-color: #fff;width: 100%;
+  height: 300px; margin-top: -69px;
+  position: relative;
+  z-index: 100;" class="footer">
+  <div class="footer-home" style="margin-top: -69px;
+  position: relative;
+  z-index: 100;">
+    <ul style="margin-left:20px" class="user-help">
+      <li style="font-size: 20px;font-weight: 500;">Chăm sóc khách hàng</li>
+      <li>Trung tâm hỗ trợ</li>
+      <li>Hướng dẫn mua hàng</li>
+      <li>Chăm sóc khách hàng</li>
+      <li>Trả hàng & Hoàn tiền</li>
+    </ul>
+    <ul>
+      <li style="font-size: 20px;font-weight: 500;">Giới thiệu</li>
+      <li>Giới thiệu</li>
+      <li>Tuyển dụng</li>
+      <li>Điều khoản</li>
+    </ul>
+    <ul>
+      <li style="font-size: 20px;font-weight: 500;">Danh mục</li>
+      <li>Rượu vang</li>
+      <li>Rượu mạnh</li>
+      <li>Rượu nhẹ</li>
+      <li>Bia và cider</li>
+      <li>Phụ kiện rượu</li>
+    </ul>
+    <ul>
+      <li style="font-size: 20px;font-weight: 500;">Theo dõi</li>
+      <li><i class="fa-brands fa-facebook"></i>Facebook</li>
+      <li><i class="fa-brands fa-instagram"></i>Instagram</li>
+      <li><i class="fa-brands fa-twitter"></i>Twitter</li>
+      <li><i class="fa-brands fa-tiktok"></i>Tik tok</li>
+    </ul>
+    <div class="app">
+      <h4 style="margin-top:10px; font-size: 20px;font-weight: 500;">Vào của hàng trên ứng dụng</h4>
+      <img style="width:50%" src="/img/qr.png" alt="">
+    </div>
+  </div>
+  <hr>
+  <h5 style="text-align: center;">UỐNG RƯỢU CÓ TRÁCH NHIỆM</h5>
+  <p style="text-align: center;">
+    Các sản phẩm rượu không dành cho người dưới 18 tuổi và phụ nữ đang mang thai.</p>
+</footer>
 
 <script>
   $(document).ready(function () {
@@ -116,14 +171,14 @@
           },
           success: function (get_data) {
             data = get_data.sum
-            output = '<h6> Thành tiền: ' + data + 'Đ</h6>'
+            output = '<h6> Tạm tính: ' + data + 'Đ</h6>'
             $('.all-price').html(output);
 
           }
         });
       }
       else {
-        output = '<h6> Thành tiền: 0Đ</h6>'
+        output = '<h6> Tạm tính: 0Đ</h6>'
         $('.all-price').html(output);
       }
     };

@@ -9,7 +9,15 @@
     <li class="home-product-items"><a href="/set/phukien">Phụ kiện rượu</a></li>
   </ul>
 </div>
+<div class="intro-heading">
+  <img class="img-intro-1" src="/img/intro.png" alt="">
 
+  <img class="img-intro-2" src="/img/sp1.png" alt="">
+  <img class="img-intro-3" src="/img/sp2.png" alt="">
+</div>
+<div class="line-product">
+  <h4 style="margin-left: 610px;">Sản Phẩm</h4>
+</div>
 <div class="event row">
   <div class="col-2"></div>
   <div class="col-4">
@@ -21,7 +29,7 @@
 {{#if notExists }}
 <h4 style="padding-left: 100px;">Sản phẩm {{ name }} không hiện tồn tại</h4>
 {{else }}
-<div class="products d-flex flex-wrap">
+<div style="margin-top: 50px;" class="products d-flex flex-wrap">
 
 
   {{#each products }}
@@ -37,3 +45,44 @@
   {{/each }}
 </div>
 {{/if }}
+<footer style="  background-color: #fff;width: 100%;
+  height: 300px;" class="footer">
+  <div class="footer-home">
+    <ul style="margin-left:20px" class="user-help">
+      <li style="font-size: 20px;font-weight: 500;">Chăm sóc khách hàng</li>
+      <li>Trung tâm hỗ trợ</li>
+      <li>Hướng dẫn mua hàng</li>
+      <li>Chăm sóc khách hàng</li>
+      <li>Trả hàng & Hoàn tiền</li>
+    </ul>
+    <ul>
+      <li style="font-size: 20px;font-weight: 500;">Giới thiệu</li>
+      <li>Giới thiệu</li>
+      <li>Tuyển dụng</li>
+      <li>Điều khoản</li>
+    </ul>
+    <ul>
+      <li style="font-size: 20px;font-weight: 500;">Danh mục</li>
+      <li>Rượu vang</li>
+      <li>Rượu mạnh</li>
+      <li>Rượu nhẹ</li>
+      <li>Bia và cider</li>
+      <li>Phụ kiện rượu</li>
+    </ul>
+    <ul>
+      <li style="font-size: 20px;font-weight: 500;">Theo dõi</li>
+      <li><i class="fa-brands fa-facebook"></i>Facebook</li>
+      <li><i class="fa-brands fa-instagram"></i>Instagram</li>
+      <li><i class="fa-brands fa-twitter"></i>Twitter</li>
+      <li><i class="fa-brands fa-tiktok"></i>Tik tok</li>
+    </ul>
+    <div class="app">
+      <h4 style="margin-top:10px; font-size: 20px;font-weight: 500;">Vào của hàng trên ứng dụng</h4>
+      <img style="width:50%" src="/img/qr.png" alt="">
+    </div>
+  </div>
+  <hr>
+  <h5 style="text-align: center;">UỐNG RƯỢU CÓ TRÁCH NHIỆM</h5>
+  <p style="text-align: center;">
+    Các sản phẩm rượu không dành cho người dưới 18 tuổi và phụ nữ đang mang thai.</p>
+</footer>
