@@ -1,0 +1,22 @@
+body {
+  background-color: #ccc;
+}
+
+.rate {
+  color: #FACC15;
+  padding-bottom: 8px;
+}
+
+.products {
+  width: 70%;
+}
+
+.product {
+  width: 20%;
+  margin: 20px;
+  margin-left: 25px;
+}
+
+.home-product-img {
+  width: 100%;
+}

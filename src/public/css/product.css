@@ -1,0 +1,15 @@
+.product-detail {
+  display: flex;
+
+}
+
+.product-name {}
+
+.product-title {
+  display: flex;
+  margin-top: 20px;
+  margin-right: 50px;
+  flex-direction: column;
+  margin-left: -100px;
+
+}

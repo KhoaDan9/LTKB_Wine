@@ -19,11 +19,25 @@ export class AdminController {
     res.render('create')
   }
   store(req: Request, res: Response) {
-    const formData = req.body
-    formData.image = `/img/${req.body.imgsrc}.jpg`
-    const product = new Product(formData)
-    product
-      .save()
+    // Product.updateOne({ _id: req.params.id }, {
+    //   name: req.body.name,
+    //   origin: req.body.origin,
+    //   description: req.body.description,
+    //   price: req.body.price,
+    //   quantity: req.body.quantity,
+    //   imgsrc: req.file?.filename || req.body.imgUpload,
+    // })
+
+    const product = new Product({
+      name: req.body.name,
+      origin: req.body.origin,
+      type: req.body.type,
+      description: req.body.description,
+      price: req.body.price,
+      quantity: req.body.quantity,
+      imgsrc: req.file?.filename || req.body.imgUpload,
+    });
+    product.save()
       .then(() => res.redirect('/admin'))
       .catch((error) => {
         res.send(error)
@@ -39,8 +53,22 @@ export class AdminController {
       .catch(next)
   }
   update(req: Request, res: Response, next: NextFunction) {
-    Product.updateOne({ _id: req.params.id }, req.body)
+    Product.updateOne({ _id: req.params.id }, {
+      name: req.body.name,
+      origin: req.body.origin,
+      type: req.body.type,
+      description: req.body.description,
+      price: req.body.price,
+      quantity: req.body.quantity,
+      imgsrc: req.file?.filename || req.body.imgUpload,
+    })
       .then(() => res.redirect('/admin'))
       .catch(next)
   }
-}
+  destroy(req: Request, res: Response, next: NextFunction) {
+    Product.deleteOne({ _id: req.params.id })
+      .then(() => res.redirect('back'))
+      .catch(next);
+  }
+
+} 

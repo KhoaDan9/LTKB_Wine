@@ -14,7 +14,7 @@
       <div class="form-check d-flex">
         <input class="input-check" type="checkbox" value="{{this._id }}" name="productsIds[]" id="flexCheckDefault">
       </div>
-      <img src="{{ this.imgsrc }}" alt="">
+      <img src="/uploads/{{ this.imgsrc }}" alt="">
       <div class="cart-product-content">
         <h5 class="cart-product-name">{{this.name}}</h5>
         <h5 class="cart-product-price">{{this.price}} Đ</h5>
@@ -61,7 +61,7 @@
 
 
     formAll.on('submit', function (e) {
-     // e.preventDefault();
+      // e.preventDefault();
 
     })
 
@@ -123,13 +123,13 @@
         });
       }
       else {
-         output = '<h6> Thành tiền: 0Đ</h6>'
-          $('.all-price').html(output);
+        output = '<h6> Thành tiền: 0Đ</h6>'
+        $('.all-price').html(output);
       }
     };
 
 
-    
+
   });
 
 

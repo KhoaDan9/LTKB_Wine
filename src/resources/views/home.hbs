@@ -2,11 +2,11 @@
 <div class="home-product-type">
   <ul class="d-flex justify-content-center">
     <li class="home-product-items"><a href="/">Trang chủ</a></li>
-    <li class="home-product-items"><a href="/ruouvang">Rượu vang</a></li>
-    <li class="home-product-items"><a href="/ruoumanh">Rượu mạnh</a></li>
-    <li class="home-product-items"><a href="/ruounhe">Rượu nhẹ</a></li>
-    <li class="home-product-items"><a href="/biavacider">Bia và Cider</a></li>
-    <li class="home-product-items"><a href="/phukien">Phụ kiện rượu</a></li>
+    <li class="home-product-items"><a href="/set/ruouvang">Rượu vang</a></li>
+    <li class="home-product-items"><a href="/set/ruoumanh">Rượu mạnh</a></li>
+    <li class="home-product-items"><a href="/set/ruounhe">Rượu nhẹ</a></li>
+    <li class="home-product-items"><a href="/set/biavacider">Bia và Cider</a></li>
+    <li class="home-product-items"><a href="/set/phukien">Phụ kiện rượu</a></li>
   </ul>
 </div>
 
@@ -27,7 +27,7 @@
   {{#each products }}
   <div class="product">
     <a href="/product/{{this._id }}">
-      <img class="home-product-img" src="{{this.imgsrc}}" alt="">
+      <img class="home-product-img" src="/uploads/{{this.imgsrc}}" alt="">
       <hr>
       <h6>{{this.name}}</h6>
       <p>{{this.price}}đ</p>

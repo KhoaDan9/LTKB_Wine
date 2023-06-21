@@ -1,3 +1,11 @@
+.navbar {
+  display: none;
+}
+
+.search-bar {
+  display: none;
+}
+
 .body-create {
   background-color: #fff;
 }
@@ -6,4 +14,29 @@
   width: 50%;
   padding: 20px;
   background-color: #ccc;
+}
+
+.btn-back {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  position: absolute;
+  text-decoration: none;
+  background-color: #095fff;
+  width: 70px;
+  height: 39px;
+  border: 2px solid #095fff;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.title-product {
+  margin-top: 10px;
+}
+
+.form-control {
+  margin-top: 10px;
 }
