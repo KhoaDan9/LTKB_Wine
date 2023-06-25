@@ -1,26 +1,28 @@
 <div class="row justify-content-center">
   <div class="cart-products col-8" name="cart-products-form">
     <h3>Hóa đơn</h3>
-   
-    <br>
-    {{#each products}}
-    <div class="cart-product d-flex flex-row">
-      <img src="{{ this.imgsrc }}" alt="">
-      <div class="cart-product-content">
-        <h5 class="cart-product-name">{{this.name}}</h5>
-        <h5 class="cart-product-price">{{this.price}} Đ</h5>
-      </div>
-      <div class="d-flex cart-product-edit">
-        <h5 class="edit-cart-value">{{this.quantity}}</h5>
-        <h6 class="cart-product-price2">Số tiền: {{this.summ}} Đ</h6>
 
+    <br>
+    {{#each arr}}
+    <br>
+    <h1>Thời điểm mua: {{ this.date }}</h1>
+    <br>
+    {{#each this.product}}
+    <div class="cart-product d-flex flex-row">
+      <img src="/uploads/{{ this.product_imgsrc }}" alt="">
+      <div class="cart-product-content">
+        <h5 class="cart-product-name">{{this.product_name}}</h5>
+        <h5 class="cart-product-price">Số lượng: {{this.quantity}}</h5>
+        <h5 class="cart-product-price">Thành tiền: {{this.product_price}} Đ</h5>
       </div>
+
     </div>
     <hr>
     {{/each }}
-    <h1 class="sum-price">Tổng thành tiền: {{sum}} Đ</h1>
+    <h1 class="sum-price">Tổng thành tiền: {{this.all_price}} Đ</h1>
+
+    {{/each }}
 
   </div>
 
 </div>
-

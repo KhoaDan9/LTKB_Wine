@@ -1,5 +1,6 @@
 import { Product } from '~/models/product'
 import { User } from '~/models/user'
+import { Bill } from '~/models/bill'
 import { Request, Response } from 'express'
 
 interface product_data {
@@ -48,7 +49,7 @@ export class CartController {
           break
         }
       }
-      res.redirect('/cart/bill')
+      res.redirect('/cart')
     } catch (err) {
       res.send(err)
     }
@@ -60,8 +61,8 @@ export class CartController {
       const user = await User.findOne({ token }).lean()
       if (!user) return res.send(403)
       const products = user.cart
-      const buy = user.buy
       const actionItem = req.body.productsIds
+
       switch (req.body.action) {
         case 'buy':
           actionItem.forEach((id: any) => {
@@ -72,7 +73,11 @@ export class CartController {
                   products.splice(i, 1)
                 }
               }
-              buy.push(find)
+              Bill.create({
+                username: user.username,
+                product_id: find.id,
+                quantity: find.quantity
+              })
             }
           })
           break
@@ -92,7 +97,6 @@ export class CartController {
           res.send('unknown action')
       }
       await User.updateOne({ token: token }, { $set: { cart: products } })
-      await User.updateOne({ token: token }, { $set: { buy: buy } })
       res.redirect('back')
     } catch (err) {
       console.log('err: ' + err)
