@@ -1,9 +1,10 @@
 .product-detail {
   display: flex;
-
+  padding-bottom: 50px;
 }
 
-.product-name {}
+.product-name {
+}
 
 .product-title {
   display: flex;
@@ -11,5 +12,4 @@
   margin-right: 50px;
   flex-direction: column;
   margin-left: -100px;
-
 }

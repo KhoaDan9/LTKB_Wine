@@ -156,8 +156,7 @@ body {
 .logo-img {
   position: absolute;
   width: 6%;
-  margin-right: 20px;
-  margin-top: 5px;
+  margin: 2px 20px;
   border-radius: 50%;
   top: 0;
 }
@@ -195,6 +194,7 @@ ul {
 .home-product-img {
   width: 225px;
   height: 225px;
+  object-fit: contain;
 }
 
 .product-img {
@@ -319,7 +319,6 @@ ul {
   padding: 7px;
   background-color: transparent;
   border: 0;
-
 }
 
 .btn-continue-buy {
@@ -330,7 +329,7 @@ ul {
   height: 38px;
   border-radius: 5px;
   text-decoration: none;
-  background-color: #EFEBE4;
+  background-color: #efebe4;
   border: 1px solid #792123;
   margin: 20px 0 0 40px;
 }
@@ -371,7 +370,7 @@ ul {
 
 .cart-pay {
   padding-top: 50px;
-  background-color: #EFEBE4;
+  background-color: #efebe4;
   max-height: 100%;
 }
 

@@ -35,9 +35,10 @@ export class AdminController {
       description: req.body.description,
       price: req.body.price,
       quantity: req.body.quantity,
-      imgsrc: req.file?.filename || req.body.imgUpload,
-    });
-    product.save()
+      imgsrc: req.file?.filename || req.body.imgUpload
+    })
+    product
+      .save()
       .then(() => res.redirect('/admin'))
       .catch((error) => {
         res.send(error)
@@ -53,22 +54,24 @@ export class AdminController {
       .catch(next)
   }
   update(req: Request, res: Response, next: NextFunction) {
-    Product.updateOne({ _id: req.params.id }, {
-      name: req.body.name,
-      origin: req.body.origin,
-      type: req.body.type,
-      description: req.body.description,
-      price: req.body.price,
-      quantity: req.body.quantity,
-      imgsrc: req.file?.filename || req.body.imgUpload,
-    })
+    Product.updateOne(
+      { _id: req.params.id },
+      {
+        name: req.body.name,
+        origin: req.body.origin,
+        type: req.body.type,
+        description: req.body.description,
+        price: req.body.price,
+        quantity: req.body.quantity,
+        imgsrc: req.file?.filename || req.body.imgUpload
+      }
+    )
       .then(() => res.redirect('/admin'))
       .catch(next)
   }
   destroy(req: Request, res: Response, next: NextFunction) {
     Product.deleteOne({ _id: req.params.id })
       .then(() => res.redirect('back'))
-      .catch(next);
+      .catch(next)
   }
-
-} 
+}
