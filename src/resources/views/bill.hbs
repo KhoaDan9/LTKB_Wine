@@ -1,11 +1,13 @@
 <div class="row justify-content-center">
   <div class="cart-products col-8" name="cart-products-form">
-    <h3>Hóa đơn</h3>
+    <h1>Hóa đơn</h1>
 
     <br>
     {{#each arr}}
+    <div class="bill-item">
+
     <br>
-    <h1>Thời điểm mua: {{ this.date }}</h1>
+    <h2>Thời điểm mua: {{ this.date }}</h2>
     <br>
     {{#each this.product}}
     <div class="cart-product d-flex flex-row">
@@ -19,7 +21,8 @@
     </div>
     <hr>
     {{/each }}
-    <h1 class="sum-price">Tổng thành tiền: {{this.all_price}} Đ</h1>
+    <h3 class="sum-price">Tổng thành tiền: {{this.all_price}} Đ</h3>
+    </div>
 
     {{/each }}
 
