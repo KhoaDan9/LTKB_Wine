@@ -249,22 +249,6 @@ ul {
   border-radius: 50%;
 }
 
-.cart-products {
-  padding: 0 40px;
-
-  background-color: #fff;
-  padding-top: 50px;
-}
-
-.cart-product img {
-  width: 150px;
-  padding-left: 20px;
-}
-
-.cart-product-content {
-  padding-left: 50px;
-  width: 300px;
-}
 
 .form-check {
   width: 70px;
@@ -293,10 +277,6 @@ ul {
 
 .quantity {
   width: 50px;
-}
-
-.sum-price {
-  padding-bottom: 50px;
 }
 
 .wrap-input-password {
