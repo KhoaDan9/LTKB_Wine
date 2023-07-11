@@ -94,7 +94,7 @@ export class CartController {
           })
           break
         default:
-          res.send('unknown action')
+          res.send('unknown action: ' + req.body.action)
       }
       await User.updateOne({ token: token }, { $set: { cart: products } })
       res.redirect('back')
@@ -120,29 +120,44 @@ export class CartController {
     res.send({ sum })
   }
 
-  async getbill(req: Request, res: Response) {
+  async addProduct(req: Request, res: Response) {
     try {
       const token = req.cookies['x-access-token']
       const user = await User.findOne({ token }).lean()
+      const product_id = req.body.productID
       if (!user) return res.send(403)
-      const bill: product_data[] = user.buy
-      const products: object[] = []
-      let sum = 0
-      for (let i = 0; i < bill.length; i++) {
-        const product = await Product.findById(bill[i].id).lean()
-        if (product) {
-          const quantity = bill[i].quantity
-          const summ = product.price * quantity
-          const prod: any = product
-          prod.quantity = quantity
-          prod.summ = summ
-          products.push(prod)
-          sum += product.price * quantity
-        }
+      const cart: product_data[] = user.cart
+      for(let i = 0; i < cart.length; i++) {
+        if (cart[i].id === product_id)
+          cart[i].quantity = Number(cart[i].quantity) + 1
       }
-      res.render('bill', { products, user, sum })
+      await User.updateOne({ token: token }, { $set: { cart: cart } })
+      //khong biet lam the nao de no khong load lai trang
+      res.redirect('back')
+      
     } catch (err) {
       res.send(err)
     }
   }
+
+  async subtractProduct(req: Request, res: Response) {
+    try {
+      const token = req.cookies['x-access-token']
+      const user = await User.findOne({ token }).lean()
+      const product_id = req.body.productID
+      if (!user) return res.send(403)
+      const cart: product_data[] = user.cart
+      for(let i = 0; i < cart.length; i++) {
+        if (cart[i].id === product_id)
+          cart[i].quantity = Number(cart[i].quantity) - 1
+      }
+      await User.updateOne({ token: token }, { $set: { cart: cart } })
+      //khong biet lam the nao de no khong load lai trang
+      res.redirect('back')
+      
+    } catch (err) {
+      res.send(err)
+    }
+  }
+
 }

@@ -6,9 +6,10 @@ const router = Router()
 const CartController1 = new CartController()
 
 router.get('/', CartController1.allProducts)
-router.get('/bill', CartController1.getbill)
 router.post('/all-price', CartController1.allPrice)
 router.get('/delete/:id', CartController1.deleteProduct)
 router.post('/buy', CartController1.buyProduct)
+router.post('/add', CartController1.addProduct)
+router.post('/subtract', CartController1.subtractProduct)
 
 export default router

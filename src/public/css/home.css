@@ -58,9 +58,3 @@ body {
   border: none;
   border-top: 3px solid #000000;
 }
-
-.footer-home {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px;
-}
