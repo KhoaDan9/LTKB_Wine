@@ -5,10 +5,7 @@
     <br>
     {{#each arr}}
     <div class="bill-item">
-
-    <br>
-    <h2>Thời điểm mua: {{ this.date }}</h2>
-    <br>
+    <h2 style="padding: 20px 0;">Thời điểm mua: {{ this.date }}</h2>
     {{#each this.product}}
     <div class="cart-product d-flex flex-row">
       <img src="/uploads/{{ this.product_imgsrc }}" alt="">

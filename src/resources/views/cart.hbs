@@ -2,16 +2,21 @@
   <form class="d-flex" name="cart-products-form" action="/cart/buy" method="post">
   <div class="cart-products col-8" >
     <h3>Giỏ hàng</h3>
+    {{#if products }}
+
     <p>Bạn đang có {{user.cart.length}} sản phẩm trong giỏ hàng</p>
     <div class="form-check form-check-all d-flex">
       <input class="input-check-all" type="checkbox" id="flexCheckAllDefault">
       <label class="form-check-label" for="flexCheckAllDefault">
         Chọn tất cả
       </label>
-      <button style="margin-left:20px;background: #fff;color: #000;border: none;
-}" class="btn-del btn btn-primary" name="action" value="delete" type="submit" disabled="disabled">Xóa</button>
+      
+      <button class="btn-del btn btn-primary" name="action" value="delete" type="submit" disabled="disabled">Xóa</button>
     </div>
     <br>
+    {{else  }}
+      <p>Bạn chưa có sản phẩm nào trong giỏ hàng. <a href="/" style="text-decoration: none;">Click để về trang mua</a></p>
+    {{/if  }}
     {{#each products}}
     <div class="cart-product d-flex flex-row">
       <div class="form-check d-flex">
@@ -23,9 +28,9 @@
         <h5 class="cart-product-price">{{this.price}} Đ</h5>
       </div>
       <div class="d-flex cart-product-edit">
-        <button class="del-cart edit-cart-btn"><i class=" bi bi-dash-lg"></i></button>
-        <h5 class="edit-cart-value">{{this.quantity}}</h5>
-        <button class="add-cart edit-cart-btn"><i class=" bi bi-plus-lg"></i></button>
+        <button class="subtract-cart edit-cart-btn" value="{{this._id }}" ><i class=" bi bi-dash-lg"></i></button>
+        <h5 class="edit-cart-value {{this._id }}">{{this.quantity}}</h5>
+        <button class="add-cart edit-cart-btn" value="{{this._id }}" ><i class=" bi bi-plus-lg" ></i></button>
         <h6 class="cart-product-price2">Thành tiền: {{this.summ}} Đ</h6>
         <button class="btn btn-light cart-btn-delete" value="{{this._id }}">
           <i class="bi bi-trash"></i>
@@ -34,31 +39,25 @@
     </div>
     <hr>
     {{/each }}
-
-
-
   </div>
-
   <div class="col-4 cart-pay">
-
     <h3 style="padding-left: 20px">Thông tin đơn hàng</h3>
-
-
     <hr>
     <div class="all-price"></div>
-    <button style="margin-top:20px;background-color: #7B181A;" class="btn-buy btn btn-primary" name="action" value="buy"
-      type="submit" disabled="disabled">Tiến hành đặt
-      hàng</button>
-
-
+    <button class="btn-buy btn btn-primary" name="action" value="buy"
+      type="submit" disabled="disabled">Tiến hành đặt hàng</button>
     <div class="btn-continue-buy">
-      <a style="text-decoration: none; text-align: center;color:#7B181A;" class="" href="/">Tiếp tục mua hàng</a>
+      <a href="/">Tiếp tục mua hàng</a>
     </div>
   </div>
   </form>
   
   {{!-- <form name="cart-products-form"></form> --}}
-  <form name="delete-form" ></form>
+  <form name="sub-form" >
+    <input type="text" name="productID" hidden>
+  </form>
+
+
 </div>
 
 
@@ -70,10 +69,12 @@
     var buyBtn = $('.btn-buy')
     var delAllBtn = $('.btn-del')
     var delBtn = $('.cart-btn-delete')
-    var formDel =  $("[name='delete-form']");  
+    var subForm =  $("[name='sub-form']");  
     var formAll = $("[name='cart-products-form']");
     var submitAble = false;
-
+    var checkbox2 = $('.input-check2')
+    var subtractBtn = $('.subtract-cart')
+    var addBtn = $('.add-cart')
 
     formAll.on('submit', function (e) {
       // e.preventDefault();
@@ -81,11 +82,38 @@
     })
 
 
+    addBtn.click(function(e) {
+      e.preventDefault();
+      subForm.attr('action','/cart/add') 
+      subForm.attr('method','post') 
+      var productValue = $('.'+$(this).val())
+      productValue.text( Number(productValue.text()) + 1)
+      $('input[name="productID"]').val($(this).val())
+      
+      subForm.submit();
+    })
+
+    subtractBtn.click(function(e) {
+      e.preventDefault();
+      subForm.attr('action','/cart/subtract') 
+      subForm.attr('method','post') 
+      var productValue = $('.'+$(this).val())
+      if(productValue.text() == 1)
+      {
+        subForm.attr('action','/cart/delete/' + $(this).val()) 
+        subForm.attr('method','get') 
+        subForm.submit();
+      }
+      productValue.text( Number(productValue.text()) - 1)
+      $('input[name="productID"]').val($(this).val())
+      subForm.submit();
+    })
+
     delBtn.click(function (e) {
       e.preventDefault();
-      formDel.attr('action','/cart/delete/' + $(this).val()) 
-      formDel.attr('method','get') 
-      formDel.submit();
+      subForm.attr('action','/cart/delete/' + $(this).val()) 
+      subForm.attr('method','get') 
+      subForm.submit();
     })
 
     checkboxAll.change(function () {

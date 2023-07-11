@@ -11,7 +11,8 @@ export class BillController {
     if (!user) return res.send(403)
     const arr: any[] = []
     let sum = 0
-    const bill2 = await Bill.find({ username: user.username }).distinct('createdAt')
+    //get date of all bill
+    const bill2 = (await Bill.find({ username: user.username }).distinct('createdAt')).reverse()
     for (let i = 0; i < bill2.length; i++) {
       arr[i] = { date: format(bill2[i], 'dd/MM/yy HH:mm:ss') }
       const bill3: any = await Bill.find({ createdAt: bill2[i] }).lean()
