@@ -3,7 +3,6 @@ import { User } from '~/models/user'
 import { BillProduct } from '~/models/billProduct'
 import { Bill } from '~/models/bill'
 import { Request, Response, response } from 'express'
-import { format } from 'date-fns'
 
 export class BillController {
   async getbill(req: Request, res: Response) {

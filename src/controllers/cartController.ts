@@ -1,6 +1,5 @@
 import { Product } from '~/models/product'
 import { User } from '~/models/user'
-import { BillProduct } from '~/models/billProduct'
 import { Request, Response } from 'express'
 
 interface product_data {
