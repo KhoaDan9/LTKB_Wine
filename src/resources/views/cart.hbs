@@ -2,7 +2,7 @@
   <form class="d-flex" name="cart-products-form" action="/cart/buy" method="post">
   <div class="cart-products col-8" >
     <h3>Giỏ hàng</h3>
-    {{#if products }}
+    {{#if products_show }}
 
     <p>Bạn đang có {{user.cart.length}} sản phẩm trong giỏ hàng</p>
     <div class="form-check form-check-all d-flex">
@@ -17,7 +17,7 @@
     {{else  }}
       <p>Bạn chưa có sản phẩm nào trong giỏ hàng. <a href="/" style="text-decoration: none;">Click để về trang mua</a></p>
     {{/if  }}
-    {{#each products}}
+    {{#each products_show}}
     <div class="cart-product d-flex flex-row">
       <div class="form-check d-flex">
         <input class="input-check" type="checkbox" value="{{this._id }}" name="productsIds[]" id="flexCheckDefault">

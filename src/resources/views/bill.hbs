@@ -1,28 +1,32 @@
 <div class="row justify-content-center">
   <div class="cart-products col-8" name="cart-products-form">
     <h1>Hóa đơn</h1>
-
     <br>
-    {{#each arr}}
+    {{#each showbills}}
     <div class="bill-item">
-    <h2 style="padding: 20px 0;">Thời điểm mua: {{ this.date }}</h2>
-    {{#each this.product}}
-    <div class="cart-product d-flex flex-row">
-      <img src="/uploads/{{ this.product_imgsrc }}" alt="">
-      <div class="cart-product-content">
-        <h5 class="cart-product-name">{{this.product_name}}</h5>
-        <h5 class="cart-product-price">Số lượng: {{this.quantity}}</h5>
-        <h5 class="cart-product-price">Thành tiền: {{this.product_price}} Đ</h5>
+      <h2 style="padding: 20px 0;">Mã hóa đơn: {{ this.bill_id }}</h2>
+      {{#each this.products}}
+      <div class="cart-product d-flex flex-row">
+        <img src="/uploads/{{ this.product_imgsrc }}" alt="">
+        <div class="cart-product-content">
+          <h5 class="cart-product-name">{{this.product_name}}</h5>
+          <h5 class="cart-product-price">Số lượng: {{this.quantity}}
+            <h6 class="cart-product-price">Đơn giá: {{this.product_price}} Đ</h6>
+          </h5>
+          <br>
+          <br>
+          <h5 class="cart-product-price">Thành tiền: {{this.sum}} Đ</h5>
+        </div>
       </div>
-
+      <hr>
+      {{/each }}
+      <h3 class="sum-price">Tổng tiền: {{this.total}} Đ</h3>
+      <br>
+      <h5>Người nhận: {{this.fullname}}</h5>
+      <h5>Địa chỉ: {{this.address}}</h5>
+      <h5>Số điện thoại: {{this.phone}}</h5>
+      <h5>Ghi chú: {{this.note}}</h5>
     </div>
-    <hr>
     {{/each }}
-    <h3 class="sum-price">Tổng thành tiền: {{this.all_price}} Đ</h3>
-    </div>
-
-    {{/each }}
-
   </div>
-
 </div>
