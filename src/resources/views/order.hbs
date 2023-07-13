@@ -1,0 +1,52 @@
+<div style="width:100%" class="row">
+  <form class="d-flex" name="cart-products-form" action="/bill/order" method="post">
+    <div class="cart-products col-8">
+      <h3>Thanh toán</h3>
+      <div class="bill-item">
+        <h5 style="padding: 10px;">Sản phẩm</h5>
+        {{#each products_show}}
+        <div class="cart-product d-flex flex-row">
+          <img src="/uploads/{{ this.imgsrc }}" alt="">
+          <div class="cart-product-content">
+            <h5 class="cart-product-name">{{this.name}}</h5>
+            <input type="text"  name="productsIds[]" value="{{this._id }}" hidden>
+            <input type="text"  name="quantity[]" value="{{this.quantity }}" hidden>
+
+            <h5 class="cart-product-price">{{this.price}} Đ</h5>
+          </div>
+          <div class="d-flex cart-product-edit">
+            <h6>Số lượng: {{this.quantity}}</h6>
+            <h6 class="cart-product-price2">Thành tiền: {{this.summ}} Đ</h6>
+          </div>
+        </div>
+        <hr>
+        {{/each }}
+        <h5 style="padding: 10px;">Tổng tiền: {{ sum }}</h5>
+      </div>
+    </div>
+    <div class="col-4 cart-pay">
+      <h5 style="padding: 10px;">Địa chỉ</h5>
+      <div class='mb-3'>
+        <label class='form-label'>Họ và tên</label>
+        <input name='fullname' type='text' class='form-control' value="{{user.fullname }}" />
+      </div>
+      <div class='mb-3'>
+        <label class='form-label'>Số điện thoại</label>
+        <input name='phone' type='text' class='form-control' value="{{user.phone }}" />
+      </div>
+      <div class='mb-3'>
+        <label class='form-label'>Địa chỉ nhận hàng</label>
+        <input name='address' type='text' class='form-control' value="{{user.address }}" />
+      </div>
+      <div class='mb-3'>
+        <label class='form-label'>Ghi chú</label>
+        <textarea name="note" class='form-control' rows="5"></textarea>
+      </div>
+    <button class="btn-buy btn btn-primary" type="submit">Đặt hàng</button>
+
+    </div>
+
+  </form>
+
+
+</div>

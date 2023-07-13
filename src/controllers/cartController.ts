@@ -1,6 +1,5 @@
 import { Product } from '~/models/product'
 import { User } from '~/models/user'
-import { Bill } from '~/models/bill'
 import { Request, Response } from 'express'
 
 interface product_data {
@@ -15,7 +14,7 @@ export class CartController {
       const user = await User.findOne({ token }).lean()
       if (!user) return res.send(403)
       const cart: product_data[] = user.cart
-      const products: object[] = []
+      const products_show: object[] = []
       let sum = 0
       for (let i = 0; i < cart.length; i++) {
         const product = await Product.findById(cart[i].id).lean()
@@ -25,11 +24,11 @@ export class CartController {
           const prod: any = product
           prod.quantity = quantity
           prod.summ = summ
-          products.push(prod)
+          products_show.push(prod)
           sum += product.price * quantity
         }
       }
-      res.render('cart', { products, user, sum })
+      res.render('cart', { products_show, user, sum })
     } catch (err) {
       res.send(err)
     }
@@ -60,34 +59,34 @@ export class CartController {
       const token = req.cookies['x-access-token']
       const user = await User.findOne({ token }).lean()
       if (!user) return res.send(403)
-      const products = user.cart
+      const cart = user.cart
       const actionItem = req.body.productsIds
 
       switch (req.body.action) {
-        case 'buy':
-          actionItem.forEach((id: any) => {
-            const find = products.find((product) => product.id === id)
-            if (find) {
-              for (let i = 0; i < products.length; i++) {
-                if (products[i].id == find.id) {
-                  products.splice(i, 1)
-                }
-              }
-              Bill.create({
-                username: user.username,
-                product_id: find.id,
-                quantity: find.quantity
-              })
+        case 'buy': {
+          const products_show: any[] = []
+          let sum = 0
+          for (let i = 0; i < actionItem.length; i++) {
+            const product = await Product.findById(actionItem[i]).lean()
+            if (product) {
+              const find = cart.find((product) => product.id === actionItem[i])
+              const prod: any = product
+              prod.quantity = find.quantity
+              prod.summ = find.quantity * product.price
+              sum += prod.summ
+              products_show.push(prod)
             }
-          })
-          break
+          }
+          return res.render('order', { user, products_show, sum })
+        }
+
         case 'delete':
           actionItem.forEach((id: any) => {
-            const find = products.find((product) => product.id === id)
+            const find = cart.find((product) => product.id === id)
             if (find) {
-              for (let i = 0; i < products.length; i++) {
-                if (products[i].id == find.id) {
-                  products.splice(i, 1)
+              for (let i = 0; i < cart.length; i++) {
+                if (cart[i].id == find.id) {
+                  cart.splice(i, 1)
                 }
               }
             }
@@ -96,7 +95,7 @@ export class CartController {
         default:
           res.send('unknown action: ' + req.body.action)
       }
-      await User.updateOne({ token: token }, { $set: { cart: products } })
+      await User.updateOne({ token: token }, { $set: { cart: cart } })
       res.redirect('back')
     } catch (err) {
       console.log('err: ' + err)
@@ -127,14 +126,12 @@ export class CartController {
       const product_id = req.body.productID
       if (!user) return res.send(403)
       const cart: product_data[] = user.cart
-      for(let i = 0; i < cart.length; i++) {
-        if (cart[i].id === product_id)
-          cart[i].quantity = Number(cart[i].quantity) + 1
+      for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id === product_id) cart[i].quantity = Number(cart[i].quantity) + 1
       }
       await User.updateOne({ token: token }, { $set: { cart: cart } })
       //khong biet lam the nao de no khong load lai trang
       res.redirect('back')
-      
     } catch (err) {
       res.send(err)
     }
@@ -147,17 +144,14 @@ export class CartController {
       const product_id = req.body.productID
       if (!user) return res.send(403)
       const cart: product_data[] = user.cart
-      for(let i = 0; i < cart.length; i++) {
-        if (cart[i].id === product_id)
-          cart[i].quantity = Number(cart[i].quantity) - 1
+      for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id === product_id) cart[i].quantity = Number(cart[i].quantity) - 1
       }
       await User.updateOne({ token: token }, { $set: { cart: cart } })
       //khong biet lam the nao de no khong load lai trang
       res.redirect('back')
-      
     } catch (err) {
       res.send(err)
     }
   }
-
 }

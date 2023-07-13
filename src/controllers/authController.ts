@@ -76,7 +76,7 @@ export class AuthController {
   }
 
   islogin(req: Request, res: Response) {
-    res.render('login', { hideNavbar: true, hideSearchBar: true, hideFooter: true})
+    res.render('login', { hideNavbar: true, hideSearchBar: true, hideFooter: true })
   }
 
   isregister(req: Request, res: Response) {
