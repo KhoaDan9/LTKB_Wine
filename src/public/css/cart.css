@@ -1,13 +1,15 @@
 .btn-buy {
   margin-top: 20px;
-  background-color: #7B181A;
+  background-color: #7b181a;
 }
 
-.btn-buy:disabled,.btn-del:disabled {
-  background-color: #7B181A;
+.btn-buy:disabled,
+.btn-del:disabled {
+  background-color: #7b181a;
 }
 
-.btn-buy:hover, .btn-del:hover {
+.btn-buy:hover,
+.btn-del:hover {
   background-color: #c80c0f;
 }
 
@@ -15,7 +17,7 @@
   width: 100%;
   text-decoration: none;
   text-align: center;
-  color: #7B181A;
+  color: #7b181a;
 }
 
 .btn-continue-buy:hover {
@@ -24,9 +26,9 @@
 
 .btn-del {
   margin-left: 20px;
-  background: #7B181A;
+  background: #7b181a;
   color: #fff;
-  border: 1px solid #7B181A
+  border: 1px solid #7b181a;
 }
 
 /* .btn-del:disabled {

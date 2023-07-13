@@ -64,31 +64,12 @@ export class CartController {
       const actionItem = req.body.productsIds
 
       switch (req.body.action) {
-        case 'buy':
-          // actionItem.forEach((id: any) => {
-          //   const find = cart.find((product) => product.id === id)
-          //   if (find) {
-          //     for (let i = 0; i < cart.length; i++) {
-          //       if (cart[i].id == find.id) {
-          //         cart.splice(i, 1)
-          //       }
-          //     }
-          //     BillProduct.create({
-          //       username: user.username,
-          //       product_id: find.id,
-          //       quantity: find.quantity
-          //     })
-          //   }
-          // })
-          // break
-          {
-            
+        case 'buy': {
           const products_show: any[] = []
           let sum = 0
-          for(let i = 0; i < actionItem.length; i++) {
+          for (let i = 0; i < actionItem.length; i++) {
             const product = await Product.findById(actionItem[i]).lean()
-            if(product)
-            {
+            if (product) {
               const find = cart.find((product) => product.id === actionItem[i])
               const prod: any = product
               prod.quantity = find.quantity
@@ -97,10 +78,9 @@ export class CartController {
               products_show.push(prod)
             }
           }
-          return res.render('order', { user, products_show, sum})
+          return res.render('order', { user, products_show, sum })
         }
 
-          // return res.render('orders', {user, products_show})
         case 'delete':
           actionItem.forEach((id: any) => {
             const find = cart.find((product) => product.id === id)
@@ -147,14 +127,12 @@ export class CartController {
       const product_id = req.body.productID
       if (!user) return res.send(403)
       const cart: product_data[] = user.cart
-      for(let i = 0; i < cart.length; i++) {
-        if (cart[i].id === product_id)
-          cart[i].quantity = Number(cart[i].quantity) + 1
+      for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id === product_id) cart[i].quantity = Number(cart[i].quantity) + 1
       }
       await User.updateOne({ token: token }, { $set: { cart: cart } })
       //khong biet lam the nao de no khong load lai trang
       res.redirect('back')
-      
     } catch (err) {
       res.send(err)
     }
@@ -167,18 +145,14 @@ export class CartController {
       const product_id = req.body.productID
       if (!user) return res.send(403)
       const cart: product_data[] = user.cart
-      for(let i = 0; i < cart.length; i++) {
-        if (cart[i].id === product_id)
-          cart[i].quantity = Number(cart[i].quantity) - 1
+      for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id === product_id) cart[i].quantity = Number(cart[i].quantity) - 1
       }
       await User.updateOne({ token: token }, { $set: { cart: cart } })
       //khong biet lam the nao de no khong load lai trang
       res.redirect('back')
-      
     } catch (err) {
       res.send(err)
     }
   }
-
-
 }
