@@ -12,7 +12,7 @@ export class CartController {
     try {
       const token = req.cookies['x-access-token']
       const user = await User.findOne({ token }).lean()
-      if (!user) return res.send(403)
+      if (!user) return res.render('loginrequire') 
       const cart: product_data[] = user.cart
       const products_show: object[] = []
       let sum = 0

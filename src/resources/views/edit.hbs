@@ -3,23 +3,21 @@
 <body class="body-create">
   <div class="heading">
     <h3>Cập nhật sản phẩm</h3>
-    <form method="POST" action="/admin/{{ product._id}}?_method=PUT" enctype="multipart/form-data">
+    <form method="POST" action="/admin/edit" enctype="multipart/form-data">
+      <input type="text" name="id" value="{{ product._id }}" hidden>
       <div class="form-group">
-        <label class="title-product" for="name">Tên sản phẩm</label>
+        <label class="title-product" for="name">Tên sản phẩm:</label>
         <input type="text" class="form-control" value="{{ product.name }}" name="name" id="name">
       </div>
       <div class="form-group">
-        <label class="title-product" for="origin">Nguồn gốc</label>
+        <label class="title-product" for="origin">Nguồn gốc:</label>
         <input type="text" class="form-control" value="{{ product.origin }}" name="origin" id="origin">
       </div>
       <div class="form-group">
-        <label class="title-product" for="quantity">Số lượng</label>
+        <label class="title-product" for="quantity">Số lượng:</label>
         <input type="text" class="form-control" value="{{ product.quantity }}" name="quantity" id="quantity">
       </div>
-      {{!-- <div class="form-group">
-        <label class="title-product" for="type">Thể Loại</label>
-        <input type="text" class="form-control" value="{{ product.type }}" name="type" id="type">
-      </div> --}}
+      <label class="title-product" for="quantity">Thể loại:</label>
       <select style="margin-top: 25px; width: 30%;border-radius: 5px;" name="type" id="type">
         <option value=ruouvang>Rượu vang</option>
         <option value=ruoumanh>Rượu mạnh</option>
@@ -28,25 +26,57 @@
         <option value=phukien>Phụ kiện rượu</option>
       </select>
       <div class="form-group">
-        <label class="title-product" for="description">Mô tả</label>
+        <label class="title-product" for="description">Mô tả:</label>
         <textarea class="form-control" name="description" id="description">{{ product.description }}</textarea>
       </div>
       <div class="form-group">
-        <label class="title-product" for="price">Đơn giá</label>
+        <label class="title-product" for="price">Giá nhập:</label>
+        <input type="text" class="form-control" value="{{ product.costprice }}" name="costprice" id="costprice">
+      </div>
+      <div class="form-group">
+        <label class="title-product" for="price">Giá bán:</label>
         <input type="text" class="form-control" value="{{ product.price }}" name="price" id="price">
       </div>
       <div class="form-group">
-        <label class="title-product" for="imgsrc">Hình ảnh</label>
+        <label class="title-product" for="imgsrc">Hình ảnh:</label>
         <input type="file" name="imgUpload">
-        {{!-- <input type="text" class="form-control" value="{{ product.imgsrc }}" name="imgsrc" id="imgsrc"> --}}
+      </div>
+      <!-- Button trigger modal -->
+      <div style="padding-top: 15px;">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Lưu
+        </button>
+        <button type="button" class="btn btn-primary exit-btn"><a href="/admin">Thoát</a></button>
+        
       </div>
 
 
-      <button onclick="alert('Bạn có chắc chắn muốn lưu')" style="margin-top: 10px;" type="submit"
-        class="btn btn-primary">Lưu</button>
-      <a class="btn-back" href="/admin">Thoát</a>
-    </form>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Bạn có chắc chắn muốn sửa sản phẩm không?
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Lưu</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </form>
 
   </div>
 </body>
+
+<script>
+  $(document).ready(function () {
+
+  });
+</script>
