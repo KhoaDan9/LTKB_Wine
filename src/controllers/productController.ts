@@ -18,7 +18,7 @@ export class ProductController {
     try {
       const token = req.cookies['x-access-token']
       const user = await User.findOne({ token })
-      if (!user) return res.send(403)
+      if (!user) return res.render('loginrequire') 
       const newProduct = {
         id: req.body.product_id,
         quantity: req.body.quantity

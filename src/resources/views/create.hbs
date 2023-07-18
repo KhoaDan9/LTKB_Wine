@@ -33,13 +33,16 @@
         <textarea type="text" class="form-control" name="description" id="description"></textarea>
       </div>
       <div class="form-group">
-        <label class="title-product" for="price">Đơn giá</label>
+        <label class="title-product" for="description">Giá nhập</label>
+        <input type="text" class="form-control" name="costprice" id="costprice">
+      </div>
+      <div class="form-group">
+        <label class="title-product" for="price">Giá bán</label>
         <input type="text" class="form-control" name="price" id="price">
       </div>
       <div class="form-group">
         <label class="title-product" for="imgsrc">Hình ảnh</label>
         <input type="file" name="imgUpload">
-        {{!-- <input type="text" class="form-control" value="{{ product.imgsrc }}" name="imgsrc" id="imgsrc"> --}}
       </div>
 
       <button style="margin-top:10px;" type="submit" class="btn btn-primary">Lưu</button>

@@ -1,31 +1,15 @@
-<link rel="stylesheet" href="/css/admin.css">
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-
-<body>
-
   <header>
     <div class="menu">
       <div class="heading-menu">
         <img class="img-logo" src="/img/logo.png" alt="">
       </div>
       <ul class="list-menu">
-        <li class="list-menu-title"><img class="img-icon-menu" src="/img/home.svg" alt="">Home</li>
-        <li class="list-menu-title"><img class="img-icon-menu" src="/img/product.svg" alt="">Quản Lý Sản Phẩm</li>
-        <li class="list-menu-title"><img class="img-icon-menu" src="/img/oder.svg" alt="">Quản lý đơn hàng</li>
-        <li class="list-menu-title"><img class="img-icon-menu" src="/img/bill.svg" alt="">Quản lý hóa đơn</li>
-        <li class="list-menu-title"><img class="img-icon-menu" src="/img/statistical.svg" alt="">Thống kê doanh thu</li>
+        <li class="list-menu-title"><a href=""><img class="img-icon-menu" src="/img/product.svg" alt="">Quản lý sản phẩm</a></li>
+        <li class="list-menu-title"><a href=""><img class="img-icon-menu" src="/img/oder.svg" alt="">Quản lý đơn hàng</a></li>
+        {{!-- <li class="list-menu-title"><a href=""><img class="img-icon-menu" src="/img/bill.svg" alt="">Quản lý hóa đơn</a></li> --}}
+        <li class="list-menu-title"><a href=""><img class="img-icon-menu" src="/img/statistical.svg" alt="">Thống kê doanh thu</a></li>
       </ul>
     </div>
-    <nav class="header">
-
-    </nav>
   </header>
   <div class="container">
     <div class="row">
@@ -44,67 +28,53 @@
 
 
 
-    <table class="table">
+    <table id="my-table" class="table table-striped">
       <thead>
         <tr>
-          <th style="background-color: #B1B1B1; width:10%;padding:20px;" class="header-title" scope="col">Tên Sản
-            Phẩm</th>
-          <th style="background-color: #B1B1B1; width:9%;padding:20px" class="header-title" scope="col">Nguồn gốc</th>
-          <th style="background-color: #B1B1B1; width:5%;padding:20px" class="header-title" scope="col">Số lượng</th>
-          <th style="background-color: #B1B1B1; width:5%;padding:20px" class="header-title" scope="col">Thể Loại</th>
-          <th style="background-color: #B1B1B1; width:17%;padding:25px" class="header-title" scope="col">Mô tả</th>
-          <th style="background-color: #B1B1B1;padding:25px" class="header-title" scope="col">Đơn giá</th>
-          <th style="background-color: #B1B1B1;width:10%;padding:25px" class="header-title-img" scope="col">Hình ảnh
-          </th>
-
-          <th style="background-color: #B1B1B1; width:23%;" class="header-title" style="width: 20%;"></th>
-
+          <th class="header-title" scope="col">STT</th>
+          <th class="header-title" scope="col">Tên sản phẩm</th>
+          <th class="header-title" scope="col">Số lượng</th>
+          <th class="header-title" scope="col">Thể loại</th>
+          <th class="header-title" scope="col">Giá nhập</th>
+          <th class="header-title" scope="col">Giá bán</th>
+          <th class="header-title" scope="col">Hình ảnh</th>
+          <th class="header-title" scope="col">Hành động</th>
       </thead>
-      {{#each product }}
+      <tbody class="table-group-divider">
 
-      <tbody id="">
+      {{#each products }}
+
         <tr>
-          <td style="background-color:F1F8FF" class="text-content">
+          <td class="table-content"></td>
+          <td class="table-content">
             <p class="text">{{this.name}}</p>
           </td>
-          <td style="background-color:F1F8FF" class="text-content">
-
-            <p class="text">{{ this.origin }}</p>
-          </td>
-          <td style="background-color:F1F8FF" class="text-content">
+          <td class="table-content">
             <p class="text">{{this.quantity}}</p>
           </td>
-          <td style="background-color:F1F8FF" class="text-content">
+          <td class="table-content">
             <p class="text">{{this.type}}</p>
           </td>
-          <td style="background-color:F1F8FF" class="text-content">
-            <p class="text">{{this.description}}</p>
+            <td class="table-content">
+            <p class="text">{{this.costprice}}</p>
           </td>
-          <td style="background-color:F1F8FF" class="text-content">
+          <td class="table-content">
             <p class="text">{{this.price}}</p>
           </td>
-          <td style="background-color:F1F8FF" class="text-content">
+          <td class="table-content">
             <div class="dad-box">
               <img class="img-wine" src="uploads/{{this.imgsrc}}" alt="">
             </div>
           </td>
-
-          <td style="background-color:F1F8FF" class="text-content">
-            <div class="edit">
-              <a href="/admin/{{ this._id }}/edit" class="btn-edit"><img class="img-edit" src="/img/edit.jpg"
-                  alt="">Sửa</a>
-            </div>
-
-            <div class="delete">
-              <a class="btn-delete" data-bs-toggle="modal" data-id="{{ this._id }}"
-                data-bs-target="#delete-course-modal"><img class="img-delete" src="/img/bin.jpg" alt="">Xóa</a>
-            </div>
+          <td class="table-content">
+              <button class="btn btn-primary edit-admin-btn" value="{{this._id }}" ><i class="bi bi-pencil">  Sửa</i></button>
+              <button class="btn btn-danger delete-admin-btn" value="{{this._id }}" ><i class="bi bi-trash">  Xóa</i></button>
+              
           </td>
-
-
         </tr>
-      </tbody>
       {{/each }}
+      </tbody>
+
     </table>
   </div>
   <!-- Modal -->
@@ -126,27 +96,23 @@
     </div>
   </div>
 
-  <form name="delete-prd-form" method="POST"></form>
+  <form name="admin-form"></form>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var productId;
-      var deleteForm = document.forms['delete-prd-form'];
-      var btnDeleteProduct = document.getElementById('btn-delete-prd')
-      $('#delete-course-modal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)
-        productId = button.data('id')
-        console.log(btnDeleteProduct)
-      })
+    $(document).ready(function(){
+    var editBtn = $('.edit-admin-btn')
+    var deleteBtn = $('.delete-admin-btn')
+    var form = $('[name="admin-form"]')
+  
+    editBtn.click(function(){
+      form.attr('action','/admin/edit/'+ $(this).val())
+      form.attr('method','get') 
+      form.submit()
+    })
 
-      var btnDeleteProduct = document.getElementById('btn-delete-prd')
-      btnDeleteProduct.onclick = function () {
-        deleteForm.action = '/admin/' + productId + '?_method=Delete';
-        deleteForm.submit();
-      }
+    $('#my-table tbody tr').each(function(index) {
+      $(this).find('td:first').text(index + 1);
     });
+});
+  
 
   </script>
-</body>
-
-
-</html>

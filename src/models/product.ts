@@ -5,7 +5,8 @@ const productSchema = new Schema(
     name: { type: String, required: true },
     origin: { type: String },
     price: { type: Number, required: true },
-    type: { type: String },
+    costprice: { type: Number, required: true },
+    type: { type: String, required: true },
     description: { type: String },
     quantity: { type: Number },
     imgsrc: { type: String, required: true }
