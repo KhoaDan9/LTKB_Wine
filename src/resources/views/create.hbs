@@ -5,21 +5,18 @@
     <h3>Thêm sản phẩm</h3>
     <form method="POST" action="/admin/create" enctype="multipart/form-data">
       <div class="form-group">
-        <label class="title-product" for="name">Tên sản phẩm</label>
+        <label class="title-product" for="name">Tên sản phẩm:</label>
         <input type="text" class="form-control" name="name" id="name">
       </div>
       <div class="form-group">
-        <label class="title-product" for="origin">Nguồn gốc</label>
+        <label class="title-product" for="origin">Nguồn gốc:</label>
         <input type="text" class="form-control" name="origin" id="origin">
       </div>
       <div class="form-group">
-        <label class="title-product" for="quantity">Số lượng</label>
+        <label class="title-product" for="quantity">Số lượng:</label>
         <input type="text" class="form-control" name="quantity" id="quantity">
       </div>
-      {{!-- <div class="form-group">
-        <label class="title-product" for="type">Thể Loại</label>
-        <input type="text" class="form-control" name="type" id="type">
-      </div> --}}
+      <label class="title-product" for="quantity">Thể loại:</label>
       <select style="margin-top: 25px; width: 30%;border-radius: 5px;" name="type" id="type">
         <option value=ruouvang>Rượu vang</option>
         <option value=ruoumanh>Rượu mạnh</option>
@@ -29,26 +26,25 @@
 
       </select>
       <div class="form-group">
-        <label class="title-product" for="description">Mô tả</label>
+        <label class="title-product" for="description">Mô tả:</label>
         <textarea type="text" class="form-control" name="description" id="description"></textarea>
       </div>
       <div class="form-group">
-        <label class="title-product" for="description">Giá nhập</label>
+        <label class="title-product" for="costprice">Giá nhập:</label>
         <input type="text" class="form-control" name="costprice" id="costprice">
       </div>
       <div class="form-group">
-        <label class="title-product" for="price">Giá bán</label>
+        <label class="title-product" for="price">Giá bán:</label>
         <input type="text" class="form-control" name="price" id="price">
       </div>
       <div class="form-group">
-        <label class="title-product" for="imgsrc">Hình ảnh</label>
+        <label class="title-product" for="imgsrc">Hình ảnh:</label>
         <input type="file" name="imgUpload">
       </div>
-
-      <button style="margin-top:10px;" type="submit" class="btn btn-primary">Lưu</button>
-      <a class="btn-back" href="/admin">Thoát</a>
+        <div style="padding-top: 15px;">
+        <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+        <button type="button" class="btn btn-primary exit-btn"><a href="/admin">Thoát</a></button>        
+      </div>
     </form>
-    </form>
-
   </div>
 </body>
