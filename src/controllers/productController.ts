@@ -17,12 +17,14 @@ export class ProductController {
   async addToCart(req: Request, res: Response) {
     try {
       const token = req.cookies['x-access-token']
-      const user = await User.findOne({ token })
-      if (!user) return res.render('loginrequire') 
+      const user = await User.findOne({ token }).lean()
+      if (!user) return res.render('loginrequire')
       const newProduct = {
         id: req.body.product_id,
         quantity: req.body.quantity
       }
+      const product: any = await Product.findById(req.body.product_id).lean()
+      if (product.quantity < req.body.quantity) return res.render('product', { user, product, isOutofStock: true })
       const cart: any[] = user.cart
       let isAdd = false
       if (cart.length != 0) {

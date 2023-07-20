@@ -57,11 +57,14 @@ export class BillController {
       for (let j = 0; j < cart.length; j++) {
         if (cart[j].id == productsIds[i]) cart.splice(j, 1)
       }
+      const product: any = await Product.findById(productsIds[i])
+      product.quantity = product.quantity - quantity[i]
       BillProduct.create({
         product_id: productsIds[i],
         quantity: quantity[i],
         bill_id: billID
       })
+      await Product.findOneAndUpdate({ _id: productsIds[i] }, { quantity: product.quantity })
     }
     await User.updateOne({ token: token }, { $set: { cart: cart } })
 

@@ -17,6 +17,9 @@
     {{else  }}
       <p>Bạn chưa có sản phẩm nào trong giỏ hàng. <a href="/" style="text-decoration: none;">Click để về trang mua</a></p>
     {{/if  }}
+    {{#if isOutofStock }}
+      <p class="incorrect">Sản phẩm trong kho hiện không đủ!</p>
+    {{/if  }}
     {{#each products_show}}
     <div class="cart-product d-flex flex-row">
       <div class="form-check d-flex">
@@ -71,16 +74,10 @@
     var delBtn = $('.cart-btn-delete')
     var subForm =  $("[name='sub-form']");  
     var formAll = $("[name='cart-products-form']");
-    var submitAble = false;
     var checkbox2 = $('.input-check2')
     var subtractBtn = $('.subtract-cart')
     var addBtn = $('.add-cart')
-
-    formAll.on('submit', function (e) {
-      // e.preventDefault();
-
-    })
-
+    var notSubmit = $('.incorrect')
 
     addBtn.click(function(e) {
       e.preventDefault();
@@ -89,7 +86,6 @@
       var productValue = $('.'+$(this).val())
       productValue.text( Number(productValue.text()) + 1)
       $('input[name="productID"]').val($(this).val())
-      
       subForm.submit();
     })
 
@@ -120,6 +116,7 @@
       var isCheckAll = $(this).prop('checked');
       productsCheck.prop('checked', isCheckAll);
       checkSelectedProduct();
+      notSubmitFunc();
       bill()
     })
 
@@ -127,20 +124,24 @@
       var isCheckAll = productsCheck.length === $('input[name="productsIds[]"]:checked').length;
       checkboxAll.prop('checked', isCheckAll);
       checkSelectedProduct();
+      notSubmitFunc();
       bill()
     })
+
+    function notSubmitFunc() {
+      if(notSubmit.text() != "")
+       buyBtn.attr('disabled', true)
+    }
 
     function checkSelectedProduct() {
       var checkCount = $('input[name="productsIds[]"]:checked').length;
       if (checkCount > 0) {
         buyBtn.attr('disabled', false)
         delAllBtn.attr('disabled', false)
-        submitAble = true
       }
       else {
         buyBtn.attr('disabled', true)
         delAllBtn.attr('disabled', true)
-        submitAble = false
       }
     }
 

@@ -16,7 +16,9 @@
         <input type="text" hidden value="{{product._id  }}" name="product_id">
         <label style="margin-top: 26px;" for="">Số lượng: <input type="number" name="quantity" min="1" value="1"
             class="quantity"></label>
-
+        {{#if isOutofStock }}
+          <p class="incorrect">Sản phẩm hiện còn {{product.quantity}} sản phẩm. Vui lòng đặt thêm vào lúc khác.</p>
+        {{/if  }}
         <button style="" class="btn btn-danger btn-add-product" type="submit">Thêm vào giỏ
           hàng</button>
       </div>
