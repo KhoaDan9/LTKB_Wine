@@ -41,6 +41,7 @@ export class HomeController {
 
     // res.send({user, products})
   }
+  
   async productsType(req: Request, res: Response) {
     const token = req.cookies['x-access-token']
     const type = req.params.type

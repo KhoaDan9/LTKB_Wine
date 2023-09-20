@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { AdminController } from '~/controllers/adminController'
 import multer from 'multer'
 import path from 'path'
+import { storeValidation } from '~/middlewares/validate'
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -20,7 +21,7 @@ router.get('/', AdminController1.home)
 router.get('/edit/:id', AdminController1.editView)
 router.post('/edit', upload.single('imgUpload'), AdminController1.edit)
 router.get('/create', AdminController1.create)
-router.post('/create', upload.single('imgUpload'), AdminController1.store)
+router.post('/create', storeValidation(), upload.single('imgUpload'), AdminController1.store)
 router.get('/delete/:id', AdminController1.delete)
 router.get('/bill', AdminController1.bill)
 export default router

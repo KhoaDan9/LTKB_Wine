@@ -5,6 +5,7 @@ import { Bill } from '../models/bill'
 import { BillProduct } from '~/models/billProduct'
 import * as fs from 'fs'
 import path from 'path'
+import { validationResult } from 'express-validator'
 
 export class AdminController {
   async home(req: Request, res: Response) {
@@ -30,9 +31,20 @@ export class AdminController {
   }
 
   async store(req: Request, res: Response) {
-    const { name, origin, quantity, type, description, costprice, price } = req.body
-    await Product.create({ name, origin, quantity, type, description, costprice, price, imgsrc: req.file?.filename })
-    res.redirect('back')
+    try {
+      const { name, origin, quantity, type, description, costprice, price } = req.body
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        res.send( { name, origin, quantity, type, description, costprice, price, errors } )
+        res.render('create', { errors: errors.array()[0] })
+      } else {
+        await Product.create({ name, origin, quantity, type, description, costprice, price, imgsrc: req.file?.filename })
+        res.redirect('back')
+      }
+    }
+    catch (err) {
+      res.send('err' + err)
+    }
   }
 
   async editView(req: Request, res: Response) {
@@ -83,4 +95,5 @@ export class AdminController {
     //res.send(showbills)
     res.render('bill', { showbills })
   }
+
 }
