@@ -70,12 +70,16 @@ export const storeValidation = () => {
       .notEmpty()
       .withMessage('Yêu cầu nhập tên sản phẩm')
       .matches(vietnameseLettersRegex)
-      .withMessage('Yêu cầu tên sản phẩm không nhập kí tự đặc biệt'),
+      .withMessage('Yêu cầu tên sản phẩm không nhập kí tự đặc biệt')
+      .isLength({ min: 3, max: 100 })
+      .withMessage('Tên sản phẩm phải có độ dài từ 3 đến 100 kí tự'),
     body('origin')
       .notEmpty()
       .withMessage('Yêu cầu nhập xuất xứ')
       .matches(vietnameseLettersRegex)
-      .withMessage('Yêu cầu xuất xứ không nhập kí tự đặc biệt và chữ số'),
+      .withMessage('Yêu cầu xuất xứ không nhập kí tự đặc biệt và chữ số')
+      .isLength({ min: 1, max: 50 })
+      .withMessage('Xuất xứ sản phẩm phải có độ dài từ 1 đến 50 kí tự'),
     body('quantity')
       .notEmpty()
       .withMessage('Yêu cầu nhập số lượng')
@@ -104,6 +108,8 @@ export const storeValidation = () => {
       .isFloat({ max: 1000000000 })
       .withMessage('Giá bán không được lớn hơn 1000000000'),
     body('description').notEmpty().withMessage('Yêu cầu nhập mô tả sản phẩm')
+    .isLength({ min: 10, max: 255 })
+      .withMessage('Mô tả sản phẩm phải có độ dài từ 10 - 255 kí tự')
   ]
 }
 
