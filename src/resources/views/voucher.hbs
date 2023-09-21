@@ -22,7 +22,7 @@
     </form>
     </div>
     <button class="add-product">
-      <a href="/admin/create" class="text-add-product">Thêm sản phẩm</a>
+      <a href="/admin/create" class="text-add-product">Thêm voucher</a>
     </button>
 
 
@@ -32,13 +32,9 @@
       <thead>
         <tr>
           <th class="header-title" scope="col">STT</th>
-          <th class="header-title" scope="col">Tên sản phẩm</th>
+          <th class="header-title" scope="col">Voucher</th>
           <th class="header-title" scope="col">Số lượng</th>
-          <th class="header-title" scope="col">Thể loại</th>
-          <th class="header-title" scope="col">Giá nhập</th>
-          <th class="header-title" scope="col">Giá bán</th>
-          <th class="header-title" scope="col">Hình ảnh</th>
-          <th class="header-title" scope="col">Hành động</th>
+          <th class="header-title" scope="col">Mức giảm giá</th>
       </thead>
       <tbody class="table-group-divider">
 
@@ -78,48 +74,3 @@
   </div>
 </div>
 
-  <!-- Modal -->
-  <div id="delete-course-modal" class="modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Xóa sản phẩm?</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Bạn có chắc muốn xóa sản phẩm này?</p>
-        </div>
-        <div class="modal-footer">
-          <button id="btn-delete-prd" type="button" class="btn btn-danger" data-bs-dismiss="modal">Xóa bỏ</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <form name="admin-form"></form>
-  <script>
-    $(document).ready(function(){
-    var editBtn = $('.edit-admin-btn')
-    var deleteBtn = $('.delete-admin-btn')
-    var form = $('[name="admin-form"]')
-  
-    editBtn.click(function(){
-      form.attr('action','/admin/edit/'+ $(this).val())
-      form.attr('method','get') 
-      form.submit()
-    })
-
-    deleteBtn.click(function(){
-      form.attr('action','/admin/delete/'+ $(this).val())
-      form.attr('method','get')
-      form.submit()
-    })
-
-    $('#my-table tbody tr').each(function(index) {
-      $(this).find('td:first').text(index + 1);
-    });
-});
-  
-
-  </script>

@@ -3,8 +3,11 @@ import { User } from '../models/user'
 import { Product } from '~/models/product'
 import { Bill } from '../models/bill'
 import { BillProduct } from '~/models/billProduct'
+import { Voucher } from '~/models/voucher'
+
 import * as fs from 'fs'
 import path from 'path'
+import { validationResult } from 'express-validator'
 
 export class AdminController {
   async home(req: Request, res: Response) {
@@ -30,9 +33,43 @@ export class AdminController {
   }
 
   async store(req: Request, res: Response) {
-    const { name, origin, quantity, type, description, costprice, price } = req.body
-    await Product.create({ name, origin, quantity, type, description, costprice, price, imgsrc: req.file?.filename })
-    res.redirect('back')
+    try {
+      const { name, origin, quantity, type, description, costprice, price } = req.body
+      const errorImg: any = []
+      if (!req.file?.filename) errorImg.push('Yêu cầu nhập hình ảnh')
+      else {
+        const allowedExtensions = ['.png'] // Các đuôi file được cho phép
+        const fileExtension = path.extname(req.file.originalname).toLowerCase()
+        if (!allowedExtensions.includes(fileExtension)) {
+          errorImg.push('Định dạng tệp tin không hợp lệ. Chỉ chấp nhận đuôi ".png"')
+        }
+        // Kiểm tra kích thước ảnh (kích thước tính bằng byte)
+        if (req.file.size > 5 * 1024 * 1024) {
+          errorImg.push('Kích thước ảnh không được vượt quá 5MB')
+        }
+      }
+      if (errorImg.length != 0) res.render('create', { errorsImg: errorImg[0] })
+      else {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+          res.render('create', { errors: errors.array()[0] })
+        } else {
+          await Product.create({
+            name,
+            origin,
+            quantity,
+            type,
+            description,
+            costprice,
+            price,
+            imgsrc: req.file?.filename
+          })
+          res.redirect('back')
+        }
+      }
+    } catch (err) {
+      res.send('err' + err)
+    }
   }
 
   async editView(req: Request, res: Response) {
@@ -81,6 +118,10 @@ export class AdminController {
       sum = 0
     }
     //res.send(showbills)
-    res.render('bill', { showbills })
+    res.render('bill', { showbills, hideSearchBar: true, hideFooter: true, hideNavbar: true })
+  }
+
+  async voucher(req: Request, res: Response) {
+    res.render('bill', { hideSearchBar: true, hideFooter: true, hideNavbar: true })
   }
 }

@@ -12,8 +12,6 @@ body {
 .menu {
   background-color: #fff;
   width: 16%;
-  height: 100%;
-  position: absolute;
   box-shadow: 0.1px 0.1px 0 0;
 }
 
@@ -77,15 +75,9 @@ body {
   margin-right: 10px;
 }
 
-.header {
-  position: absolute;
-  background-color: #0067e9;
-  height: 50px;
-  width: 84%;
-  right: 0;
-}
-
-.container {
+.admin-content {
+  padding: 5px 20px;
+  flex-grow: 1;
 }
 
 .search {
@@ -129,7 +121,6 @@ body {
   width: 20%;
   height: 50px;
   background-color: #095fff;
-  margin: 120px 0 0 1058px;
   border-radius: 10px;
   border: 1px solid #095fff;
 }
@@ -150,8 +141,6 @@ body {
 }
 
 .table {
-  width: 90%;
-  margin-left: 150px;
   margin-top: 50px;
 }
 

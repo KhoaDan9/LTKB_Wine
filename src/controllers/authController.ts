@@ -11,7 +11,7 @@ const tokenKey = process.env.TOKEN_KEY as string
 export class AuthController {
   async register(req: Request, res: Response) {
     try {
-      const { username, password1, password2, fullname, address, phone } = req.body
+      const { username, password1, password2, fullname, email, address, phone } = req.body
 
       const errors = validationResult(req)
       if (!errors.isEmpty())
@@ -27,6 +27,7 @@ export class AuthController {
             username,
             password: encryptedPassword,
             fullname,
+            email,
             address,
             phone
           })
