@@ -7,12 +7,15 @@
       {{#if errors }}
         <p class="incorrect">{{errors.msg}}</p>
       {{/if  }}
+       {{#if errorsImg }}
+        <p class="incorrect">{{errorsImg}}</p>
+      {{/if  }}
       <div class="form-group">
         <label class="title-product" for="name">Tên sản phẩm:</label>
         <input type="text" class="form-control" name="name" id="name">
       </div>
       <div class="form-group">
-        <label class="title-product" for="origin">Nguồn gốc:</label>
+        <label class="title-product" for="origin">Xuất xứ:</label>
         <input type="text" class="form-control" name="origin" id="origin">
       </div>
       <div class="form-group">

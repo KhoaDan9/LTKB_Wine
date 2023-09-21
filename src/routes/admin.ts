@@ -21,7 +21,9 @@ router.get('/', AdminController1.home)
 router.get('/edit/:id', AdminController1.editView)
 router.post('/edit', upload.single('imgUpload'), AdminController1.edit)
 router.get('/create', AdminController1.create)
-router.post('/create', storeValidation(), upload.single('imgUpload'), AdminController1.store)
+router.post('/create', upload.single('imgUpload'), storeValidation(), AdminController1.store)
 router.get('/delete/:id', AdminController1.delete)
 router.get('/bill', AdminController1.bill)
+router.get('/voucher', AdminController1.voucher)
+
 export default router

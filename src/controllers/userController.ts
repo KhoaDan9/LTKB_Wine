@@ -2,8 +2,8 @@ import { User } from '~/models/user'
 import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import { validationResult } from 'express-validator'
-import nodemailer from 'nodemailer';
-import randomstring from 'randomstring';
+import nodemailer from 'nodemailer'
+import randomstring from 'randomstring'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
@@ -74,21 +74,20 @@ export class UserController {
   }
 
   async sendMail(req: Request, res: Response) {
-
     const { username, mail } = req.body
     const user: any = await User.findOne({ username: username }).lean()
-    if (user.email != mail) {
+    if (!user) {
+      res.render('forgotpassword', { hideNavbar: true, hideSearchBar: true, hideFooter: true, wrongUser: true })
+    } else if (user.email != mail) {
       res.render('forgotpassword', { hideNavbar: true, hideSearchBar: true, hideFooter: true, incorrect: true })
-    }
-    else {
-
+    } else {
       const randomUpperCaseString = randomstring.generate({
         length: 12,
         charset: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-      });
+      })
 
       await User.updateOne({ username }, { $set: { forgotpassword: randomUpperCaseString } })
-      
+
       const transport = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -107,13 +106,11 @@ export class UserController {
       transport.sendMail(mail_option, (error: any, info: any) => {
         if (error) {
           console.log(error)
-        }
-        else {
+        } else {
           res.render('forgotPassword2', { user, hideNavbar: true, hideSearchBar: true, hideFooter: true })
         }
       })
     }
-
   }
 
   async sendKeyPassword(req: Request, res: Response) {
@@ -127,8 +124,7 @@ export class UserController {
     }
     if (keypassword != user.forgotpassword) {
       res.render('forgotPassword', { wrongKeypassword: true, hideNavbar: true, hideSearchBar: true, hideFooter: true })
-    }
-    else {
+    } else {
       const token = jwt.sign({ user_id: user._id, username }, tokenKey, {
         expiresIn: '2h'
       })
@@ -138,16 +134,27 @@ export class UserController {
     }
   }
 
-  async setNewPassword(req: Request, res: Response){
+  async setNewPassword(req: Request, res: Response) {
     const token = req.cookies['x-access-token']
     const user = await User.findOne({ token }).lean()
-    const { newpassword1, newpassword2 } = req.body   
+    const { newpassword1, newpassword2 } = req.body
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      res.render('forgotPassword3', { errors: errors.array()[0],  hideNavbar: true, hideSearchBar: true, hideFooter: true  })
+      res.render('forgotPassword3', {
+        errors: errors.array()[0],
+        hideNavbar: true,
+        hideSearchBar: true,
+        hideFooter: true
+      })
     } else {
-     if (newpassword1 != newpassword2)
-        res.render('forgotPassword3', { user, hideNavbar: true, hideSearchBar: true, password_wrong: true, hideFooter: true })
+      if (newpassword1 != newpassword2)
+        res.render('forgotPassword3', {
+          user,
+          hideNavbar: true,
+          hideSearchBar: true,
+          password_wrong: true,
+          hideFooter: true
+        })
       else {
         if (!user) return res.send(403)
         const encryptedPassword = await bcrypt.hash(newpassword1, 10)
@@ -157,4 +164,3 @@ export class UserController {
     }
   }
 }
-

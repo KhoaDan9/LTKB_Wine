@@ -75,10 +75,9 @@ body {
   margin-right: 10px;
 }
 
-
 .admin-content {
   padding: 5px 20px;
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .search {
