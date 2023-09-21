@@ -48,23 +48,28 @@ export class AdminController {
           errorImg.push('Kích thước ảnh không được vượt quá 5MB')
         }
       }
-      if (errorImg.length != 0) res.render('create', { errorsImg: errorImg[0] })
+      if (errorImg.length != 0) res.render('create', { errorsImg: errorImg[0], hideFooter: true })
       else {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-          res.render('create', { errors: errors.array()[0] })
+          res.render('create', { errors: errors.array()[0], hideFooter: true })
         } else {
-          await Product.create({
-            name,
-            origin,
-            quantity,
-            type,
-            description,
-            costprice,
-            price,
-            imgsrc: req.file?.filename
-          })
-          res.redirect('back')
+          if (parseFloat(costprice) > parseFloat(price)) {
+            const errorsPrice = 'Giá nhập không được lớn hơn giá bán!!'
+            res.render('create', { errorsPrice, hideFooter: true })
+          } else {
+            await Product.create({
+              name,
+              origin,
+              quantity,
+              type,
+              description,
+              costprice,
+              price,
+              imgsrc: req.file?.filename
+            })
+            res.redirect('back')
+          }
         }
       }
     } catch (err) {
@@ -78,12 +83,20 @@ export class AdminController {
   }
 
   async edit(req: Request, res: Response) {
-    const { id, name, origin, quantity, type, description, costprice, price, imgUpload } = req.body
-    await Product.findOneAndUpdate(
-      { _id: id },
-      { name, origin, quantity, type, description, costprice, price, imgsrc: req.file?.filename || imgUpload }
-    )
-    res.redirect('/admin')
+    const { _id, quantity, costprice, price } = req.body
+    const product = await Product.findById(_id).lean()
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      res.render('edit', { product, errors: errors.array()[0], hideFooter: true })
+    } else {
+      if (parseFloat(costprice) > parseFloat(price)) {
+        const errorsPrice = 'Giá nhập không được lớn hơn giá bán!!'
+        res.render('edit', { product, errorsPrice, hideFooter: true })
+      } else {
+        await Product.findOneAndUpdate({ _id: _id }, { quantity, costprice, price })
+        res.redirect('/admin')
+      }
+    }
   }
 
   async delete(req: Request, res: Response) {

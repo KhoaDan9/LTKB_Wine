@@ -7,8 +7,11 @@
       {{#if errors }}
         <p class="incorrect">{{errors.msg}}</p>
       {{/if  }}
-       {{#if errorsImg }}
+      {{#if errorsImg }}
         <p class="incorrect">{{errorsImg}}</p>
+      {{/if  }}
+      {{#if errorsPrice }}
+        <p class="incorrect">{{errorsPrice}}</p>
       {{/if  }}
       <div class="form-group">
         <label class="title-product" for="name">Tên sản phẩm:</label>
