@@ -76,9 +76,65 @@ export const storeValidation = () => {
       .withMessage('Yêu cầu nhập xuất xứ')
       .matches(vietnameseLettersRegex)
       .withMessage('Yêu cầu xuất xứ không nhập kí tự đặc biệt và chữ số'),
-    body('quantity').notEmpty().isNumeric().withMessage('Yêu cầu nhập số lượng'),
-    body('costprice').notEmpty().isNumeric().withMessage('Yêu cầu nhập giá nhập'),
-    body('price').notEmpty().isNumeric().withMessage('Yêu cầu nhập giá bán'),
+    body('quantity')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập số lượng')
+      .isInt()
+      .withMessage('Số lượng sản phẩm phải là số nguyên')
+      .isInt({ min: 1 })
+      .withMessage('Số lượng sản phẩm không được < 1')
+      .isInt({ max: 100000 })
+      .withMessage('Số lượng sản phẩm không được lớn hơn 100000'),
+    body('costprice')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập giá nhập')
+      .isFloat()
+      .withMessage('Giá nhập phải là số thực và dấu thập phân phải là dấu .')
+      .isFloat({ min: 1000 })
+      .withMessage('Giá nhập không được < 1000')
+      .isFloat({ max: 1000000000 })
+      .withMessage('Giá nhập không được lớn hơn 1000000000'),
+    body('price')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập giá bán')
+      .isFloat()
+      .withMessage('Giá bán phải là số thực và dấu thập phân phải là dấu .')
+      .isFloat({ min: 1000 })
+      .withMessage('Giá bán không được < 1000')
+      .isFloat({ max: 1000000000 })
+      .withMessage('Giá bán không được lớn hơn 1000000000'),
     body('description').notEmpty().withMessage('Yêu cầu nhập mô tả sản phẩm')
+  ]
+}
+
+export const updateValidation = () => {
+  return [
+    body('quantity')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập số lượng')
+      .isInt()
+      .withMessage('Số lượng sản phẩm phải là số nguyên')
+      .isInt({ min: 1 })
+      .withMessage('Số lượng sản phẩm không được < 1')
+      .isInt({ max: 100000 })
+      .withMessage('Số lượng sản phẩm không được lớn hơn 100000'),
+    body('costprice')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập giá nhập')
+      .isFloat()
+      .withMessage('Giá nhập phải là số thực và dấu thập phân phải là dấu .')
+      .isFloat({ min: 1000 })
+      .withMessage('Giá nhập không được < 1000')
+      .isFloat({ max: 1000000000 })
+      .withMessage('Giá nhập không được lớn hơn 1000000000'),
+    body('price')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập giá bán')
+      .isFloat()
+      .withMessage('Giá bán phải là số thực và dấu thập phân phải là dấu .')
+      .isFloat({ min: 1000 })
+      .withMessage('Giá bán không được < 1000')
+      .isFloat({ max: 1000000000 })
+      .withMessage('Giá bán không được lớn hơn 1000000000')
   ]
 }

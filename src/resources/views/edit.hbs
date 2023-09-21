@@ -4,21 +4,27 @@
   <div class="heading">
     <h3>Cập nhật sản phẩm</h3>
     <form method="POST" action="/admin/edit" enctype="multipart/form-data">
-      <input type="text" name="id" value="{{ product._id }}" hidden>
+     {{#if errors }}
+        <p class="incorrect">{{errors.msg}}</p>
+      {{/if  }}
+      {{#if errorsPrice }}
+        <p class="incorrect">{{errorsPrice}}</p>
+      {{/if  }}
+      <input type="text" name="_id" value="{{ product._id }}" hidden>
       <div class="form-group">
         <label class="title-product" for="name">Tên sản phẩm:</label>
-        <input type="text" class="form-control" value="{{ product.name }}" name="name" id="name">
+        <input type="text" class="form-control" value="{{ product.name }}" name="name" id="name" disabled>
       </div>
       <div class="form-group">
         <label class="title-product" for="origin">Nguồn gốc:</label>
-        <input type="text" class="form-control" value="{{ product.origin }}" name="origin" id="origin">
+        <input type="text" class="form-control" value="{{ product.origin }}" name="origin" id="origin" disabled>
       </div>
       <div class="form-group">
         <label class="title-product" for="quantity">Số lượng:</label>
         <input type="text" class="form-control" value="{{ product.quantity }}" name="quantity" id="quantity">
       </div>
       <label class="title-product" for="quantity">Thể loại:</label>
-      <select style="margin-top: 25px; width: 30%;border-radius: 5px;" name="type" id="type">
+      <select style="margin-top: 25px; width: 30%;border-radius: 5px;" name="type" id="type" disabled>
         <option value=ruouvang>Rượu vang</option>
         <option value=ruoumanh>Rượu mạnh</option>
         <option value=ruounhe>Rượu nhẹ</option>
@@ -27,7 +33,7 @@
       </select>
       <div class="form-group">
         <label class="title-product" for="description">Mô tả:</label>
-        <textarea class="form-control" name="description" id="description">{{ product.description }}</textarea>
+        <textarea style=" height: 150px;" class="form-control" name="description" id="description" disabled>{{ product.description }} </textarea>
       </div>
       <div class="form-group">
         <label class="title-product" for="price">Giá nhập:</label>
@@ -37,15 +43,13 @@
         <label class="title-product" for="price">Giá bán:</label>
         <input type="text" class="form-control" value="{{ product.price }}" name="price" id="price">
       </div>
-      <div class="form-group">
-        <label class="title-product" for="imgsrc">Hình ảnh:</label>
-        <input type="file" name="imgUpload">
-      </div>
       <!-- Button trigger modal -->
       <div style="padding-top: 15px;">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <button type="submit" class="btn btn-primary">Lưu</button>
+       
+        {{!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Lưu
-        </button>
+        </button> --}}
         <button type="button" class="btn btn-primary exit-btn"><a href="/admin">Thoát</a></button>
         
       </div>
