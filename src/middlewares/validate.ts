@@ -107,8 +107,10 @@ export const storeValidation = () => {
       .withMessage('Giá bán không được < 1000')
       .isFloat({ max: 1000000000 })
       .withMessage('Giá bán không được lớn hơn 1000000000'),
-    body('description').notEmpty().withMessage('Yêu cầu nhập mô tả sản phẩm')
-    .isLength({ min: 10, max: 255 })
+    body('description')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập mô tả sản phẩm')
+      .isLength({ min: 10, max: 255 })
       .withMessage('Mô tả sản phẩm phải có độ dài từ 10 - 255 kí tự')
   ]
 }

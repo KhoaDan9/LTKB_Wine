@@ -58,23 +58,23 @@ export class AdminController {
             const errorsPrice = 'Giá nhập không được lớn hơn giá bán!!'
             res.render('create', { errorsPrice, hideFooter: true })
           } else {
-            const product:any = Product.find({ name: name})
-            if(product){
+            const product: any = Product.find({ name: name })
+            if (product) {
               const errorsName = 'Sản phẩm đã tồn tại (Trùng tên sản phẩm trong dữ liệu)!!'
               res.render('create', { errorsName, hideFooter: true })
+            } else {
+              await Product.create({
+                name,
+                origin,
+                quantity,
+                type,
+                description,
+                costprice,
+                price,
+                imgsrc: req.file?.filename
+              })
+              res.redirect('back')
             }
-            else 
-            {await Product.create({
-              name,
-              origin,
-              quantity,
-              type,
-              description,
-              costprice,
-              price,
-              imgsrc: req.file?.filename
-            })
-            res.redirect('back')}
           }
         }
       }
