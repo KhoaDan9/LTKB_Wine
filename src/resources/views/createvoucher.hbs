@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="/css/create.css">
+
+<body class="body-create">
+  <div class="heading">
+    <h3>Thêm Voucher</h3>
+    <form method="POST" action="/admin/createvoucher" enctype="multipart/form-data">
+      {{#if errors }}
+        <p class="incorrect">{{errors.msg}}</p>
+      {{/if  }}
+      {{#if errorsCoupon }}
+        <p class="incorrect">{{errorsCoupon}}</p>
+      {{/if  }}
+      {{#if errorsDate }}
+        <p class="incorrect">{{errorsDate}}</p>
+      {{/if  }}
+
+      <div class="form-group">
+        <label class="title-product" for="name">Tên voucher:</label>
+        <input type="text" class="form-control" name="name" id="name">
+      </div>
+      <div class="form-group">
+        <label class="title-product" for="couponcode">Mã voucher:</label>
+        <input type="text" class="form-control" name="couponcode" id="couponcode">
+      </div>
+      <div class="form-group">
+        <label class="title-product" for="quantity">Số lượng:</label>
+        <input type="text" class="form-control" name="quantity" id="quantity">
+      </div>
+       <div class="form-group">
+        <label class="title-product" for="discount">Mức giảm giá (%):</label>
+        <input type="text" class="form-control" name="discount" id="discount">
+      </div>
+       <div class="form-group">
+        <label for="starttime">Ngày bắt đầu:</label>
+      <input type="date" id="starttime" name="starttime">
+      </div>
+       <div class="form-group">
+        <label for="endtime">Ngày kết thúc:</label>
+      <input type="date" id="endtime" name="endtime">
+      </div>
+
+        <div style="padding-top: 15px;">
+        <button type="submit" class="btn btn-primary">Thêm voucher</button>
+        <button type="button" class="btn btn-primary exit-btn"><a href="/admin">Thoát</a></button>        
+      </div>
+    </form>
+  </div>
+</body>

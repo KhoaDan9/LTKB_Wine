@@ -58,23 +58,23 @@ export class AdminController {
             const errorsPrice = 'Giá nhập không được lớn hơn giá bán!!'
             res.render('create', { errorsPrice, hideFooter: true })
           } else {
-            const product:any = Product.find({ name: name})
-            if(product){
+            const product: any = Product.find({ name: name })
+            if (product) {
               const errorsName = 'Sản phẩm đã tồn tại (Trùng tên sản phẩm trong dữ liệu)!!'
               res.render('create', { errorsName, hideFooter: true })
+            } else {
+              await Product.create({
+                name,
+                origin,
+                quantity,
+                type,
+                description,
+                costprice,
+                price,
+                imgsrc: req.file?.filename
+              })
+              res.redirect('back')
             }
-            else 
-            {await Product.create({
-              name,
-              origin,
-              quantity,
-              type,
-              description,
-              costprice,
-              price,
-              imgsrc: req.file?.filename
-            })
-            res.redirect('back')}
           }
         }
       }
@@ -141,6 +141,57 @@ export class AdminController {
   }
 
   async voucher(req: Request, res: Response) {
-    res.render('bill', { hideSearchBar: true, hideFooter: true, hideNavbar: true })
+      const vouchers = await Voucher.find().lean()
+      res.render('voucher', { vouchers, hideSearchBar: true, hideFooter: true })
+    }
+
+  createVoucher(req: Request, res: Response) {
+    res.render('createvoucher', { hideFooter: true })
+  }
+
+  async storeVoucher(req: Request, res: Response) {
+    try {
+      const { name, couponcode, quantity, discount, starttime, endtime } = req.body
+      const errorsDate: any = []
+
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        res.render('createvoucher', { errors: errors.array()[0], hideFooter: true })
+      } else {
+        const voucher: any = await Voucher.find({ couponcode: couponcode })
+        if (voucher.length == 1) {
+          const errorsCoupon = 'Mã giảm giá đã tồn tại (Yêu cầu kiểm tra lại)!!'
+          res.render('createvoucher', { errorsCoupon, hideFooter: true })
+        } else {
+          const dateNow:any = new Date()
+          let month = "0"
+          if((dateNow.getMonth()+1)<10)
+            month += String(dateNow.getMonth()+1)
+          else
+            month = String(dateNow.getMonth()+1)
+          const date = String(dateNow.getFullYear()) + '-' + month + '-' + String(dateNow.getDate())
+          if (starttime < date) {
+            errorsDate.push('Ngày bắt đầu không được nhỏ hơn ngày hiện tại!!')
+            res.render('createvoucher', { errorsDate: errorsDate[0], hideFooter: true })
+          }
+          else if (starttime > endtime) {
+            errorsDate.push('Ngày bắt đầu không được lớn hơn ngày kết thúc!!')
+            res.render('createvoucher', { errorsDate: errorsDate[0], hideFooter: true })
+          } else {
+            await Voucher.create({
+              name,
+              couponcode,
+              quantity,
+              discount,
+              starttime,
+              endtime
+            })
+            res.redirect('back')
+          }
+        }
+      }
+    } catch (err) {
+      res.send('err' + err)
+    }
   }
 }

@@ -107,8 +107,10 @@ export const storeValidation = () => {
       .withMessage('Giá bán không được < 1000')
       .isFloat({ max: 1000000000 })
       .withMessage('Giá bán không được lớn hơn 1000000000'),
-    body('description').notEmpty().withMessage('Yêu cầu nhập mô tả sản phẩm')
-    .isLength({ min: 10, max: 255 })
+    body('description')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập mô tả sản phẩm')
+      .isLength({ min: 10, max: 255 })
       .withMessage('Mô tả sản phẩm phải có độ dài từ 10 - 255 kí tự')
   ]
 }
@@ -142,5 +144,33 @@ export const updateValidation = () => {
       .withMessage('Giá bán không được < 1000')
       .isFloat({ max: 1000000000 })
       .withMessage('Giá bán không được lớn hơn 1000000000')
+  ]
+}
+
+export const storeVoucher = () => {
+  return [
+    body('name')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập tên voucher')
+      .matches(vietnameseLettersRegex)
+      .withMessage('Yêu cầu tên voucher không nhập kí tự đặc biệt')
+      .isLength({ min: 3, max: 100 })
+      .withMessage('Tên voucher phải có độ dài từ 3 đến 20 kí tự'),
+    body('quantity')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập số lượng voucher')
+      .isInt()
+      .withMessage('Số lượng voucher phải là số nguyên')
+      .isInt({ min: 1 })
+      .withMessage('Số lượng voucher không được < 1'),
+    body('discount')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập Mức giảm giá')
+      .isInt()
+      .withMessage('Mức giảm giá phải là số nguyên')
+      .isInt({ min: 1, max: 100 })
+      .withMessage('Mức giảm giá phải từ 1 đến 100'),
+    body('starttime').notEmpty().withMessage('Yêu cầu nhập ngày bắt đầu'),
+    body('endtime').notEmpty().withMessage('Yêu cầu nhập ngày kết thúc')
   ]
 }
