@@ -22,23 +22,25 @@
     </form>
     </div>
     <button class="add-product">
-      <a href="/admin/create" class="text-add-product">Thêm voucher</a>
+      <a href="/admin/createvoucher" class="text-add-product">Thêm voucher</a>
     </button>
-
-
-
 
     <table id="my-table" class="table table-striped">
       <thead>
         <tr>
           <th class="header-title" scope="col">STT</th>
+          <th class="header-title" scope="col">Tên mã</th>
           <th class="header-title" scope="col">Voucher</th>
           <th class="header-title" scope="col">Số lượng</th>
           <th class="header-title" scope="col">Mức giảm giá</th>
+          <th class="header-title" scope="col">Ngày bắt đầu</th>
+          <th class="header-title" scope="col">Ngày kết thúc</th>
+          <th class="header-title" scope="col">Hành động</th>
+
       </thead>
       <tbody class="table-group-divider">
 
-      {{#each products }}
+      {{#each vouchers }}
 
         <tr>
           <td class="table-content"></td>
@@ -46,21 +48,19 @@
             <p class="text">{{this.name}}</p>
           </td>
           <td class="table-content">
+            <p class="text">{{this.couponcode}}</p>
+          </td>
+          <td class="table-content">
             <p class="text">{{this.quantity}}</p>
           </td>
-          <td class="table-content">
-            <p class="text">{{this.type}}</p>
-          </td>
             <td class="table-content">
-            <p class="text">{{this.costprice}}</p>
+            <p class="text">{{this.discount}}</p>
           </td>
           <td class="table-content">
-            <p class="text">{{this.price}}</p>
+            <p class="text">{{this.starttime}}</p>
           </td>
           <td class="table-content">
-            <div class="dad-box">
-              <img class="img-wine" src="uploads/{{this.imgsrc}}" alt="">
-            </div>
+            <p class="text">{{this.endtime}}</p>
           </td>
           <td class="table-content">
               <button class="btn btn-primary edit-admin-btn" value="{{this._id }}" ><i class="bi bi-pencil">  Sửa</i></button>
@@ -74,3 +74,10 @@
   </div>
 </div>
 
+<script>
+  $(document).ready(function(){
+    $('#my-table tbody tr').each(function(index) {
+      $(this).find('td:first').text(index + 1);
+    });
+  })
+</script>
