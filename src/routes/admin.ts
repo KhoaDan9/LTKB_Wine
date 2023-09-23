@@ -26,6 +26,7 @@ router.get('/delete/:id', AdminController1.delete)
 router.get('/bill', AdminController1.bill)
 router.get('/voucher', AdminController1.voucher)
 router.get('/createvoucher', AdminController1.createVoucher)
-router.post('/createvoucher', upload.single(''), storeVoucher(), AdminController1.storeVoucher)
+router.post('/createvoucher', storeVoucher(), AdminController1.storeVoucher)
+router.get('/deletevoucher/:id', AdminController1.deleteVoucher)
 
 export default router

@@ -5,39 +5,73 @@ import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { validationResult } from 'express-validator'
 dotenv.config()
+import path from 'path'
 
 const tokenKey = process.env.TOKEN_KEY as string
 
 export class AuthController {
   async register(req: Request, res: Response) {
     try {
-      const { username, password1, password2, fullname, email, address, phone } = req.body
+      const { username, password1, password2, fullname, email, address, phone, gender, birth } = req.body
 
       const errors = validationResult(req)
-      if (!errors.isEmpty())
-        res.render('register', { hideNavbar: true, hideSearchBar: true, errors: errors.array()[0] })
-      else if (password1 !== password2)
-        res.render('register', { hideNavbar: true, hideSearchBar: true, password_wrong: true })
-      else {
-        const oldUser = await User.findOne({ username })
-        if (oldUser) return res.render('register', { user_exists: true, hideNavbar: true, hideSearchBar: true })
-        else {
-          const encryptedPassword = await bcrypt.hash(password1, 10)
-          const user = await User.create({
-            username,
-            password: encryptedPassword,
-            fullname,
-            email,
-            address,
-            phone
-          })
-          const token = jwt.sign({ user_id: user._id, username }, tokenKey, {
-            expiresIn: '2h'
-          })
-          user.token = token
-          user.save()
 
-          res.redirect('/auth/login')
+      const errorImg: any = []
+      if (req.file?.filename) {
+        const allowedExtensions = ['.png'] // Các đuôi file được cho phép
+        const fileExtension = path.extname(req.file.originalname).toLowerCase()
+        if (!allowedExtensions.includes(fileExtension)) {
+          errorImg.push('Định dạng tệp tin không hợp lệ. Chỉ chấp nhận đuôi ".png"')
+        }
+        // Kiểm tra kích thước ảnh (kích thước tính bằng byte)
+        if (req.file.size > 5 * 1024 * 1024) {
+          errorImg.push('Kích thước ảnh không được vượt quá 5MB')
+        }
+      } else {
+        if (!errors.isEmpty())
+          res.render('register', { hideNavbar: true, hideSearchBar: true, errors: errors.array()[0] })
+        else if (password1 !== password2)
+          res.render('register', { hideNavbar: true, hideSearchBar: true, password_wrong: true })
+        else {
+          const oldUser = await User.findOne({ username })
+          if (oldUser)
+            return res.render('register', {
+              user_exists: true,
+              hideNavbar: true,
+              hideSearchBar: true,
+              hideFooter: true
+            })
+          else {
+            const oldEmail = await User.findOne({ email: email })
+            if (oldEmail)
+              return res.render('register', {
+                email_exists: true,
+                hideNavbar: true,
+                hideSearchBar: true,
+                hideFooter: true
+              })
+            else {
+              const encryptedPassword = await bcrypt.hash(password1, 10)
+              const user = await User.create({
+                username,
+                password: encryptedPassword,
+                fullname,
+                email,
+                address,
+                phone,
+                gender,
+                birth,
+                userid: req.file?.filename
+              })
+              const token = jwt.sign({ user_id: user._id, username }, tokenKey, {
+                expiresIn: '2h'
+              })
+              user.token = token
+              user.save()
+
+              res.redirect('/auth/login')
+            }
+          }
         }
       }
     } catch (err) {

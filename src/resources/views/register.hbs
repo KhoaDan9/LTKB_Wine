@@ -1,6 +1,4 @@
-
-<section class="vh-100 bg-image"
-  style="background-image: url('/img/background2.png');
+<section class="vh-100 bg-image" style="background-image: url('/img/background2.png');
   background-size: cover;
   padding-bottom: 60%;
   background-repeat: no-repeat;
@@ -13,32 +11,40 @@
           <div class="card" style="border-radius: 15px;">
             <div class="card-body p-4">
               <h2 class="text-uppercase text-center mb-4">Đăng kí</h2>
-               {{#if errors }}
-                      <p class="incorrect">{{errors.msg}}</p>
-                    {{/if  }}
-              <form action='/auth/register' method='post'>
+              {{#if errors }}
+              <p class="incorrect">{{errors.msg}}</p>
+              {{/if }}
+              <form action='/auth/register' method='post' enctype="multipart/form-data">
                 {{#if user_exists }}
-                    <p class="incorrect">Username đã tồn tại!!</p>
-                  {{/if  }}
-               
+                <p class="incorrect">Username đã tồn tại!!</p>
+                {{/if }}
+                {{#if email_exists }}
+                <p class="incorrect">Email đã tồn tại!!</p>
+                {{/if }}
+                {{#if errorsImg }}
+                <p class="incorrect">{{errorsImg}}</p>
+                {{/if }}
                 <div class="form-outline mb-4">
-                  <input name='username' type="text" id="form3Example3cg" class="form-control form-control-lg" placeholder='Username'/>
-                  <label  class="form-label" for="form3Example3cg">Tài khoản</label>
+                  <input name='username' type="text" id="form3Example3cg" class="form-control form-control-lg"
+                    placeholder='Username' />
+                  <label class="form-label" for="form3Example3cg">Tài khoản</label>
                 </div>
 
                 {{#if password_wrong }}
-                    <p class="incorrect">Hai mật khẩu không giống nhau</p>
-                  {{/if  }}
+                <p class="incorrect">Hai mật khẩu không giống nhau</p>
+                {{/if }}
 
                 <div class="form-outline mb-4 wrap-input-password">
-                  <input name='password1' type="password" id="form3Example4cg" class="form-control form-control-lg" placeholder='Password' />
-                   <i class="bi bi-eye-slash-fill icon-password" style="top: 15px;"></i>
+                  <input name='password1' type="password" id="form3Example4cg" class="form-control form-control-lg"
+                    placeholder='Password' />
+                  <i class="bi bi-eye-slash-fill icon-password" style="top: 15px;"></i>
                   <label class="form-label" for="form3Example4cg">Mật khẩu</label>
                 </div>
 
                 <div class="form-outline mb-4 wrap-input-password">
-                  <input name='password2' type="password" id="form3Example4cg" class="form-control form-control-lg" placeholder='Password' />
-                   <i class="bi bi-eye-slash-fill icon-password" style="top: 15px;"></i>
+                  <input name='password2' type="password" id="form3Example4cg" class="form-control form-control-lg"
+                    placeholder='Password' />
+                  <i class="bi bi-eye-slash-fill icon-password" style="top: 15px;"></i>
                   <label class="form-label" for="form3Example4cg">Nhập lại mật khẩu</label>
                 </div>
 
@@ -48,11 +54,29 @@
                 </div>
 
                 <div class="form-outline mb-4">
+                  <label style="padding-right: 50px;" class="form-label" for="form3Example1cg">Giới tính:</label>  
+                  <input type="radio" id="html" name="gender" value="Nam">
+                  <label style="padding-right: 50px;">Nam</label>
+                  <input type="radio" id="css" name="gender" value="Nữ">
+                  <label>Nữ</label><br>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input name='birth' type="date" id="form3Example1cg" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example1cg">Ngày sinh</label>
+                </div>
+
+                <div class="form-group">
+                  <label class="title-product" for="imgsrc">Căn cước công dân (Mặt trước/có thể cập nhật sau):</label>
+                  <input type="file" name="userid">
+                </div>
+                <br>
+                <div class="form-outline mb-4">
                   <input name='email' type="email" id="form3Example1cg" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example1cg">Email</label>
                 </div>
 
-                 <div class="form-outline mb-4">
+                <div class="form-outline mb-4">
                   <input name='phone' type="text" id="form3Example1cg" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example1cg">Số điện thoại</label>
                 </div>
@@ -60,12 +84,12 @@
                 <div class="form-outline mb-4">
                   <input name='address' type="text" id="form3Example1cg" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example1cg">Địa chỉ</label>
-                </div> 
+                </div>
 
-                
+
                 <div class="d-flex justify-content-center">
-                  <button type="submit"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Đăng kí</button>
+                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Đăng
+                    kí</button>
                 </div>
 
               </form>
@@ -79,14 +103,14 @@
 </section>
 
 <script>
-   $(document).ready(function(){
-    $(".icon-password").click(function(){
+  $(document).ready(function () {
+    $(".icon-password").click(function () {
       var div_password = $(this).parent()
       var input_password = div_password.children().filter('.form-control')
       if (input_password.attr('type') == "password")
-        input_password.attr('type','text')
+        input_password.attr('type', 'text')
       else
-        input_password.attr('type','password')
+        input_password.attr('type', 'password')
       $(this).toggleClass("bi-eye-slash-fill bi-eye-fill")
     });
   });
