@@ -14,7 +14,7 @@ export const registerValidation = () => {
       .notEmpty()
       .withMessage('Yêu cầu nhập tài khoản')
       .isAlphanumeric()
-      .withMessage('Yêu cầu không nhập kí tự đặc biệt'),
+      .withMessage('Yêu cầu không nhập kí tự đặc biệt và dấu'),
     body('password1')
       .notEmpty()
       .withMessage('Yêu cầu nhập mật khẩu')
@@ -27,7 +27,14 @@ export const registerValidation = () => {
       .matches(vietnameseLettersRegex)
       .withMessage('Tên không được chứa số và kí tự đặc biệt'),
     body('address').notEmpty().withMessage('Yêu cầu nhập địa chỉ'),
-    body('phone').notEmpty().isNumeric().withMessage('Yêu cầu nhập số điện thoại')
+    body('phone')
+      .notEmpty()
+      .isNumeric()
+      .withMessage('Yêu cầu nhập số điện thoại')
+      .isLength({ min: 10, max: 11 })
+      .withMessage('Số điện thoại phải có 10 đến 11 số'),
+    body('gender').notEmpty().withMessage('Yêu cầu giới tính'),
+    body('birth').notEmpty().withMessage('Yêu cầu nhập địa chỉ')
   ]
 }
 

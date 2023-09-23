@@ -141,9 +141,15 @@ export class AdminController {
   }
 
   async voucher(req: Request, res: Response) {
+    const token = req.cookies['x-access-token']
+    const user = await User.findOne({ token }).lean()
+    if (!user) return res.status(400)
+    if (user.role == false) res.redirect('auth/login')
+    else {
       const vouchers = await Voucher.find().lean()
-      res.render('voucher', { vouchers, hideSearchBar: true, hideFooter: true })
+      res.render('voucher', { user, vouchers, hideSearchBar: true, hideFooter: true })
     }
+  }
 
   createVoucher(req: Request, res: Response) {
     res.render('createvoucher', { hideFooter: true })
@@ -163,18 +169,15 @@ export class AdminController {
           const errorsCoupon = 'Mã giảm giá đã tồn tại (Yêu cầu kiểm tra lại)!!'
           res.render('createvoucher', { errorsCoupon, hideFooter: true })
         } else {
-          const dateNow:any = new Date()
-          let month = "0"
-          if((dateNow.getMonth()+1)<10)
-            month += String(dateNow.getMonth()+1)
-          else
-            month = String(dateNow.getMonth()+1)
+          const dateNow: any = new Date()
+          let month = '0'
+          if (dateNow.getMonth() + 1 < 10) month += String(dateNow.getMonth() + 1)
+          else month = String(dateNow.getMonth() + 1)
           const date = String(dateNow.getFullYear()) + '-' + month + '-' + String(dateNow.getDate())
           if (starttime < date) {
             errorsDate.push('Ngày bắt đầu không được nhỏ hơn ngày hiện tại!!')
             res.render('createvoucher', { errorsDate: errorsDate[0], hideFooter: true })
-          }
-          else if (starttime > endtime) {
+          } else if (starttime > endtime) {
             errorsDate.push('Ngày bắt đầu không được lớn hơn ngày kết thúc!!')
             res.render('createvoucher', { errorsDate: errorsDate[0], hideFooter: true })
           } else {
@@ -193,5 +196,10 @@ export class AdminController {
     } catch (err) {
       res.send('err' + err)
     }
+  }
+
+  async deleteVoucher(req: Request, res: Response) {
+    const voucher = await Voucher.findOneAndDelete({ _id: req.params.id })
+    res.redirect('back')
   }
 }
