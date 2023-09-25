@@ -181,3 +181,32 @@ export const storeVoucher = () => {
     body('endtime').notEmpty().withMessage('Yêu cầu nhập ngày kết thúc')
   ]
 }
+
+export const addCreditcard = () => {
+  return [
+    body('fullname')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập họ và tên')
+      .matches(vietnameseLettersRegex)
+      .withMessage('Yêu cầu họ và tên không nhập kí tự đặc biệt')
+      .isLength({ min: 2, max: 50 })
+      .withMessage('Tên voucher phải có độ dài từ 3 đến 20 kí tự'),
+    body('address').notEmpty().withMessage('Yêu cầu nhập tên voucher'),
+    body('cardnumber')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập số thẻ')
+      .isLength({ min: 16, max: 16 })
+      .withMessage('Số thẻ phải chứa 16 số'),
+    body('postalcode')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập Mã bưu chính')
+      .isLength({ min: 5, max: 5 })
+      .withMessage('Mã bưu chính phải chứa 5 số'),
+    body('outofdate').notEmpty().withMessage('Yêu cầu nhập ngày hết hạn'),
+    body('CVV')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập CVV')
+      .isLength({ min: 3, max: 3 })
+      .withMessage('CVV phải chứa 3 số')
+  ]
+}

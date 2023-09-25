@@ -6,6 +6,7 @@ import nodemailer from 'nodemailer'
 import randomstring from 'randomstring'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import { CreditCard } from '~/models/creditcard'
 
 const tokenKey = process.env.TOKEN_KEY as string
 
@@ -161,6 +162,35 @@ export class UserController {
         await User.updateOne({ token }, { $set: { password: encryptedPassword } })
         res.redirect('/logout')
       }
+    }
+  }
+
+  creditcard(req: Request, res: Response) {
+    res.render('addcreditcard.hbs')
+  }
+
+  async addCreditCard(req: Request, res: Response) {
+    try {
+      const token = req.cookies['x-access-token']
+      const user: any = await User.findOne({ token })
+
+      const { cardnumber, outofdate, CVV, fullname, address, postalcode } = req.body
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) res.render('addcreditcard', { errors: errors.array()[0] })
+      else {
+        await CreditCard.create({
+          cardnumber,
+          outofdate,
+          fullname,
+          CVV,
+          address,
+          postalcode,
+          username: user.username
+        })
+        res.send('Them thanh cong!!!')
+      }
+    } catch (err) {
+      console.log(err)
     }
   }
 }
