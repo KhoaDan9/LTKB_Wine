@@ -190,23 +190,69 @@ export const addCreditcard = () => {
       .matches(vietnameseLettersRegex)
       .withMessage('Yêu cầu họ và tên không nhập kí tự đặc biệt')
       .isLength({ min: 2, max: 50 })
-      .withMessage('Tên voucher phải có độ dài từ 3 đến 20 kí tự'),
-    body('address').notEmpty().withMessage('Yêu cầu nhập tên voucher'),
+      .withMessage('Họ và tên phải có độ dài từ 3 đến 20 kí tự'),
+    body('address').notEmpty().withMessage('Yêu cầu nhập địa chỉ'),
     body('cardnumber')
       .notEmpty()
       .withMessage('Yêu cầu nhập số thẻ')
+      .isInt()
+      .withMessage('Số thẻ phải là kiểu số')
       .isLength({ min: 16, max: 16 })
       .withMessage('Số thẻ phải chứa 16 số'),
     body('postalcode')
       .notEmpty()
       .withMessage('Yêu cầu nhập Mã bưu chính')
+      .isInt()
+      .withMessage('Mã bưu chính phải là kiểu số')
       .isLength({ min: 5, max: 5 })
       .withMessage('Mã bưu chính phải chứa 5 số'),
     body('outofdate').notEmpty().withMessage('Yêu cầu nhập ngày hết hạn'),
     body('CVV')
       .notEmpty()
       .withMessage('Yêu cầu nhập CVV')
+      .isInt()
+      .withMessage('CVV phải là kiểu số')
       .isLength({ min: 3, max: 3 })
       .withMessage('CVV phải chứa 3 số')
+  ]
+}
+
+export const addBankAccount = () => {
+  return [
+    body('fullname')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập họ và tên')
+      .matches(vietnameseLettersRegex)
+      .withMessage('Yêu cầu họ và tên không nhập kí tự đặc biệt')
+      .isLength({ min: 2, max: 50 })
+      .withMessage('Họ và tên phải có độ dài từ 3 đến 20 kí tự'),
+    body('bankname')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập tên ngân hàng')
+      .matches(vietnameseLettersRegex)
+      .withMessage('Yêu cầu tên ngân hàng không nhập kí tự đặc biệt')
+      .isLength({ min: 2, max: 50 })
+      .withMessage('Tên ngân hàng có độ dài từ 2 đến 50 kí tự'),
+    body('bankbranch')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập chi nhánh ngân hàng')
+      .matches(vietnameseLettersRegex)
+      .withMessage('Yêu cầu chi nhánh ngân hàng không nhập kí tự đặc biệt')
+      .isLength({ min: 2, max: 50 })
+      .withMessage('chi nhánh ngân hàng có độ dài từ 2 đến 50 kí tự'),
+    body('accountnumber')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập số tài khoản')
+      .isInt()
+      .withMessage('Số tài khoản phải là kiểu số')
+      .isLength({ min: 14, max: 14 })
+      .withMessage('Số tài khoản phải chứa 14 số'),
+    body('userid')
+      .notEmpty()
+      .withMessage('Yêu cầu nhập Căn cước công dân')
+      .isInt()
+      .withMessage('Căn cước công dân là kiểu số')
+      .isLength({ min: 12, max: 12 })
+      .withMessage('Căn cước công dân có độ dài 12 kí tự')
   ]
 }

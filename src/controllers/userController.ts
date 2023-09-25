@@ -7,6 +7,7 @@ import randomstring from 'randomstring'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { CreditCard } from '~/models/creditcard'
+import { BankAccount } from '~/models/bankAccount'
 
 const tokenKey = process.env.TOKEN_KEY as string
 
@@ -185,6 +186,34 @@ export class UserController {
           CVV,
           address,
           postalcode,
+          username: user.username
+        })
+        res.send('Them thanh cong!!!')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  bankaccount(req: Request, res: Response) {
+    res.render('addbankaccount.hbs')
+  }
+
+  async addBankAccount(req: Request, res: Response) {
+    try {
+      const token = req.cookies['x-access-token']
+      const user: any = await User.findOne({ token })
+
+      const { bankname, bankbranch, accountnumber, fullname, userid } = req.body
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) res.render('addbankaccount', { errors: errors.array()[0] })
+      else {
+        await BankAccount.create({
+          bankname,
+          bankbranch,
+          fullname,
+          accountnumber,
+          userid,
           username: user.username
         })
         res.send('Them thanh cong!!!')
