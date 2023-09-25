@@ -38,7 +38,7 @@ export class ProductController {
         if (!isAdd) cart.push(newProduct)
       } else cart.push(newProduct)
       await User.updateOne({ token: token }, { $set: { cart: cart } })
-      res.redirect('back')
+      res.redirect('/')
     } catch (err) {
       res.send(err)
     }
