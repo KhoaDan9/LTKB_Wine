@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import { UserController } from '~/controllers/userController'
-import { resetPassword, userUpdateValidation, forgotPassword, addCreditcard } from '~/middlewares/validate'
+import { resetPassword, userUpdateValidation, forgotPassword, addCreditcard, addBankAccount } from '~/middlewares/validate'
 
 const router = Router()
 const UserController1 = new UserController()
@@ -17,5 +17,7 @@ router.post('/set-newpassword', forgotPassword(), UserController1.setNewPassword
 
 router.get('/add-creditcard', UserController1.creditcard)
 router.post('/add-creditcard', addCreditcard(), UserController1.addCreditCard)
+router.get('/add-bankaccount', UserController1.bankaccount)
+router.post('/add-bankaccount', addBankAccount(), UserController1.addBankAccount)
 
 export default router
