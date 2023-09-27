@@ -17,8 +17,8 @@
     {{else  }}
       <p>Bạn chưa có sản phẩm nào trong giỏ hàng. <a href="/" style="text-decoration: none;">Click để về trang mua</a></p>
     {{/if  }}
-    {{#if isOutofStock }}
-      <p class="incorrect">Sản phẩm trong kho hiện không đủ!</p>
+    {{#if isoutofStock }}
+      <p class="incorrect">Sản phẩm {{ outofStock.name }} trong kho hiện đang còn {{ outofStock.quantity }} sản phẩm!</p>
     {{/if  }}
     {{#each products_show}}
     <div class="cart-product d-flex flex-row">
