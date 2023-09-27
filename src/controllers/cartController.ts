@@ -16,21 +16,26 @@ export class CartController {
       const cart: product_data[] = user.cart
       const products_show: object[] = []
       let sum = 0
-      let isOutofStock = false
+      const outofStock:any = {}
+      let isoutofStock = false
       for (let i = 0; i < cart.length; i++) {
         const product: any = await Product.findById(cart[i].id).lean()
         if (product) {
           const quantity = cart[i].quantity
           const summ = product.price * quantity
           const prod: any = product
-          if (product.quantity < cart[i].quantity) isOutofStock = true
+          if (product.quantity < cart[i].quantity){
+            isoutofStock = true
+            outofStock.name = product.name
+            outofStock.quantity = product.quantity
+          }
           prod.quantity = quantity
           prod.summ = summ
           products_show.push(prod)
           sum += product.price * quantity
         }
       }
-      res.render('cart', { products_show, user, sum, isOutofStock })
+      res.render('cart', { products_show, user, sum, outofStock, isoutofStock })
     } catch (err) {
       res.send(err)
     }
