@@ -14,6 +14,7 @@ const userSchema = new Schema(
 
     forgotpassword: { type: String },
     role: { type: Boolean, default: false },
+    auth: { type: Boolean, default: false },
     token: { type: String },
     cart: { type: Array },
     buy: { type: Array }

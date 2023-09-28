@@ -1,0 +1,37 @@
+<section class="vh-100 bg-image" style="background-image: url('/img/background2.png');
+  background-size: cover;
+  padding-bottom: 60%;
+  background-repeat: no-repeat;
+  background-position: center; 
+   ">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6" style="margin-top: 20px;">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-4">
+              <h2 class="text-uppercase text-center mb-4">Xác thực tài khoản</h2>
+              <form action='/user/add-userid' method='post' enctype="multipart/form-data">
+                {{#if errorsImg }}
+                <p class="incorrect">{{errorsImg}}</p>
+                {{/if }}
+
+                <div class="form-group">
+                  <label class="title-product" for="imgsrc">Căn cước công dân:</label>
+                  <input type="file" name="userid">
+                </div>
+               
+
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Gửi</button>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

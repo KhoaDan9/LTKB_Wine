@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { CreditCard } from '~/models/creditcard'
 import { BankAccount } from '~/models/bankAccount'
+import path from 'path'
 
 const tokenKey = process.env.TOKEN_KEY as string
 
@@ -220,6 +221,43 @@ export class UserController {
       }
     } catch (err) {
       console.log(err)
+    }
+  }
+
+  userid(req: Request, res: Response){
+    res.render('adduserid', { hideNavbar: true, hideSearchBar: true, hideFooter: true })
+  }
+
+  async addUserId(req: Request, res: Response){
+    const errorsImg: any = []
+    const token = req.cookies['x-access-token']
+    const user = await User.findOne({ token })
+    if (!req.file?.filename) {
+      errorsImg.push('Yêu cầu nhập ảnh căn cước công dân')
+    }
+    else {
+      const allowedExtensions = ['.png'] // Các đuôi file được cho phép
+      const fileExtension = path.extname(req.file.originalname).toLowerCase()
+
+      if (!allowedExtensions.includes(fileExtension)) {
+        errorsImg.push('Định dạng tệp tin không hợp lệ. Chỉ chấp nhận đuôi ".png"')
+      }
+      // Kiểm tra kích thước ảnh (kích thước tính bằng byte)
+      if (req.file.size > 5 * 1024 * 1024) {
+        errorsImg.push('Kích thước ảnh không được vượt quá 5MB')
+      }
+    }
+    if (errorsImg.length != 0) {
+      return res.render('addUserId', {
+        errorsImg: errorsImg[0],
+        hideNavbar: true,
+        hideSearchBar: true,
+        hideFooter: true
+      })
+    }
+    else {
+      await User.updateOne({ token }, { $set: { userid: req.file?.filename } })
+      res.redirect('/user')
     }
   }
 }
