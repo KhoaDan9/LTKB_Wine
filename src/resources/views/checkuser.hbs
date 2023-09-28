@@ -14,57 +14,39 @@
     </ul>
   </div>
   <div class="admin-content">
-    <div class="search-bar-wrap col-7">
-    {{!-- <form class="d-flex" role="search" action="/search" method="get">
-      <input id="search-input" class="form-control" placeholder="Tìm kiếm" name="query">
-      <div id="search-results"></div>
-      <button class="search-submit" type="submit">
-        <i class="bi bi-search"></i>
-      </button>
-    </form> --}}
-    </div>
-    <button class="add-product">
-      <a href="/admin/createvoucher" class="text-add-product">Thêm voucher</a>
-    </button>
 
     <table id="my-table" class="table table-striped">
       <thead>
         <tr>
           <th class="header-title" scope="col">STT</th>
-          <th class="header-title" scope="col">Tên mã</th>
-          <th class="header-title" scope="col">Voucher</th>
-          <th class="header-title" scope="col">Số lượng</th>
-          <th class="header-title" scope="col">Mức giảm giá</th>
-          <th class="header-title" scope="col">Ngày bắt đầu</th>
-          <th class="header-title" scope="col">Ngày kết thúc</th>
+          <th class="header-title" scope="col">Username</th>
+          <th class="header-title" scope="col">Họ và tên</th>
+          <th class="header-title" scope="col">Ngày sinh</th>
+          <th class="header-title" scope="col">Ảnh căn cước</th>
           <th class="header-title" scope="col">Hành động</th>
-
       </thead>
       <tbody class="table-group-divider">
 
-      {{#each vouchers }}
+      {{#each users }}
 
         <tr>
           <td class="table-content"></td>
           <td class="table-content">
+            <p class="text">{{this.username}}</p>
+          </td>
+          <td class="table-content">
             <p class="text">{{this.name}}</p>
           </td>
           <td class="table-content">
-            <p class="text">{{this.couponcode}}</p>
+            <p class="text">{{this.birth}}</p>
           </td>
           <td class="table-content">
-            <p class="text">{{this.quantity}}</p>
-          </td>
-            <td class="table-content">
-            <p class="text">{{this.discount}}</p>
-          </td>
-          <td class="table-content">
-            <p class="text">{{this.starttime}}</p>
+            <div class="dad-box">
+              <img class="img-wine" src="uploads/{{this.userid}}" alt="">
+            </div>
           </td>
           <td class="table-content">
-            <p class="text">{{this.endtime}}</p>
-          </td>
-          <td class="table-content">
+              <button class="btn btn-primary edit-admin-btn" value="{{this._id }}" ><i class="bi bi-pencil">  Sửa</i></button>
               <button class="btn btn-danger delete-admin-btn" value="{{this._id }}" ><i class="bi bi-trash">  Xóa</i></button>
           </td>
         </tr>
@@ -74,21 +56,15 @@
     </table>
   </div>
 </div>
-  <form name="admin-form"></form>
 
-<script>
-  $(document).ready(function(){
-    var deleteBtn = $('.delete-admin-btn')
-    var form = $('[name="admin-form"]')
+
+ <script>
 
     $('#my-table tbody tr').each(function(index) {
       $(this).find('td:first').text(index + 1);
     });
+  
 
-     deleteBtn.click(function(){
-      form.attr('action','/admin/deletevoucher/'+ $(this).val())
-      form.attr('method','get')
-      form.submit()
-    })
-  })
-</script>
+  </script>
+
+

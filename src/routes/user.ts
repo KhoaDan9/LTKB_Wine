@@ -1,7 +1,13 @@
 import { Router } from 'express'
 
 import { UserController } from '~/controllers/userController'
-import { resetPassword, userUpdateValidation, forgotPassword, addCreditcard, addBankAccount } from '~/middlewares/validate'
+import {
+  resetPassword,
+  userUpdateValidation,
+  forgotPassword,
+  addCreditcard,
+  addBankAccount
+} from '~/middlewares/validate'
 
 const router = Router()
 const UserController1 = new UserController()
