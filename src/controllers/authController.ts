@@ -57,48 +57,28 @@ export class AuthController {
                   hideSearchBar: true,
                   hideFooter: true
                 })
-              } else {
-                const encryptedPassword = await bcrypt.hash(password1, 10)
-                const user = await User.create({
-                  username,
-                  password: encryptedPassword,
-                  fullname,
-                  email,
-                  address,
-                  phone,
-                  gender,
-                  birth,
-                  userid: req.file?.filename
-                })
-                const token = jwt.sign({ user_id: user._id, username }, tokenKey, {
-                  expiresIn: '2h'
-                })
-                user.token = token
-                user.save()
-
-                res.redirect('/auth/login')
               }
-            } else {
-              const encryptedPassword = await bcrypt.hash(password1, 10)
-              const user = await User.create({
-                username,
-                password: encryptedPassword,
-                fullname,
-                email,
-                address,
-                phone,
-                gender,
-                birth,
-                userid: req.file?.filename
-              })
-              const token = jwt.sign({ user_id: user._id, username }, tokenKey, {
-                expiresIn: '2h'
-              })
-              user.token = token
-              user.save()
-
-              res.redirect('/auth/login')
             }
+
+            const encryptedPassword = await bcrypt.hash(password1, 10)
+            const user = await User.create({
+              username,
+              password: encryptedPassword,
+              fullname,
+              email,
+              address,
+              phone,
+              gender,
+              birth,
+              userid: req.file?.filename
+            })
+            const token = jwt.sign({ user_id: user._id, username }, tokenKey, {
+              expiresIn: '2h'
+            })
+            user.token = token
+            user.save()
+
+            res.redirect('/auth/login')
           }
         }
       }
