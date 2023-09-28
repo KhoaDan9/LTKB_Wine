@@ -9,6 +9,8 @@ import * as fs from 'fs'
 import path from 'path'
 import { validationResult } from 'express-validator'
 
+import ExcelJS from 'exceljs'
+
 export class AdminController {
   async home(req: Request, res: Response) {
     const token = req.cookies['x-access-token']
@@ -201,5 +203,20 @@ export class AdminController {
   async deleteVoucher(req: Request, res: Response) {
     const voucher = await Voucher.findOneAndDelete({ _id: req.params.id })
     res.redirect('back')
+  }
+
+  statistic(req: Request, res: Response) {
+    res.render('statistic', { hideSearchBar: true, hideFooter: true })
+  }
+
+  async createStatistic(req: Request, res: Response) {
+    const { startdate, enddate, productname } = req.body
+    const workbook = new ExcelJS.Workbook()
+    const sheet = workbook.addWorksheet('My Sheet')
+  }
+
+  async checkuser(req: Request, res: Response) {
+    const users = await User.find().lean()
+    res.render('checkuser', { users, hideSearchBar: true, hideFooter: true })
   }
 }

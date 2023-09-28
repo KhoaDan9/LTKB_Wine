@@ -16,7 +16,7 @@ export class CartController {
       const cart: product_data[] = user.cart
       const products_show: object[] = []
       let sum = 0
-      const outofStock:any = {}
+      const outofStock: any = {}
       let isoutofStock = false
       for (let i = 0; i < cart.length; i++) {
         const product: any = await Product.findById(cart[i].id).lean()
@@ -24,7 +24,7 @@ export class CartController {
           const quantity = cart[i].quantity
           const summ = product.price * quantity
           const prod: any = product
-          if (product.quantity < cart[i].quantity){
+          if (product.quantity < cart[i].quantity) {
             isoutofStock = true
             outofStock.name = product.name
             outofStock.quantity = product.quantity
