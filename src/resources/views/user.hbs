@@ -25,9 +25,24 @@
       </div>
       <button type='submit' class='btn btn-primary'>Sửa thông tin</button>
     </form>
+
+    {{#if user.auth }}
+      <p style="font-size:20"><i class="bi bi-check-circle"></i>Tài khoản đã được xác thực</p>
+    {{else}}
+      {{#if user.userid }}
+        <p class="incorrect" style="font-size:20">Tài khoản đang được xác thực</p>
+      {{else}}
+        <p class="incorrect" style="padding-top: 15px; font-size:20" ><i class="bi bi-x-circle"></i>Tài khoản chưa được xác thực</p>
+        <p class="incorrect" style="font-size:20">Xác thực để giảm 2% cho mọi hóa đơn</p>
+      {{/if  }}
+
+    {{/if  }}
     {{#if update  }}
         <h5>Sửa thông tin thành công!</h5>
-      {{/if  }}
+    {{/if  }}
+    <a href="/user/add-userid">Xác thực tài khoản</a>
+    <br>
+
     <br>
     <a href="/user/add-creditcard">Thêm thẻ tín dụng/ghi nợ</a>
     <br>
