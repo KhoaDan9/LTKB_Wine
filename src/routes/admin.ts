@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 const router = Router()
 const AdminController1 = new AdminController()
+
 router.get('/', AdminController1.home)
 router.get('/edit/:id', AdminController1.editView)
 router.post('/edit', upload.single('imgUpload'), updateValidation(), AdminController1.edit)

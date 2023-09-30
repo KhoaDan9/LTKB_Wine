@@ -216,7 +216,9 @@ export class AdminController {
   }
 
   async checkuser(req: Request, res: Response) {
-    const users = await User.find().lean()
-    res.render('checkuser', { users, hideSearchBar: true, hideFooter: true })
+    const token = req.cookies['x-access-token']
+    const user = await User.findOne({ token }).lean()
+    const users = await User.find({ role: false }).lean()
+    res.render('checkuser', { user, users, hideSearchBar: true, hideFooter: true })
   }
 }
