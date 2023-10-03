@@ -32,6 +32,9 @@ router.get('/deletevoucher/:id', AdminController1.deleteVoucher)
 router.get('/statistic', AdminController1.statistic)
 router.post('/createstatistic', AdminController1.createStatistic)
 
-router.get('/checkuser', AdminController1.checkuser)
+router.get('/alluser', AdminController1.alluser)
+router.get('/checkuser/:id', AdminController1.checkuser)
+router.get('/check/:id', AdminController1.check)
+router.get('/deny/:id', AdminController1.deny)
 
 export default router

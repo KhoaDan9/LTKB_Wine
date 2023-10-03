@@ -215,10 +215,30 @@ export class AdminController {
     const sheet = workbook.addWorksheet('My Sheet')
   }
 
-  async checkuser(req: Request, res: Response) {
+  async alluser(req: Request, res: Response) {
     const token = req.cookies['x-access-token']
     const user = await User.findOne({ token }).lean()
     const users = await User.find({ role: false }).lean()
-    res.render('checkuser', { user, users, hideSearchBar: true, hideFooter: true })
+    res.render('alluser', { user, users, hideSearchBar: true, hideFooter: true })
+  }
+
+  async checkuser(req: Request, res: Response) {
+    const token = req.cookies['x-access-token']
+    const user = await User.findOne({ token }).lean()
+    const checkuser = await User.findById(req.params.id).lean()
+    res.render('checkuser', { user, checkuser, hideSearchBar: true, hideFooter: true, hideNavBar: true })
+  }
+
+  async check(req: Request, res: Response) {
+    const user = await User.findOneAndUpdate({ _id: req.params.id }, { auth: true })
+    res.redirect('back')
+  }
+
+  async deny(req: Request, res: Response) {
+    const user = await User.findOneAndUpdate({ _id: req.params.id }, { userid: null })
+    fs.unlink(path.dirname(__dirname) + '/public/uploads/' + user?.userid, (err) => {
+      if (err) throw err
+    })
+    res.redirect('back')
   }
 }
