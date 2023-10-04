@@ -1,6 +1,7 @@
 import { Product } from '~/models/product'
 import { User } from '~/models/user'
 import { Request, Response } from 'express'
+import { Voucher } from '~/models/voucher'
 
 interface product_data {
   id: string
@@ -67,12 +68,13 @@ export class CartController {
       const user = await User.findOne({ token }).lean()
       if (!user) return res.send(403)
       const cart = user.cart
+      const { price, voucher } = req.body
+      let { price2 } = req.body
+      if (!price2) price2 = price
       const actionItem = req.body.productsIds
-
       switch (req.body.action) {
         case 'buy': {
           const products_show: any[] = []
-          let sum = 0
           for (let i = 0; i < actionItem.length; i++) {
             const product = await Product.findById(actionItem[i]).lean()
             if (product) {
@@ -80,11 +82,10 @@ export class CartController {
               const prod: any = product
               prod.quantity = find.quantity
               prod.summ = find.quantity * product.price
-              sum += prod.summ
               products_show.push(prod)
             }
           }
-          return res.render('order', { user, products_show, sum })
+          return res.render('order', { user, products_show, price, price2, voucher })
         }
 
         case 'delete':
@@ -159,6 +160,22 @@ export class CartController {
       res.redirect('back')
     } catch (err) {
       res.send(err)
+    }
+  }
+
+  async addVoucher(req: Request, res: Response) {
+    const { voucher, price } = req.body
+    const getVoucher = await Voucher.findOne({ couponcode: voucher })
+    let voucherError
+    if (!getVoucher) {
+      voucherError = 'Voucher không tồn tại'
+      res.send({ voucherError })
+    } else if (getVoucher.endtime < new Date()) {
+      voucherError = 'Voucher đã quá hạn sử dụng'
+      res.send({ voucherError })
+    } else {
+      const sum = price - (price * getVoucher.discount) / 100
+      res.send({ sum, voucher })
     }
   }
 }

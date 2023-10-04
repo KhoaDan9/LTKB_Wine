@@ -224,18 +224,17 @@ export class UserController {
     }
   }
 
-  userid(req: Request, res: Response){
+  userid(req: Request, res: Response) {
     res.render('adduserid', { hideNavbar: true, hideSearchBar: true, hideFooter: true })
   }
 
-  async addUserId(req: Request, res: Response){
+  async addUserId(req: Request, res: Response) {
     const errorsImg: any = []
     const token = req.cookies['x-access-token']
     const user = await User.findOne({ token })
     if (!req.file?.filename) {
       errorsImg.push('Yêu cầu nhập ảnh căn cước công dân')
-    }
-    else {
+    } else {
       const allowedExtensions = ['.png'] // Các đuôi file được cho phép
       const fileExtension = path.extname(req.file.originalname).toLowerCase()
 
@@ -254,8 +253,7 @@ export class UserController {
         hideSearchBar: true,
         hideFooter: true
       })
-    }
-    else {
+    } else {
       await User.updateOne({ token }, { $set: { userid: req.file?.filename } })
       res.redirect('/user')
     }

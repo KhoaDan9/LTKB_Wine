@@ -11,5 +11,6 @@ router.get('/delete/:id', CartController1.deleteProduct)
 router.post('/buy', CartController1.buyProduct)
 router.post('/add', CartController1.addProduct)
 router.post('/subtract', CartController1.subtractProduct)
+router.post('/voucher', CartController1.addVoucher)
 
 export default router

@@ -11,7 +11,7 @@
         <div class="cart-product-content">
           <h5 class="cart-product-name">{{this.product_name}}</h5>
           <h5 class="cart-product-price">Số lượng: {{this.quantity}}
-            <h6 class="cart-product-price">Đơn giá: {{this.product_price}} Đ</h6>
+            <h6 class="cart-product-price">Đơn giá: {{this.price}} Đ</h6>
           </h5>
           <br>
           <br>
@@ -20,7 +20,8 @@
       </div>
       <hr>
       {{/each }}
-      <h3 class="sum-price">Tổng tiền: {{this.total}} Đ</h3>
+      <h3 class="sum-price">Tổng tiền: {{this.price}} Đ</h3>
+      <h3 class="sum-price">Tổng tiền sau giảm giá: {{this.total}} Đ</h3>
       <br>
       <h5>Người nhận: {{this.fullname}}</h5>
       <h5>Địa chỉ: {{this.address}}</h5>

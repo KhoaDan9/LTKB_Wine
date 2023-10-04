@@ -21,7 +21,10 @@
         </div>
         <hr>
         {{/each }}
-        <h5 style="padding: 10px;">Tổng tiền: {{ sum }}</h5>
+        <h5 style="padding: 10px;">Tổng tiền: {{ price }}</h5>
+        {{#if voucher}}
+          <h5 style="padding: 10px;">Tổng tiền sau giảm giá: {{ price2 }}</h5>
+        {{/if  }}
       </div>
     </div>
     <div class="col-4 cart-pay">
@@ -43,7 +46,9 @@
         <textarea name="note" class='form-control' rows="5"></textarea>
       </div>
     <button class="btn-buy btn btn-primary" type="submit">Đặt hàng</button>
-
+    <input type="text" value="{{ price }}" name="price" hidden>
+    <input type="text" value="{{ price2 }}" name="total_bill" hidden>
+    <input type="text" value="{{ voucher }}" name="voucher" hidden>
     </div>
 
   </form>

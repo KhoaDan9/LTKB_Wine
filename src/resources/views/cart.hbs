@@ -47,11 +47,20 @@
     <h3 style="padding-left: 20px">Thông tin đơn hàng</h3>
     <hr>
     <div class="all-price"></div>
+    <div class="voucher-price"></div>
+
+    <p>Voucher: </p>
+    <input name='voucher' type='text' class='form-control' />
+    <button class="btn-voucher btn btn-primary" name="action"type="submit">Áp dụng</button>      
     <button class="btn-buy btn btn-primary" name="action" value="buy"
       type="submit" disabled="disabled">Tiến hành đặt hàng</button>
     <div class="btn-continue-buy">
       <a href="/">Tiếp tục mua hàng</a>
     </div>
+    <input name='price' type='text' class='form-control' value="" hidden/>
+    <input name='price2' type='text' class='form-control' value="" hidden/>
+    <input name='voucher' type='text' class='form-control' value="" hidden/>
+
   </div>
   </form>
   
@@ -69,6 +78,10 @@
 
     var checkboxAll = $('.input-check-all')
     var productsCheck = $('input[name="productsIds[]"]')
+    var voucher = $('input[name="voucher"]')
+    var price = $('input[name="price"]')
+    var price2 = $('input[name="price2"]')
+    var voucherBtn = $('.btn-voucher')
     var buyBtn = $('.btn-buy')
     var delAllBtn = $('.btn-del')
     var delBtn = $('.cart-btn-delete')
@@ -78,7 +91,7 @@
     var subtractBtn = $('.subtract-cart')
     var addBtn = $('.add-cart')
     var notSubmit = $('.incorrect')
-
+    
     addBtn.click(function(e) {
       e.preventDefault();
       subForm.attr('action','/cart/add') 
@@ -145,6 +158,36 @@
       }
     }
 
+    voucherBtn.click(function(e) {
+      e.preventDefault()
+      var data = {
+        voucher: voucher.val(),
+        price: price.val()
+      }
+      $.ajax({
+        url: "/cart/voucher",
+        method: "post",
+        dataType: 'json',
+        data: data,
+        success: function (get_data) {
+          getprice = get_data.sum
+          getvoucher = get_data.voucher
+          voucherError = get_data.voucherError
+          if(voucherError)
+          {
+            output = '<h6 class="incorrect"> ' + voucherError + '</h6>'
+            $('.voucher-price').html(output);
+          }
+          else{
+            output = '<h6> Thành tiền: ' + getprice + 'Đ</h6>'
+            $('.voucher-price').html(output);
+            price2.val(getprice)
+            voucherBtn.val(getvoucher)
+          } 
+        }
+      });
+    })
+
     function bill() {
       var arr = [];
       for (var i = 0; i < productsCheck.length; i++) {
@@ -157,13 +200,13 @@
           method: "post",
           dataType: 'json',
           data: {
-            productsIds: arr
+            productsIds: arr,
           },
           success: function (get_data) {
             data = get_data.sum
             output = '<h6> Tạm tính: ' + data + 'Đ</h6>'
             $('.all-price').html(output);
-
+            price.val(data);
           }
         });
       }
