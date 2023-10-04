@@ -7,7 +7,9 @@ const billSchema = new Schema(
     fullname: { type: String, required: true },
     phone: { type: String, required: true },
     address: { type: String, required: true },
-    note: { type: String }
+    note: { type: String },
+    price: { type: Number, required: true },
+    total_bill: { type: Number, required: true }
   },
   { timestamps: true }
 )
